@@ -10,6 +10,16 @@ body {
   margin-top: 20px;
 }
 
+.info {
+  margin: 10px 0 0;
+  padding: 20px 20px 0;
+}
+
+.info p {
+  font-weight: normal;
+  font-size: 14px;
+}
+
 .div1 input {
   background: white;
 }
@@ -46,13 +56,14 @@ body input[type="button"]:hover {
 }
 
 .mwjs-1-by-seted {
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   border: 1px solid #000;
   margin: 10px 20px;
 }
 
 .mask {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -62,6 +73,7 @@ body input[type="button"]:hover {
 }
 
 #mwjsPopWrap {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;

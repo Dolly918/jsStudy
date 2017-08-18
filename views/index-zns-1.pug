@@ -9,7 +9,7 @@ html
 		script(type="text/javascript",src="../js/index_zns_1.js")
 			
 	body
-		div.mask
+		div#mask.mask
 		h1 第一课 面向对象的选项卡
 		p 把面向过程的选项卡做成面向对象的选项卡
 		div#div1.div1
@@ -19,34 +19,38 @@ html
 			div(style="display:block") 第1个tab的对应内容
 			div 第二个tab 
 			div 第san个的对应内容
-		h1.block 妙味课堂--js初级-热身（上）课后作业
+		h1.block 妙味课堂--js初级-热身（上下）课后作业
 		h3.mwjs-1-title 点击更改div的样式
 			input#mwjs1BtnSet(type="button",value="点我设置吧!")
 		div#mwjs1bySeted.mwjs-1-by-seted
 		div#mwjsPopWrap
 			h4 点击按钮尽情的设置样式吧！
-				span X
+				span#mwjsPopClose X
 			.mwjs-p-wrap
 				p 
 					input.mwjs-1-btn-text(type="button",value="设置宽度：")
 					input#mwjsWidth200.mwjs-1-seting-cur(type="button",value="200")
 					input#mwjsWidth300(type="button",value="300")
-					input#mwjsWidth400(type="button",value="500")
+					input#mwjsWidth500(type="button",value="500")
 				p 
 					input.mwjs-1-btn-text(type="button",value="设置高度：")
 					input#mwjsHeight200(type="button",value="200")
 					input#mwjsHeight300(type="button",value="300")
-					input#mwjsHeight400(type="button",value="500")
+					input#mwjsHeight500(type="button",value="500")
 				p 
 					input.mwjs-1-btn-text(type="button",value="边框粗细：")
 					input#mwjsBorder4(type="button",value="4")
 					input#mwjsBorder6(type="button",value="6")
 					input#mwjsBorder8(type="button",value="8")
 				p 
-					input.mwjs-1-btn-text(type="button",value="边框颜色：")
+					input.mwjs-1-btn-text(type="button",value="背景颜色：")
 					input#mwjsBorderRed(type="button",value="红")
 					input#mwjsBorderYellow(type="button",value="黄")
 					input#mwjsBorderBlue(type="button",value="蓝")
 			p.mwjs1-submit-wrap
 				input#mwjs1Reset(type="button",value="重来")
 				input#mwjs1Submit(type="button",value="确认")
+		h4.info 问题汇总
+			p js怎么设置渐变的舒缓动画，比如我想让它出现的缓慢一点不要突兀，（参照setInterval的动画，在规定的时间内增加透明度）
+			p js怎么查找其他子元素，比如我想让这个元素点击后他选中类名增加，其他兄弟的类名去掉（参照tab选项卡）
+		h1.block 题目
