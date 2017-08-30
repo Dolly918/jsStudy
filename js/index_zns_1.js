@@ -102,7 +102,6 @@ function mwjs1(){
 			this.className = "mwjs-1-seting-cur";
 		}
 	}
-
 	clickFun(w200,"width","200");
 	clickFun(w300,"width","300");
 	clickFun(w500,"width","500");
@@ -116,8 +115,32 @@ function mwjs1(){
 	clickFun(bgYellow,"backgroundColor","","yellow");
 	clickFun(bgBlue,"backgroundColor","","blue");
 }
+// 时间函数
+function timeFun(a,b){
+	var time = new Date();
+	var year = time.getFullYear();
+	var mouth = time.getMonth()+1;
+	var day = time.getDate();
+	var xs = time.getHours();
+	var min = time.getMinutes();
+	var sec = time.getSeconds();
+	mouth<10?mouth = "0"+mouth:mouth;
+	xs<10?xs = "0"+xs:xs;
+	day<10?day = "0"+day:day;
+	min<10?min = "0"+min:min;
+	sec<10?sec = "0"+sec:sec;
+	console.log(year+"-"+mouth+"-"+day+" "+xs+":"+min+":"+sec);
+	var show = year+"-"+mouth+"-"+day+" "+xs+":"+min+":"+sec;
+	var timeBox = document.getElementById(a);
+	var timeShow = document.getElementById(b);
+		timeBox.innerText = time;
+		timeShow.innerText = show;
+	console.log(time)
+}
 window.onload = function(){
 	var mask = document.getElementById("mask");
 	tab();
-	mwjs1()
+	mwjs1();
+	timeFun("time-box","time-show");
+	setInterval('timeFun("time-box","time-show")',1000);
 }
