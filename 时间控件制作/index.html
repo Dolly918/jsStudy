@@ -4,19 +4,24 @@
 	<meta charset="UTF-8">
 	<title>时间联动选择控件制作整理</title>
 	<script src="../js/jquery-1.10.1.min.js"></script>
-	<script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+	<!-- <script language="javascript" type="text/javascript" src="My97DatePicker/WdatePicker.js"></script> -->
 	<link rel="stylesheet" href="My97DatePicker/skin/WdatePicker.css">
 </head>
 <body>
 <span class="input-calendar input-calendar-start-date">
     
     <input id="txtBeginTimeID" name="LastLeadCreateTimeBegin" onfocus="var txtEndContactTime=$dp.$('txtEndTimeID');
-           var minTime = '2017/2/1 0:00:00';
-                WdatePicker({ onpicked: function(){ txtEndContactTime.focus(); },maxDate: '#F{$dp.$D(\'txtEndTimeID\')}',minDate: minTime.replace(new RegExp('-', 'gm'), '/')}); " class="form-control Wdate" type="text" value="2018-01-01">
+       var minTime = '2017/2/1 0:00:00';
+            WdatePicker({ onpicked: function(){ txtEndContactTime.focus(); },maxDate: '#F{$dp.$D(\'txtEndTimeID\')}',minDate: minTime.replace(new RegExp('-', 'gm'), '/')}); " class="form-control Wdate" type="text" value="2018-01-01">
 </span>
 	<input id="d11" type="text" onClick="WdatePicker()" value="普通用法" />
 	<input id="d12" type="text" class="Wdate" onclick="WdatePicker({isShowWeek:true})" value="周" />
 	<input type="text" class="Wdate" onFocus="WdatePicker({lang:'zh-cn'})">
+	<select name="" id="selectTime">
+		<option value="">请选择日期</option>
+	</select>
+    	
 	<script src="indexEntry.js"></script>
+	
 </body>
 </html>

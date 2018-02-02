@@ -11,7 +11,7 @@
   <h1>一级下拉</h1>
   <select name="yijiID" id="yijiID">
     <!-- <option value="-1">请选择</option> -->
-    <option value="14">全部车型</option>
+    <option value="-1">全部车型</option>
     <!-- //问题!!!!!!!!!!!!：第一个option，获取不到数据和id -->
     <option value="21">车型一</option>
     <option value="32">车型二</option>
@@ -25,13 +25,19 @@
     $('#yijiID').on('change',function(){
       console.log($(this).val()+$('#yijiID option:selected').text())
     })
+    $('body').on('click',function(){
+      console.log($('#yijiID option:selected').text())
+    })
   </script>
   <h1>二级下拉</h1>
   <style>
-    .jxs-drop-layer{
-      max-height: 60px;
-      overflow-y: scroll; /*//问题!!!!!!!!!!!!设置了超出隐藏后，二级的结构就看不到了！*/
+    .first-level{
       position: relative;
+    }
+    .jxs-drop-layer{
+      max-height: 160px;
+      overflow-y: scroll; /*//问题!!!!!!!!!!!!设置了超出隐藏后，二级的结构就看不到了！*/
+      
       display: none;
       background: #c3ebff;
       padding: 10px 0 0;
@@ -59,10 +65,13 @@
     }
     .erji-ul{
       display: none;
+      height: 170px;
+      overflow-y: scroll;
       min-width: 100px;
       position: absolute;
-      left: 110px;
-      top: 0;
+      left: 111px;
+      margin: 0;
+      top: 30px;
       padding: 0;
       border: 1px solid #333;
       background: #ebf7ff;
@@ -72,33 +81,31 @@
       margin-bottom: 5px;
       padding: 5px 10px;
     }
-   
   </style>
     <div class="first-level mr20" id="dropBtn">
       <span class="mr5" id="pullBtn">沃尔沃XC902</span><i class="icon icon-down"></i>
       <div class="jxs-drop-layer" id="dropLayer">
         <a data-id="0" class="yiji-a">全部</a>
         <a data-id="1" class="yiji-a">沃尔沃XC
-          <ul class="erji-ul">
+          <ul class="erji-ul erji-ul1">
             <li data-two='22'>二级1</li>
             <li data-two='23'>二级2</li>
             <li data-two='24'>二级3</li>
             <li data-two='25'>二级4</li>
-          </ul></a>
+             <li data-two='22'>二级1</li>
+            <li data-two='23'>二级2</li>
+            <li data-two='24'>二级3</li>
+            <li data-two='25'>二级4</li>
+          </ul>
+        </a>
         <a data-id="2" class="yiji-a">沃尔沃903
-        <ul class="erji-ul">
-          <li data-two='122'>二级11</li>
-          <li data-two='123'>二级12</li>
-          <li data-two='124'>二级13</li>
-          <li data-two='125'>二级14</li>
-        </ul></a>
-        <a data-id="21" class="yiji-a">沃2沃XC
           <ul class="erji-ul">
-            <li data-two='222'>二级21</li>
-            <li data-two='232'>二级22</li>
-            <li data-two='242'>二级23</li>
-            <li data-two='252'>二级24</li>
-          </ul></a>
+            <li data-two='122'>二级11</li>
+            <li data-two='123'>二级12</li>
+            <li data-two='124'>二级13</li>
+            <li data-two='125'>二级14</li>
+          </ul>
+        </a>
       </div>
     </div>
     <script>
@@ -140,9 +147,6 @@
       $('#pullBtn').text($(this).text());
       console.log($(this).text());
     })
-    	var dropBtn = document.getElementById('dropBtn');
-    	var dropBtn2 = document.getElementById('dropBtn2');
-    	// dropBtn.on()
     </script>
   </div>
 </body>
