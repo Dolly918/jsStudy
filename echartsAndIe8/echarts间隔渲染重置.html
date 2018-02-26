@@ -14,6 +14,8 @@
       background: #eee;
     } 
     .div-area{
+      float: left;
+      margin-left: 12px;
       width: 600px;
       height:400px;
       margin-bottom: 10px;
@@ -25,30 +27,9 @@
   </style>
 </head>
 <body>
-  <h1>图标下钻，点击某个节点进入具体月份数据</h1>
-  <div style="margin-left:40%;margin-top:2%;display:none;">
-    <button id='return-button' value=''>返回</button>
-  </div>
-	<div id="main12" class="div-area" ></div>
-  <h1>柱状图</h1>
    <div class="div-area" id="main"></div>
-  <div class="div-area" id="main8"></div>
-  <div class="div-area" id="main9"></div>
-  <div class="div-area" id="main6"></div>
-  <h1>线图</h1>
    <div class="div-area" id="main1"></div>
-  <div class="div-area" id="main2_2"></div>
-  <div class="div-area" id="main3"></div>
-  <h1>饼图</h1>
   <div class="div-area" id="main2"></div>
-  <div class="div-area" id="main2_1"></div>
-  <h1>混合图</h1>
-  <!-- <div class="div-area" id="main4" class="bigArea"></div> -->
-  <div class="div-area" id="main5"></div>
-  <div class="div-area" id="main11"></div>
-  <h1>地图</h1>
-  <div class="div-area" id="main7" class="bigArea"></div>
-  <div class="div-area" id="main10" class="bigArea"></div>
 </body>
   <!-- echarts 依赖 3.x -->
   <!-- <script src='echarts.min.js'></script> -->
@@ -67,6 +48,6 @@
   <!-- 下钻 依赖 -->
   <script src="drilldown.js"></script>
   <!-- 数据配置 -->
-  <script src="entry.js"></script>
-  <script src="reset.js"></script>
+  <script src="echarts间隔渲染重置.js"></script>
+  <script src="echarts间隔渲染重置reset.js"></script>
 </html>

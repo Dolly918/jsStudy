@@ -1,8 +1,55 @@
-console.log(_)
-var a = _.difference([2, 1], [2, 3]);
-console.log(a)
 // // 基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById('main'));
 var myChart7 = echarts.init(document.getElementById('main7'));
+// // 柱状图
+var resetData = [10, 52, 200, 334, 390, 330, 220];
+var option = {
+  title: {
+      text: '坐标轴刻度与标签对齐'
+  },
+  color: ['#3398DB'],
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'直接访问',
+            type:'bar',
+            barWidth: '60%',
+            data: resetData
+        }
+    ]
+        };
+        var data = [];
+
+  for (var i = 0; i <= 360; i++) {
+      var t = i / 180 * Math.PI;
+      var r = Math.sin(2 * t) * Math.cos(2 * t);
+      data.push([r, i]);
+  }
 // 地图
 var data = [
    {name: '海门', value: 9},
@@ -197,26 +244,6 @@ var data = [
 
    {name: '大庆', value: 279}
 ];
-var data1 = [
-   {name: '海门', value: 9},
-   {name: '鄂尔多斯', value: 12},
-   {name: '招远', value: 121},
-   {name: '舟山', value: 12},
-   {name: '齐齐哈尔', value: 141},
-];
-var data2 = [
-   {name: '海门', value: 9},
-   {name: '鄂尔多斯', value: 12},
-   {name: '招远', value: 12},
-   {name: '舟山', value: 12},
-   {name: '齐齐哈尔', value: 14},
-];
-var data3 = [90,91,92,93,94,95];
-var data4 = [900,91,90,98,94,95];
-console.log(data1)
-console.log(data2)
-console.log(_.difference(data1, data2));
-console.log(_.difference(data4, data3));
 var geoCoordMap = {
     '海门':[121.15,31.89],
     '鄂尔多斯':[109.781327,39.608266],
@@ -454,7 +481,7 @@ var option7 = {
               color: ['#fff']
           }
       },
-      roam: true,
+      roam: false,//是否开启鼠标缩放和平移漫游
       itemStyle: {
           normal: {
               areaColor: 'rgb(22,31,77)',//正常情况下，省份的填充色
@@ -474,7 +501,7 @@ var option7 = {
           coordinateSystem: 'geo',
           data: convertData(data),
           symbolSize: function (val) {
-              return val[2] / 10;
+            return val[2] / 25;
           },
           label: {
               normal: {
@@ -501,7 +528,21 @@ var option7 = {
               return b.value - a.value;
           }).slice(0, 2)),
           symbolSize: function (val) {
-              return val[2] / 10;
+            var symbolnum = 10;
+            function symbolNum() {
+              if(symbolnum == 0){
+                symbolnum = 10;
+              }
+              // symbolnum--;
+              return symbolnum--;
+            }
+            setInterval(function(){
+              // symbolNum();
+              // console.log(val[2] / symbolNum())
+              return val[2] / symbolNum();
+            }, 500);
+            // sal(function (num){
+            // })
           },
           showEffectOn: 'render',
           rippleEffect: {
@@ -526,4 +567,78 @@ var option7 = {
   ]
 };
 // // 数据填充
+myChart.setOption(option);
 myChart7.setOption(option7);
+// echats自动缩放
+// document.getElementById('main').onresize = myChart.resize;
+// window.onresize = myChart7.resize;
+window.addEventListener("resize", function () {
+    myChart.resize();
+    myChart7.resize();
+    // myChart3.resize();
+    // myChart4.resize();
+});
+// 去重
+var data1 = [
+   {name: '海门', value: 9},
+   {name: '鄂尔多斯', value: 12},
+   {name: '招远', value: 121},
+   {name: '舟山', value: 12},
+   {name: '齐齐哈尔', value: 141},
+];
+var data2 = [
+   {name: '海门', value: 9},
+   {name: '鄂尔多斯', value: 12},
+   {name: '招远', value: 12},
+   {name: '舟山', value: 12},
+   {name: '齐齐哈尔', value: 14},
+];
+var data3 = [
+  {isnext: 1, dvalue: 101, name: "合肥", value: 89},
+  {isnext: 1, dvalue: 201, name: "北京", value: 84},
+  {isnext: 1, dvalue: 301, name: "福州", value: 24},
+  {isnext: 1, dvalue: 501, name: "广州", value: 103},
+  {isnext: 1, dvalue: 502, name: "深圳", value: 76},
+  {isnext: 1, dvalue: 601, name: "南宁", value: 47},
+  {isnext: 1, dvalue: 901, name: "石家庄", value: 69},
+  {isnext: 1, dvalue: 906, name: "廊坊", value: 68},
+  {isnext: 1, dvalue: 1001, name: "郑州", value: 52},
+  {isnext: 1, dvalue: 1101, name: "哈尔滨", value: 55}
+]
+var data4 = [
+  {isnext: 1, dvalue: 101, name: "合肥", value: 8923},
+  {isnext: 1, dvalue: 201, name: "北京", value: 841},
+  {isnext: 1, dvalue: 301, name: "福州", value: 24},
+  {isnext: 1, dvalue: 501, name: "广州", value: 10312},
+  {isnext: 1, dvalue: 502, name: "深圳", value: 7643},
+  {isnext: 1, dvalue: 601, name: "南宁", value: 47},
+  {isnext: 1, dvalue: 901, name: "石家庄", value: 6923},
+  {isnext: 1, dvalue: 906, name: "廊坊", value: 681},
+  {isnext: 1, dvalue: 1001, name: "郑州", value: 521},
+  {isnext: 1, dvalue: 1101, name: "哈尔滨", value: 55}
+]
+for (var i = 0; i < data1.length; i++) {
+  if(data1[i].value != data2[i].value){
+    console.log(data1[i]);
+  }
+}
+var arr = new Array();
+for (var i = 0; i < data1.length; i++) {
+  if(data3[i].value != data4[i].value){
+    arr.push(data4[i]);
+  }
+}
+console.log(arr)
+// 测试循环小片段
+var numa = 1;
+function test() {
+  if(numa == 10){
+    numa = 1;
+  }
+  // console.log(numa++);
+  return '++';
+}
+setInterval(function(){
+  test()
+  // console.log(test())
+}, 1000);
