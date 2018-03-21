@@ -2,6 +2,7 @@
 var myChart = echarts.init(document.getElementById('main'));
 var myChart7 = echarts.init(document.getElementById('main7'));
 // // 柱状图
+myChart.showLoading({text: '加载中',color: '#8CACFF',});
 var resetData = [10, 52, 200, 334, 390, 330, 220];
 var option = {
   title: {

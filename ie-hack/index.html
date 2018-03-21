@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ie hack test</title>
+</head>
+<body>
+<style>
+	div{
+		width: 200px;
+		height: 200px;
+		margin: 20px auto;
+		/*border: 1px solid #000; */
+		border-width: 1px;
+		border-style: solid;
+		text-align: center;
+		line-height: 200px;
+	}
+	.qq{border-color: blue;}
+	.ie6{ _border-color: #ff0;}
+	.ie7{ +border-color: #f0f;}
+	.ie8{ border-color: #0ff\0;}
+	.ie9{ border-color: #f00\9;}
+</style>
+<div class="ie6">黄色</div>
+<div class="ie7">紫粉色</div>
+<div class="ie8">青色</div>
+<div class="ie9">红色</div>
+</body>
+</html>

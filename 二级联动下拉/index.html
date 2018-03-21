@@ -37,11 +37,13 @@
     .jxs-drop-layer{
       max-height: 160px;
       overflow-y: scroll; /*//问题!!!!!!!!!!!!设置了超出隐藏后，二级的结构就看不到了！*/
-      
       display: none;
       background: #c3ebff;
       padding: 10px 0 0;
-      border: 1px solid #333;
+      background: #ffffff;
+      padding: 10px 0 0;
+      border: 1px solid #f1f1f1;
+      box-shadow: 1px 1px 1px #eee;
     }
     .mr5{
       display: block;
@@ -52,13 +54,21 @@
       min-height: 28px;
     }
     .yiji-a{
-      width: 90px;
+      /*width: 90px;*/
       padding: 10px 10px;
-      border-bottom: 1px solid #333;
+      /*border-bottom: 1px solid #333;*/
       display: block;
     }
     .yiji-a:hover,.erji-ul li:hover{
-      background: #8ec1da;
+      background: #FAFBFC;
+      color: #4F80FF;
+    }
+    .yiji-a:hover .erji-ul li{
+      color: #333;
+    }
+    .yiji-a .erji-ul li:hover{
+      color: #4F80FF;
+
     }
     .yiji-a:hover .erji-ul{
       display: block;
@@ -73,8 +83,9 @@
       margin: 0;
       top: 30px;
       padding: 0;
-      border: 1px solid #333;
-      background: #ebf7ff;
+      background: #ffffff;
+      border: 1px solid #f1f1f1;
+      box-shadow: 1px 1px 1px #eee;
     }
     .erji-ul li{
       list-style: none;
@@ -106,7 +117,73 @@
             <li data-two='125'>二级14</li>
           </ul>
         </a>
+        <a data-id="1" class="yiji-a">沃尔沃XC问问群二群
+              <ul class="erji-ul erji-ul1">
+                <li data-two='22'>二级1</li>
+                <li data-two='23'>二级2</li>
+                <li data-two='24'>二级3</li>
+                <li data-two='25'>二级4</li>
+                 <li data-two='22'>二级1</li>
+                <li data-two='23'>二级2</li>
+                <li data-two='24'>二级3</li>
+                <li data-two='25'>二级4</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9031
+              <ul class="erji-ul">
+                <li data-two='122'>二级11234</li>
+                <li data-two='123'>二级沃尔沃903沃尔沃90312</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9032
+              <ul class="erji-ul">
+                <li data-two='122'>二级11··</li>
+                <li data-two='123'>二级12</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9033
+              <ul class="erji-ul">
+                <li data-two='122'>二级111</li>
+                <li data-two='123'>二级12</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9034
+              <ul class="erji-ul">
+                <li data-two='122'>二级112</li>
+                <li data-two='123'>二级12</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9035
+              <ul class="erji-ul">
+                <li data-two='122'>二级114</li>
+                <li data-two='123'>二级12</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+            <a data-id="2" class="yiji-a">沃尔沃9036
+              <ul class="erji-ul">
+                <li data-two='122'>二级115</li>
+                <li data-two='123'>二级12</li>
+                <li data-two='124'>二级13</li>
+                <li data-two='125'>二级14</li>
+              </ul>
+            </a>
+          </div>
       </div>
+    </div>
+    <div>
+      <li>家科技大富科技啊</li>
+      <li>家科技大富科技啊</li>
+      <span>机撒谎开发进度</span>
     </div>
     <script>
     // 阻止冒泡
@@ -124,6 +201,9 @@
       if(!isShow){
         isShow = true;
         $('#dropLayer').show();
+        console.log(document.getElementById('dropLayer').offsetWidth)
+          console.log(document.getElementById('dropLayer').clientWidth)
+          $('.erji-ul').css('left',document.getElementById('dropLayer').clientWidth+'px')
         // $('#dropLayer a').on('mouseover',function(){
         //   $(this).children().show()
         // }).on('mouseout',function(){

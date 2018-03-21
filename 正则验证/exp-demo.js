@@ -12,3 +12,15 @@ function test(btnId){
 	};
 };
 test('submit');
+
+var name1 = document.getElementById('name1');
+var name1btn = document.getElementById('name1btn');
+function trimSpace(str){ 
+	return str.replace(/(^\s*)|(\s*$)/g, ""); 
+}
+name1btn.onclick = function(){
+	console.log(name1.value)
+	var trimValue = trimSpace(name1.value)
+	var filter = /^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;
+	console.log(filter.test(trimValue))
+}
