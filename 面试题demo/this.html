@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面试题demo</title>
+</head>
+<body>
+	<script>
+			window.v = 1;
+			window.a = 'a';
+			var obj = {
+			    // v: 2,
+			    a: 'b',
+			    d: function() {
+			        // this.v *= 2;
+			        // v *= 2;
+			        console.log(this.a)
+			        console.log(a)
+			        // console.log(v);
+			        // console.log(this.v);
+			    }
+			};
+			obj.d();
+			var func = obj.d;
+			func();
+	</script>
+</body>
+</html>
