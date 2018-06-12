@@ -1,0 +1,10 @@
+mixin forms(form)
+	.yi-flex.yi-input&attributes(attributes)
+		if form.hdTxt
+			.gp-tit!= form.hdTxt
+		label.flex1.label
+			input.ipt(type!= form.type, value!= form.value, placeholder!= form.placeholder, disabled!= form.disabled)&attributes(attributes)
+		if form.yzmText
+			a.yzm-txt.disa(href="javascript:;")!= form.yzmText
+		if form.yzmImg
+			img.yzm-img(src="../images/_yzm.jpg", title="验证码图")

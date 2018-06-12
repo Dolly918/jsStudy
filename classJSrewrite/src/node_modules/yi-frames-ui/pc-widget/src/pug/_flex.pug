@@ -1,0 +1,14 @@
+mixin flex(type, ...texts)
+    .yi-flex(class!= type)&attributes(attributes)
+        each text in texts
+            .flex1.bd!= text
+//- 等分布局
+
+mixin flexAll(items)
+    .yi-flex(class!= items.type)&attributes(attributes)
+        if items.hdTxt
+            .hd!= items.hdTxt
+        .flex1.bd!= items.text
+        if items.ftTxt
+            .ft!= items.ftTxt
+//- 左中右布局

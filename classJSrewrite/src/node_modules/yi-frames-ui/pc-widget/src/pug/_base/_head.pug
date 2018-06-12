@@ -1,0 +1,11 @@
+mixin head(titleText, cssName, isNotSpa, hrefUrl)
+	head
+		meta(http-equiv="Content-Type", content="text/html; charset=utf-8")/
+		meta(http-equiv="X-UA-Compatible", content="IE=edge, chrome=1")/
+		meta(name="renderer", content="webkit")/
+		title= titleText
+		if(isNotSpa)
+			link(type="text/css",rel="stylesheet",href=`${hrefUrl}css/public/public.min.css`)/
+			link(type="text/css",rel="stylesheet",href=`${hrefUrl}css/modules/${cssName}.min.css`)/
+		else
+			link(type="text/css",rel="stylesheet",href=`${hrefUrl}css/public/${cssName}.min.css`)/

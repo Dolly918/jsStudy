@@ -1,0 +1,46 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-17 17:19:40 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-27 18:31:12
+ */
+// float
+@charset "UTF-8";
+@import "_mixin.scss";
+
+[class^="yi-grids-"],
+[class*="yi-grids-"]{
+    position: relative;
+    overflow: hidden;
+    .item{
+        position: relative;
+        width: 100%;
+        float: left;
+    }
+}
+.yi-grids-2{
+    .item{
+        width: 50%;
+    }
+}
+.yi-grids-3{
+    .item{
+        width: 33.33333%;
+    }
+}
+.yi-grids-4{
+    .item{
+        width: 25%;
+    }
+}
+.yi-grids-5{
+    .item{
+        width: 20%;
+    }
+}
+.yi-grids-6{
+    .item{
+        width: 16.66667%;
+    }
+}
+// float end

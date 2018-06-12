@@ -1,0 +1,119 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-28 15:16:21 
+ * @Last Modified by:   matianye@ 
+ * @Last Modified time: 2018-03-28 15:16:21 
+ */
+// checkbox
+@charset "UTF-8";
+@import "_mixin.scss";
+
+// .yi-choice {
+@mixin yiChoice(
+	$ChcIconW,
+	$ChcIconH,
+	$ChcIconBor,
+	$ChcIconRadius,
+	$ChcTextMl,
+	$ChcTextColor,
+	$ChcTextFsize,
+	$ChcTextLineH,
+	$ChcActIconBor,
+	$ChcActIconBgC,
+	$ChcActTextColor,
+	$ChcDisaIconBor,
+	$ChcDisaTextColor,
+	$ChcDisaActIconBor,
+	$ChcDisaActIconBgC,
+	$ChcDisaActTextColor
+){
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	cursor: pointer;
+	font-size: 0;
+	line-height: 1;
+	.chc-ipt{
+		display: none;
+	}
+	.chc-icon,
+	.chc-text{
+		position: relative;
+		display: inline-block;
+		overflow: hidden;
+		vertical-align: middle;
+	}
+	.chc-icon{
+		width: $ChcIconW;
+		height: $ChcIconH;
+		border: 2px solid $ChcIconBor;
+		border-radius: 4px;
+		&:before{
+			content: " ";
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 35%;
+			height: 70%;
+			display: none;
+			border: 2px solid #fff;
+			border-top: 0;
+			border-left: 0;
+			transform: translate(-50%, -65%) rotate(45deg);
+		}
+		&.round{
+			border-radius: $ChcIconRadius;
+			&:before{
+				content: " ";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 12px;
+				height: 12px;
+				display: none;
+				background-color: #fff;
+				border-radius: 100px;
+				transform: translate(-50%, -50%);
+			}
+		}
+	}
+	.chc-text{
+		margin-left: $ChcTextMl;
+		color: $ChcTextColor;
+		font-size: $ChcTextFsize;
+		line-height: $ChcTextLineH;
+	}
+	.chc-ipt:checked + .chc-icon{
+		border-color: $ChcActIconBor;
+		background-color: $ChcActIconBgC;
+	}
+	.chc-ipt:checked + .chc-icon:before{
+		display: block;
+	}
+	.chc-ipt:checked ~ .chc-text{
+		color: $ChcActTextColor;
+	}
+	.chc-ipt[disabled="disabled"] + .chc-icon{
+		border-color: $ChcDisaIconBor; 
+		background: none;
+	}
+	.chc-ipt[disabled="disabled"] + .chc-icon ~ .chc-text{
+		color: $ChcDisaTextColor;
+	}
+	.chc-ipt[disabled="disabled"]:checked + .chc-icon{
+		border-color: $ChcDisaActIconBor;
+		background-color: $ChcDisaActIconBgC;
+	}
+	.chc-ipt[disabled="disabled"]:checked + .chc-icon ~ .chc-text{
+		color: $ChcDisaActTextColor; 
+	}
+	// 块级元素
+	&.block{
+		display: block;
+	}
+}
+// end
+
+.yi-choice{
+	@include yiChoice($yiChoiceValueMap...)
+}

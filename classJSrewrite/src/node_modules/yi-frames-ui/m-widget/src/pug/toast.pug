@@ -1,0 +1,6 @@
+mixin toast(toast)
+	.yi-toast&attributes(attributes)
+		if toast.iconClass
+			i.icon(type!= toast.iconBlock, class!= toast.iconClass)
+		if toast.text
+			.text!=toast.text

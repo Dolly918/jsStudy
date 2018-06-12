@@ -1,0 +1,151 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-19 11:15:28 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-30 10:57:45
+ */
+// common.css
+@charset "UTF-8";
+@import "_mixin.scss";
+
+// 主色
+.link{
+	color: $link;
+}
+.link-hover{
+	color: $link-hover;
+}
+
+// 辅助色
+.text-primary{
+	color: $primary;
+}
+.text-success{
+	color: $success;
+}
+.text-danger{
+	color: $danger;
+}
+.text-warning{
+	color: $warning;
+}
+
+// 灰色系
+.base{
+	color: $base;
+}
+.gray{
+	color: $gray;
+}
+.grayer{
+	color: $grayer;
+}
+.disa{
+	color: $disa;
+} 
+.white{
+	color: $white;
+}
+
+// 字体大小
+.fs24{
+	font-size: $fs24;
+}
+.fs26{
+	font-size: $fs26;
+}
+.fs28{
+	font-size: $fs28;
+}
+.fs30{
+	font-size: $fs30;
+}
+.fs32{
+	font-size: $fs32;
+}
+.fs34{
+	font-size: $fs34;
+}
+.fs36{
+	font-size: $fs36;
+}
+
+// h1-h6
+h1,
+.h1{
+	font-size: $fs36;
+}
+h2,
+.h2{
+	font-size: $fs34;
+}
+h3,
+.h3{
+	font-size: $fs32;
+}
+h4,
+.h4{
+	font-size: $fs30;
+}
+h5,
+.h5{
+	font-size: $fs28;
+}
+h6,
+.h6{
+	font-size: $fs26;
+}
+h1, h2, h3, h4, h5, h6{
+	line-height: 1.6;
+}
+.h1, .h2, .h3, .h4, .h5, .h6{
+	font-weight: bold;
+	line-height: 1.6;
+}
+
+
+// common
+.clear{
+	height: 0;
+	clear: both;
+	overflow: hidden;
+}
+.clearfix {
+	overflow: hidden;
+	zoom: 1;
+	&:after {
+		content: "";
+		display: block;
+		height: 0;
+		clear: both;
+		overflow: hidden;
+		visibility: hidden;
+	}
+}
+
+// 浮动
+.yi-fl{
+	float: left;
+}
+.yi-fr{
+	float: right;
+}
+
+// 对齐方式
+.yi-tl{
+	text-align: left;
+}
+.yi-tc{
+	text-align: center;
+}
+.yi-tr{
+	text-align: right;
+}
+
+// 显示隐藏
+.hide{
+	display: none;
+}
+.block{
+	display: block;
+}

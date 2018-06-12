@@ -1,0 +1,6 @@
+mixin button(items)
+	if (items.labelType==true)
+		a(href="javascript:;", type!=items.type , size!=items.size, disabled!=items.disabled, round!=items.round, load!=items.load, class!=items.btnClass).yi-btn&attributes(attributes)!= items.text
+	else
+		button(type!=items.type , size!=items.size, disabled!=items.disabled, round!=items.round, load!=items.load, class!=items.btnClass).yi-btn&attributes(attributes)!= items.text
+

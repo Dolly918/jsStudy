@@ -1,0 +1,84 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-26 13:55:01 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-30 12:25:29
+ */
+// toast
+ @charset "UTF-8";
+ @import "_mixin.scss";
+
+ @mixin yiAlert(
+	$yiAlertPadd,
+	$yiAlertFsize,
+	$yiAlertLineH,
+
+	$yiAlertCloPadd,
+	$yiAlertCloFsize,
+	$yiAlertCloLineH,
+	
+	$yiAlertCloW,
+	$yiAlertCloH,
+	$yiAlertCloBgImg,
+
+	$yiAlertCloText,
+	$yiAlertCloTextI,
+
+	$yiAlertInfoColor,
+	$yiAlertInfoBgC,
+
+	$yiAlertSuccessColor,
+	$yiAlertSuccessBgC,
+	
+	$yiAlertWarningColor,
+	$yiAlertWarningBgC,
+
+	$yiAlertErrorColor,
+	$yiAlertErrorBgC
+ ){
+	position: relative;
+	padding: $yiAlertPadd;
+	font-size: $yiAlertFsize;
+	line-height: $yiAlertLineH;
+	.close{
+		position: absolute;
+		right: 0;
+		top: 0;
+		padding: $yiAlertCloPadd;
+		cursor: pointer;
+		font-size: $yiAlertCloFsize;
+		line-height: $yiAlertCloLineH;
+	}
+	i.close{
+		width: $yiAlertCloW;
+		height: $yiAlertCloH;
+		background: $yiAlertCloBgImg;
+	}
+	.close + .text{
+		padding-right: $yiAlertCloText;
+	}
+	i.close + .text{
+		padding-right: $yiAlertCloTextI;
+	}
+	&.info{
+		color: $yiAlertInfoColor;
+		background-color: $yiAlertInfoBgC;
+	}
+	&.success{
+		color: $yiAlertSuccessColor;
+		background-color: $yiAlertSuccessBgC;
+	}
+	&.warning{
+		color: $yiAlertWarningColor;
+		background-color: $yiAlertWarningBgC;
+	}
+	&.error{
+		color: $yiAlertErrorColor;
+		background-color: $yiAlertErrorBgC;
+	}
+}
+// end
+
+.yi-alert{
+	@include yiAlert($yiAlertValueMap...)
+}

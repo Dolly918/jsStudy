@@ -1,0 +1,42 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-17 16:12:24 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-28 15:17:23
+ */
+// flex
+@charset "UTF-8";
+@import "_mixin.scss";
+
+.yi-flex{
+    position: relative;
+    display: flex;
+    align-items: center;
+    .flex1{
+        width: 100%;
+        flex: 1;
+    }
+    .flex2{
+        width: 100%;
+        flex: 2;
+    }
+    // 等份比例
+
+    &.vertical{
+        flex-direction: column;
+        .hd,
+        .ft{
+            width: 100%;
+        }
+    }
+    // 垂直布局
+
+    &.start{
+        align-items: flex-start;
+    }
+    &.end{
+        align-items: flex-end;
+    }
+    // 垂直对其方式
+}
+// flex end

@@ -1,0 +1,91 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-18 15:55:21 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-27 18:32:17
+ */
+// tabs
+@charset "UTF-8";
+@import "_mixin.scss";
+
+@mixin yiTabs(
+    $tabsBorb,
+	$tabsLiW,
+	$tabsLiH,
+	$tabsFsize,
+	$tabsLineH,
+	$tabsColor,
+	$tabsActColor,
+	$tabsActBorL,
+	$tabsActBorR,
+    $tabsActBor,
+    $tabsHr
+){
+    .tab-nav{
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        &:after{
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 0;
+            overflow: hidden;
+            border-bottom: 1px solid $tabsBorb;
+        }
+        li{
+            position: relative;
+            width: $tabsLiW;
+            height: $tabsLiH;
+            font-size: $tabsFsize;
+            line-height: $tabsLineH;
+            text-align: center;
+            flex: 1;
+            &:before,
+            &:after{
+                content: "";
+                position: absolute;
+                display: block;
+                overflow: hidden;
+            }
+            &:after{
+                right: 0;
+                top: 28px;
+                bottom: 28px;
+                border-right: 1px solid $tabsHr;
+            }
+            .link{
+                color: $tabsColor;
+            }
+            &.active{
+                color: $tabsActColor;
+                .link{
+                    color: $tabsActColor;
+                }
+                &:before{
+                    left: $tabsActBorL;
+                    right: $tabsActBorR;
+                    bottom: 0;
+                    border-bottom: 3px solid $tabsActBor;
+                }
+            }
+            &:last-child{
+                &:after{
+                    display: none;
+                }
+            }
+        }
+        .link{
+            display: inherit;
+        }
+    }
+    
+}
+// tabs end
+
+.yi-tabs{
+    @include yiTabs($yiTabsValueMap...)
+}

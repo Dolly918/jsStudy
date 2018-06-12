@@ -1,0 +1,9 @@
+mixin footScript(confName, isNotSpa, hrefUrl)
+	if(isNotSpa == true)
+		script(src=`${hrefUrl}js/common/common.min.js`)
+		script(src=`${hrefUrl}js/conf/${confName}.min.js`)
+	else
+		script(src=`${hrefUrl}js/common/common.min.js`)
+		script(src=`${hrefUrl}js/conf/${confName}.min.js`)
+	script(type='text/javascript', src='https://g.yccdn.com')
+	script(type='text/javascript', src='https://js.bitauto.com/dealer/webtrends/dcs_tag.js')

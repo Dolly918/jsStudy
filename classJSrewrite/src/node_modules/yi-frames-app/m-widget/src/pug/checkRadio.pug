@@ -1,0 +1,6 @@
+mixin checkRadio(choice)
+	label.yi-choice(class!= choice.block)&attributes(attributes)
+		input.chc-ipt(type!= choice.type, name!= choice.name checked!= choice.checked, disabled!= choice.disabled)
+		span.chc-icon(class!= choice.round)
+		if choice.text
+			span.chc-text!= choice.text

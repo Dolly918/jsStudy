@@ -1,0 +1,9 @@
+mixin tabs(num, ...items)
+	.yi-tabs&attributes(attributes)
+		ul.tab-nav.tabs-ul
+			each item, index in items
+				li(class=num==index?'active':'')
+					a.link(href="#") #{item}
+		//.tab-panel
+		if block
+			block

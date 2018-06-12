@@ -1,0 +1,6 @@
+mixin float(num, ...items)
+    - var num = 'yi-grids-' +  num
+    div(class=num)
+        each item in items
+            .item
+                .text!= item

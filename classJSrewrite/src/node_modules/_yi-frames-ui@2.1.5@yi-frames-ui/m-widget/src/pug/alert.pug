@@ -1,0 +1,7 @@
+mixin alert(alert)
+	.yi-alert(class!= alert.type)&attributes(attributes)
+		if alert.closeIcon
+			i.close
+		if alert.closeText
+			span.close!= alert.closeText
+		.text!= alert.text

@@ -1,0 +1,48 @@
+/*
+ * @Author: matianye@ 
+ * @Date: 2018-03-20 17:41:10 
+ * @Last Modified by: matianye@
+ * @Last Modified time: 2018-03-28 15:56:27
+ */
+// input
+@charset "UTF-8";
+@import "_mixin.scss";
+
+@mixin yiInput(
+    $iptW,
+    $iptH,
+    $iptBor,
+    $iptRadiusPl,
+    $iptRadius,
+    $iptDisaColor,
+    $iptDisaBor,
+    $iptDisaBgC,
+    $iptFocusColor,
+    $iptFocusBor
+){
+    margin: 0;
+    width: $iptW;
+    height: $iptH;
+    &.round{
+        border: 1px solid $iptBor;
+    }
+    &.round{
+        padding-left: $iptRadiusPl;
+        border-radius: $iptRadius;
+    }
+    &[disabled="disabled"]{
+        cursor: not-allowed;
+        color: $iptDisaColor;
+        border-color: $iptDisaBor;
+        background-color: $iptDisaBgC;
+    }
+    &:focus{
+        color: $iptFocusColor;
+        border-color: $iptFocusBor;
+    }
+}
+// end
+
+.yi-input{
+    @include yiInput($yiInputValueMap...)
+}

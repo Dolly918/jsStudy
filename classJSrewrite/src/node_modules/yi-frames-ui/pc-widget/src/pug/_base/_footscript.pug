@@ -1,0 +1,7 @@
+mixin footScript(confName, isNotSpa, hrefUrl)
+	if(isNotSpa)
+		script(src=`${hrefUrl}js/common/common.min.js`)
+		script(src=`${hrefUrl}js/conf/${confName}.min.js`)
+	else
+		script(src=`${hrefUrl}js/common/common.min.js`)
+		script(src=`${hrefUrl}js/conf/${confName}.min.js`)
