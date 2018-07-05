@@ -1,5 +1,8 @@
 Page({
-  data: {
+  data: {//页面的初始数据
+    staffA: { firstName: 'Hulk', lastName: 'Hu' },
+    staffB: { firstName: 'Shang', lastName: 'You' },
+    staffC: { firstName: 'Gideon', lastName: 'Lin' },
     background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
     indicatorDots: true,
     vertical: false,
@@ -9,6 +12,9 @@ Page({
     duration: 500,
     previousMargin: 0,
     nextMargin: 0
+  },
+  tapName: function (event) {
+    console.log(event)
   },
   changeProperty: function (e) {
     var propertyName = e.currentTarget.dataset.propertyName

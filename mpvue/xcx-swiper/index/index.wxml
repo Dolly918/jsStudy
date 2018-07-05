@@ -63,4 +63,14 @@
       <slider value="{{nextMargin}}" min="0" max="50" bindchange="changeProperty" data-property-name="nextMargin" />
     </view>
   </view>
+  <template name="staffName">
+    <view>
+      FirstName: {{firstName}}, LastName: {{lastName}}
+    </view>
+  </template>
+
+  <template is="staffName" data="{{...staffA}}"></template>
+  <!-- <template is="staffName" data="{{...staffB}}"></template> -->
+  <template is="staffName" data="{{...staffC}}"></template>
+  <view id="tapTest" data-hi-aaa="WeChat" bindtap="tapName"> Click me! </view>
 </view>
