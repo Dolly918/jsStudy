@@ -24,5 +24,26 @@
 			var func = obj.d;
 			func();
 	</script>
+	<script>
+		console.log('+++++++++++++++++++++++++++++')
+		var name = 'window';
+		var Bob = {
+			name: 'bob',
+			aF: function(){
+				console.log(this)
+				alert(this.name);
+			}
+		};
+		var Tom = {
+			name: 'tom',
+			aF: function(){
+				// console.log(this.name);
+				var fun = Bob.aF;
+				fun();
+			}
+		};
+		// Bob.aF();
+		Tom.aF();
+	</script>
 </body>
 </html>
