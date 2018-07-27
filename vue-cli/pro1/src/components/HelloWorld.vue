@@ -90,7 +90,12 @@ export default {
     return {
       msg: '我是一个粉刷匠，粉刷本领强！'
     }
+  },
+  beforeMount () {
+    var self = this
+    console.log(self.msg)
   }
+
 }
 </script>
 

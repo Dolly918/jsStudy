@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>padding现象</title>
+  <style>
+    div{
+      margin: 20px 0;
+    }
+    .block{
+      padding: 20px;
+      border: 1px solid red;
+    }
+    .block-width{
+      width: 300px;
+      padding: 20px;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div class="block">
+    block    
+  </div>
+
+  <div class="block-width">
+      block    
+    </div>
+  <style>
+    p{
+      margin: 0;
+      border: 1px solid rebeccapurple;
+    }
+    span{
+      background: rgba(255, 0, 0, .4);
+
+    }
+    .inlien{
+      padding: 20px;
+      background: rgba(0, 255, 114, .41);
+    }
+    .inline-box{
+      /* margin-top: 50px; */
+      border: 1px solid red;
+    }
+  </style>
+  <p>上方</p>
+  <span>左边</span><span class="inlien">中间</span><span>右边</span>
+  <p>下方</p>
+  <div class="inline-box">
+    <span class="inlien">inline</span><span>兄弟</span>
+  </div>
+  
+  <p>hhah </p>
+</body>
+</html>

@@ -19,6 +19,16 @@
         我也飘起来了，但不和上边的白色块在一个层级里，所以我俩的margin不会互相影响到。 
       </div>
   </div>
+  <a href="" style="">
+      <p style="margin: 20px;display: inline;">被a包裹的元素设置margin无效，是因为a内部的元素是inline
+        inline元素设置上下margin无效。那么a里边的元素改成block元素，a也要变成block元素，同时使用padding或者border形成bfc，阻止margin穿透。
+      </p>
+    </a>
+  <a href="" style="display: block;border: 1px solid red">
+      <p style="margin: 20px;">被a包裹的元素设置margin无效，是因为a内部的元素是inline
+        inline元素设置上下margin无效。那么a里边的元素改成block元素，a也要变成block元素，同时使用padding或者border形成bfc，阻止margin穿透。
+      </p>
+    </a>
   <style>
     .box{
       height: 300px;

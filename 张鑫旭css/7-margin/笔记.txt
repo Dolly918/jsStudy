@@ -95,7 +95,9 @@ margin无效
     float元素相邻的元素，其对应方位的margin相对于父元素的空间
   6.内联特性导致的margin无效。。。
     margin负值小到一定程度，定位效果无效。
-
+例题：
+被a包裹的元素设置margin无效，
+是因为a内部的元素是inline，inline元素设置上下margin无效。那么a里边的元素改成block元素，a也要变成block元素，同时使用padding或者border形成bfc，阻止margin穿透。
 margin-start/margin-end：margin开始方位，margin结束方位。
   适用于任何文档流：
     如果文档流从左到右，则margin-start等同于margin-left

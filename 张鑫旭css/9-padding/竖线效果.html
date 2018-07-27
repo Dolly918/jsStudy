@@ -7,6 +7,7 @@
   <title>竖线效果</title>
 </head>
 <body>
+  <h3>利用的原理，伪元素的font-size为0则高度为0，然后padding上下值撑开自身占据的上下尺寸，对于外界没有影响。padding左右值是margin的一半，加起来就是和margin一样的距离。用于拉大和右边（当border在左边设置时）元素的距离，margin-left负责拉大与左边元素的距离。</h3>
   <div class="box1">
     登陆
     <span class="line"></span>
@@ -42,6 +43,7 @@
       content: "";
       margin-left: 10px;
       padding: 12px 6px 1px;
+      /* padding-top+padding-bottom的值刚好是文字大小的话，竖线就和文字一般高 */
       font-size: 0;
       border-left: 2px solid #999;
     }
