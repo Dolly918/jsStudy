@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="guojufeng@xing.org1^">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>哪些元素什么情况会产生margin重叠</title>
 </head>
@@ -81,19 +82,20 @@
     </div>
   </div>
   <div class="bfc">
-      <h3>
-        margin负值重叠计算规则
-      </h3>
-      <div class="box1 box4">
-        <div class="b">b</div>
-        <div class="a">a</div>
-      </div>
+    <h3>
+      margin负值重叠计算规则
+    </h3>
+    <div class="box1 box4">
+      <div class="b">b</div>
+      <div class="a">a</div>
     </div>
+  </div>
   <style>
     .bfc {
       padding: 40px;
       overflow: hidden;
     }
+
     .kong {
       margin: 40px;
       background: #d69a9a;
@@ -135,10 +137,12 @@
       float: left;
       width: 200px;
     }
-    .box4{
+
+    .box4 {
       margin: 20px 0;
     }
-    .box4 .b{
+
+    .box4 .b {
       background: #d69a9a;
       margin: -10px;
     }

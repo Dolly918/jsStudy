@@ -52,8 +52,8 @@ BFC、haslayout通常声明
 以上，除了zoom:1以外，其他都不能通用，因为让所有元素都float不现实
 但是zoom：1只在低版本ie，高版本也不兼容的。
 
-通用清除浮动带来影响的写法：
-  .clearfix:after{content:'';clear:both;display:block;height:0;overflow:hidden;}
+通用伪元素after清除浮动带来影响的写法：
+  .clearfix:after{content:'';clear:both;display:block;height:0;overflow:hidden;visibility:hidden;}
   .clearfix:after{content:'';display:table;clear:both;}//大神推荐写法
   .clearfix{*zoom:1;}
 
@@ -94,3 +94,27 @@ clearfix只能用在包含浮动元素的父级元素上，滥用会有ie低版�
   为什么bfc以后margin不重叠了，float后产生的包裹效果是margin被包裹在一起就像padding一样了？
   不浮动的内联元素没有margin-top和bottom?
   浮动后的内联元素还是内联元素吗？还能设置高度宽度吗  
+
+知乎问答：[浮动了解下？](https://www.zhihu.com/question/19915431)
+
+  * 不是清除浮动 而是 **闭合浮动**
+
+  闭合浮动，就是使得浮动元素闭合，从而减少浮动带来的影响。
+
+  * 不是文档流 而是 **普通流**
+
+  * 浮动，会有浮动框，浮动框可以左右移动，直到其外边缘遇到包含框或者另一个浮动框的边缘。
+
+  * 父元素overflow或者display：table;后可以闭合浮动的原理：
+
+    * 因为父元素此时会形成BFC,块级格式化上下文。
+
+    * 支持bfc的浏览器，ie8+
+
+    * 不支持bfc的，hasLayout闭合浮动
+
+float布局
+百分比布局
+flex布局
+栅栏布局
+表格布局

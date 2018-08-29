@@ -18,9 +18,44 @@
       padding: 20px;
       border: 1px solid red;
     }
+    .inlinespan{
+      border: 1px solid blue;
+      margin: 2px;
+    }
+    .inlinespan span{
+      padding: 20px 5px;
+    }
+    .inlinespan span:nth-child(odd){
+      background: rgba(0, 255, 114, .41);
+    }
   </style>
 </head>
 <body>
+  <div class=" inlinespan">
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>1</span>
+    <span>内联元素的</span>
+    <span>上下padding</span>
+    <span>不能撑开</span>
+    <span>元素的高度</span>
+    <span>内联元素的</span>
+    <span>上下padding</span>
+    <span>不能撑开</span>
+    <span>元素的高度</span>
+    <!-- <span>卡会尽快</span>
+    <span>卡会尽快</span>
+    <span>卡会尽快</span>
+    <span>卡会尽快</span> -->
+  </div>
   <div class="block">
     block    
   </div>
