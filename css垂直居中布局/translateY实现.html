@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>translateY实现垂直居中</title>
+  <style>
+    html,body,ul{
+      height: 100%;
+      margin: 0;
+    }
+    .box{
+      position: absolute;
+      width: 600px;
+      /* left: 0;
+      right: 0;
+      bottom: 0; */
+      margin: auto;
+      padding: 30px 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #f3f;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <ul>
+      <li>left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;</li>
+      <li>top: 50%;</li>
+      <li>transform: translateY(-50%);</li>
+      <li>为了撑开box的高度</li>
+    </ul>
+  </div>
+</body>
+</html>
