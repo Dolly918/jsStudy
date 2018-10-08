@@ -45,5 +45,25 @@
 		// Bob.aF();
 		Tom.aF();
 	</script>
+	<script>
+		// 考察立即执行函数和this的指向问题
+		var a = 'window'
+		var obj = {
+			a: 'obj',
+			fn: (function(){
+				console.log(this.a);
+				return function(){
+					console.log(this)
+					var c = this;
+					return c
+				}
+			})()
+		}
+		var b= obj.fn();
+		// var b= obj.fn.call(window);
+		var f = obj.fn;
+		f();
+		console.log(b);
+	</script>
 </body>
 </html>
