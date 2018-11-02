@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组去重</title>
+</head>
+
+<body>
+  <div class="box clear">
+    <img src="../t017c093f6111764a16.jpg" alt="">
+  </div>
+  <style>
+    .box{
+      padding: 20px;
+      background-color: brown;
+    }
+    .clear{
+      *zoom: 1;
+    }
+    .clear::after{
+      content: "";
+      clear: both;
+      display: block;
+      height: 0;
+      visibility: hidden;
+    }
+    img{
+      float: left;
+    }
+  </style>
+  <script>
+    // 简单而且可以加中文，但是兼容性不好，indexOF兼容到ie9
+    function uniq(arr) {
+      var temp = [];
+      for (let i = 0; i < arr.length; i++) {
+        if (temp.indexOf(arr[i]) == -1) {
+          temp.push(arr[i])
+        }
+      }
+      return temp;
+    }
+    console.log(uniq([1, 2, 3, 2, 34, "a", "b", "a", 2, 5, 2, 62, ]));
+    // 排序后相邻去除法：简单，去重排序一起做。必须是纯数组
+    function uniq3(array) {
+      array.sort((a, b) => {
+        return a - b
+      });
+      var temp = [array[0]];//关键点，先把第一个放进去
+      for (let i = 1; i < array.length; i++) {//i从1开始
+        if (array[i] !== temp[temp.length - 1]) {
+          temp.push(array[i])
+        }
+      }
+      return temp;
+    }
+    console.log(uniq3([1, 2, "b", 1, 2, 12, 13, 235, 3, "a"])); // 缺点就是不能加入字符串
+    /* 有问题再改改 */
+    function uniq2(arr) {
+      var temp = [],
+        obj = {},
+        objV,
+        objK,
+        val;
+      for (let i = 0; i < arr.length; i++) {
+        val = arr[i];
+        objK = typeof (val);
+        console.log(obj[val]);
+        if (!obj[val]) {
+          obj[val] = [objK];
+          console.log(obj)
+          temp.push(val);
+        } else if (obj[val].indexOf(objK) < 0) {
+          obj[val].push(objK);
+          console.log(obj)
+          temp.push(val)
+        }
+      }
+      return temp;
+    }
+    console.log(uniq2([1, 2, 4, "1", "2", "a", , 1, 26, 4, 2]));
+  </script>
+</body>
+
+</html>
