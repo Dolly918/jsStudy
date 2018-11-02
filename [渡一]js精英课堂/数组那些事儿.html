@@ -15,14 +15,52 @@
     <li>54</li>
     <li>5</li>
   </ul>
+  <h1>push方法重构</h1>
+  <pre>
+    var pushArr = new Array(1,2,3,4);
+    pushArr.__proto__.arrPush = function(){
+      for(var key in arguments){
+        this[this.length] = arguments[key];
+      }
+      return this;
+    }
+  </pre>
+  <h3>直接在Array原型上操作</h3>
+  <pre>
+    Array.prototype.gjfPush = function(){
+      console.log("直接在Array原型上操作")
+      for(var key in arguments){
+        this[this.length] = arguments[key];
+      }
+      return this;
+    }
+  </pre>
   <script src="xingorg1Utils.js"></script>
   <script>
-    var oLi = document.getElementsByTagName("li");
-    // console.log(typeof oLi);
-    // console.log(Array.prototype.slice.call(oLi));
-      /* 数组的各个方法原理剖析 push、shift、unshift、pop等 */
-  
-      /* 纯数字数组 - 正排序、负排序、乱序 */
+    /* 数组的各个方法原理剖析 push、shift、unshift、pop等 */
+    /* push方法重构 */
+    var pushArr = new Array(1,2,3,4);
+    pushArr.__proto__.arrPush = function(){
+      for(var key in arguments){
+        this[this.length] = arguments[key];
+      }
+      return this;
+    }
+    Array.prototype.gjfPush = function(){
+      console.log("直接在Array原型上操作")
+      for(var key in arguments){
+        this[this.length] = arguments[key];
+      }
+      return this;
+    }
+    pushArr.gjfPush(5);
+    console.log("新增后的数组：",pushArr)
+    pushArr.arrPush(undefined,null,false,56,34,"23");
+    console.log("新增后的数组：", pushArr)
+    /* 纯数字数组 - 正排序、负排序、乱序 */
+      var oLi = document.getElementsByTagName("li");
+      // console.log(typeof oLi);
+      // console.log(Array.prototype.slice.call(oLi));
       var arr = [12,61,7,21,357,215357,923,9723,53,1]
       /* 
       * @Author: guojufeng@ 

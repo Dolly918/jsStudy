@@ -93,7 +93,4 @@ var xingorg1Utils = {
     })
     return array;
   },
-  arrPush: function(){
-
-  }
 }
