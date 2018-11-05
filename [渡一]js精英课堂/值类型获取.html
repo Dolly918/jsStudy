@@ -21,41 +21,54 @@
         return "null";
       }
       let result = typeof (target);
-      if (result == "object") { 
+      if (result == "object") {
         if (target instanceof Array) {
           result = "array";
         } else if (target instanceof Object) {
-          result = "object";
+          var target = Object.prototype.toString.call(target);
+          if(target == "[object Object]"){
+            result = "object";
+          }else{
+            // 构造函数
+            result = target;
+          }
         }
       }
       console.log("getType: " + result)
       return result;//返回类型值的字符串形式
     }
-    // var a = function(){}
-    // var b  = [];
-    // var c = new Array;
-    // var d = {};
-    // var e = new Object;
-    // var s = "123";
-    // var bl = false;
-    // var n = 123;
-    // var nan = parseInt("req");
-    // var nu= null;// null 怎么算
-    // var un= undefined;
-    // getType(a)
+    var a = function(){}
+    var b  = [];
+    var c = new Array;
+    var d = {};
+    var e = new Object;
+    var s = "123";
+    var bl = false;
+    var n = 123;
+    var nan = parseInt("req");
+    var nu= null;// null 怎么算
+    var un= undefined;
+    getType(a)
     // getType(b)
     // getType(c)
     // getType(d)
-    // getType(e)
+    getType(e)
     // getType(s)
     // getType(bl)
     // getType(n)
     // getType(nan)
     // getType(nu)
     // getType(un)
-    // var m = un;
+    /* null 等于 一个值为null的变量的拷贝值 */
+    // var m = nu;
     // console.log(m === null);
     // console.log(nu === null);
+    var arr = new Number();
+    var str = new String();
+    var bool = new Boolean();
+    getType(arr)
+    getType(str)
+    getType(bool)
   </script>
 </body>
 </html>

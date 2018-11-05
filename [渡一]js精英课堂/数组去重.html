@@ -13,21 +13,24 @@
     <img src="../t017c093f6111764a16.jpg" alt="">
   </div>
   <style>
-    .box{
+    .box {
       padding: 20px;
       background-color: brown;
     }
-    .clear{
+
+    .clear {
       *zoom: 1;
     }
-    .clear::after{
+
+    .clear::after {
       content: "";
       clear: both;
       display: block;
       height: 0;
       visibility: hidden;
     }
-    img{
+
+    img {
       float: left;
     }
   </style>
@@ -48,8 +51,8 @@
       array.sort((a, b) => {
         return a - b
       });
-      var temp = [array[0]];//关键点，先把第一个放进去
-      for (let i = 1; i < array.length; i++) {//i从1开始
+      var temp = [array[0]]; //关键点，先把第一个放进去
+      for (let i = 1; i < array.length; i++) { //i从1开始
         if (array[i] !== temp[temp.length - 1]) {
           temp.push(array[i])
         }
@@ -81,6 +84,36 @@
       return temp;
     }
     console.log(uniq2([1, 2, 4, "1", "2", "a", , 1, 26, 4, 2]));
+
+
+    console.log("++++++++++++++++++++++++++")
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2018-11-05 09:35:14 
+ * @Last Modified by: @Guojufeng
+ * @Last Modified time: 2018-11-05 10:00:41
+     * 数组去重
+     */
+    // 思路 准备一个对象，循环数组时，将数组的值当做对象的键，且对应值为true/1皆可，然后每次拿数组的下一个值都去判断一下对象中是否有这个值，没有再push到新数组中去，最后返回新数组。
+    function uniqArr(arr, sort = false) {
+      var obj = {},
+        newArr = [];
+      obj[arr[0]] = true;
+      newArr.push(arr[0]);
+      arr.forEach((element) => {
+        if (!obj[element]) {
+          obj[element] = true;
+          newArr.push(element);
+        }
+      });
+      if (sort) {
+        // 执行排序
+        console.log([].slice.call(obj))
+      }
+      return newArr;
+    }
+    console.log(uniqArr([1, 2, 23, 1, 35, 1, 6, 34]))
+    console.log(uniqArr([1, 2, 23, 1, "gjf", 1, 6, "gjf","gfj"]))
   </script>
 </body>
 

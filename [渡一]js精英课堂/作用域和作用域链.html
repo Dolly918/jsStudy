@@ -10,6 +10,46 @@
 
 <body>
   <script>
+    // go{
+    //   plus: function(){
+
+    //   };
+    //   plus1: undefined;
+    //   add: undefined;
+    // }
+    // ao{
+    //   acount: 0,
+    //   plusTwo: f()
+    // }
+    function add(){
+      var acount = 0;
+      plus = function(){//这样就也是一个闭包了，在外边window里边能取到add里count的数
+        acount++;
+        console.log("acount:"+acount);
+        console.log(this)
+      }
+      return plus;
+    }
+    var plus = add();
+    var plus1 = add();
+    plus();
+    plus1();
+    /* 就多加一个var变量声明，就不一样了 */
+    function addTwo(){
+      var acount = 0;
+      var plusTwo = function(){
+        acount++;
+        console.log("acount:"+acount);
+        console.log(this)
+      }
+      return plusTwo;
+    }
+    var plusTwo = addTwo();
+    var plusTwo1 = addTwo();
+    plusTwo();
+    plusTwo1();
+
+    
     // 这就是闭包了
     function a() {
       var ddd = "ddd";
