@@ -1,4 +1,24 @@
 var xingorg1Utils = {
+  getSearch: function(str){
+    /*
+      * @Author: guojufeng@ 
+     * @Date: 2018-11-05 09:35:14 
+     * @purpose 获取查询字符串的值
+     * @param {string} : location.search.substring(1)
+     * @output {object} : 返回的参数 - 空对象或整理过的键值对
+     */
+    str = str || undefined;
+    let obj  = {};
+    if(str){
+      let arr = str.split('&');
+      arr.forEach((el)=>{
+        let item = el.split('=')
+        obj[item[0]] = item[1];
+      })
+      console.log(obj)
+    }
+    return obj;
+  },
   getType: function (target) {
     /*
      * @Author: guojufeng@ 
