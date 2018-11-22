@@ -40,7 +40,7 @@ var xingorg1Utils = {
         if (target == "[object Object]") {
           result = "object";
         } else {
-          result = target;
+          result = target;//构造类
         }
       }
     }

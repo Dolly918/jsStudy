@@ -7,22 +7,30 @@
 <body>
 	<script>
 			window.v = 1;
-			window.a = 'a';
+			window.a = 'window';
 			var obj = {
 			    // v: 2,
-			    a: 'b',
-			    d: function() {
+			    a: 'obj',
+			    d: function(q) {
 			        // this.v *= 2;
 			        // v *= 2;
-			        console.log(this.a)
+			        console.log('===='+q+'=======',this.a)
 			        console.log(a)
 			        // console.log(v);
 			        // console.log(this.v);
 			    }
 			};
-			obj.d();
+			obj.d('1');//obj
 			var func = obj.d;
-			func();
+			func('2');//window
+      obj.d.call(this,'3');
+      var obj2 = {
+        a: 'obj2',
+        func: function(){
+          obj.d.call(this,'5');
+        }
+      }
+      obj2.func();
 	</script>
 	<script>
 		console.log('+++++++++++++++++++++++++++++')
