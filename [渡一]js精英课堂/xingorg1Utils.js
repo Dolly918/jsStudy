@@ -1,17 +1,17 @@
 var xingorg1Utils = {
-  getSearch: function(str){
+  getSearch: function (str) {
     /*
-      * @Author: guojufeng@ 
+     * @Author: guojufeng@ 
      * @Date: 2018-11-05 09:35:14 
      * @purpose 获取查询字符串的值
      * @param {string} : location.search.substring(1)
      * @output {object} : 返回的参数 - 空对象或整理过的键值对
      */
     str = str || undefined;
-    let obj  = {};
-    if(str){
+    let obj = {};
+    if (str) {
       let arr = str.split('&');
-      arr.forEach((el)=>{
+      arr.forEach((el) => {
         let item = el.split('=')
         obj[item[0]] = item[1];
       })
@@ -40,7 +40,7 @@ var xingorg1Utils = {
         if (target == "[object Object]") {
           result = "object";
         } else {
-          result = target;//构造类
+          result = target; //构造类
         }
       }
     }
@@ -143,5 +143,126 @@ var xingorg1Utils = {
       }
     });
     return newArr;
+  },
+  loadScript: function (url, call) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-07 11:10:50
+     * js异步加载
+     * @params {url}: string,要加载的js地址
+     * @params {newArr}: string,加载js完毕后要调用的函数名
+     * 示例：loadScript('demo.js','callbackFun');
+     */
+    var script = document.createElement('script');
+    script.type = "text/javascript";
+    if (script.readyState) {
+      // 兼容ie
+      script.onreadystatechange = function () {
+        if (script.readyState == 'complete' || script.readyState == 'loaded') {
+          this[call]();
+        }
+      }
+    } else {
+      script.onload = function () {
+        this[call]();
+      }
+    }
+    script.src = url;
+    document.head.appendChild(script);
+  },
+  exponentiation: function (target, n) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-12 17:10:00 
+     * 计算target的n次幂，
+     * @params {target}: number,要计算的数值
+     * @params {n}: number,要计算的次幂数
+     * 比如：2的3次幂，就传入(2,3)即可
+     * 规律：2 * 2 * 2 for循环乘（n-1）次的target
+     */
+    var result = target,
+      len = n - 1;
+    for (; n >= len; n--) {
+      result *= target;
+    }
+    return result;
+  },
+  factorial: function (n) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-12 17:19:46 
+     * 计算n的阶乘
+     * @params {n}: number,要计算阶乘的数
+     * 比如：计算7的阶乘，传入7即可。
+     * 规律：5的阶乘 5*4*3*2*1；n * (n-1) * ((n-1)-1) * (((n-1)-1)-1) * ((((n-1)-1)-1)-1)
+     */
+    return n > 1 ? n * this.factorial(n - 1) : 1;
+    /* if(n > 1){
+      return n * this.factorial(n-1);
+    }else{
+      return 1;
+    } */
+  },
+  fibonacci: function (n) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-12 17:40:07 
+     * 斐波那契数列 || 黄金分割数列
+     * @params {n}: number,递推出第n项的斐波那契额数列的结果
+     * 比如：计算7的结果，传入7即可。
+     * 规律：这个数列从第3项开始，每一项都等于前两项之和。 (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144,)
+     * 公式：f(1)=1;f(2)=1;f(3)=f(1)+f(2);f(n)=f(n-1)+f(n-2);(n>=4)
+     */
+    return n <= 2 ? 1 : this.fibonacci(n - 1) + this.fibonacci(n - 2);
+    /* if(n <= 2){
+      return 1;
+    }else{
+      return this.fibonacci(n - 1) + this.fibonacci(n - 2)
+    } */
+  },
+  primeNumber: function (n) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-12 18:12:39
+     * 找出 质数 || 素数
+     * @params {n}: number,得到n以内的质数
+     * 规律：一个大于1的自然数，除了1和它自身外，不能整除其他自然数的数叫做质数；2,3,5,7,11,13,17,19,23...
+     */
+    var arr = [];
+    for (var i = 1; i <= n; i++) {
+      var count = 0;
+      for (var j = 1; j <= i; j++) {
+        i % j == 0 ? count ++ : ''
+      }
+      count == 2 ? arr.push(i) : ''
+    }
+    return arr;
+  },
+  maxNumber: function () {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-12 18:25:37 
+     * 几个数中求最大值
+     * @params {...}: number,多个参数，求最大的那个
+     */
+
+    /* 解法一、类数组转数组，排序然后拿第一个 */
+    return Array.prototype.slice.call(arguments).sort((a, b) => {
+      return b - a
+    })[0];
+    // 以下两种都能将类数组转成数组
+    console.log(Array.prototype.slice.call(arguments));
+    console.log([].slice.call(arguments));
+
+    /* 解法二、for循环，比较值 */
+    var max = 0,
+      len = arguments.length;
+    for (var i = 0; i <= len; i++) {
+      if (arguments[i] > max) {
+        max = arguments[i]
+      }
+    }
+    return max;
+
   }
 }

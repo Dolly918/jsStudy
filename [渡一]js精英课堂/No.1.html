@@ -8,6 +8,15 @@
 </head>
 <body>
   <script>
+    var i = 1;
+    var count = 0;
+    for(; i; ){
+      console.log(count);
+      count++;
+      if(count == 10){
+        i = 0
+      }
+    }
     // 作用域
     var length = 10;
     function fn(){
@@ -29,7 +38,7 @@
       console.log("aa")
     }
     var ab = aa;
-    console.log(ab)
+    console.log(ab);
     ab();
     var name = "window";
     var obj = {
@@ -41,7 +50,8 @@
       }
     }
     var a = obj.getName();
-    console.log(a)
+    console.log(a);
+    
   </script>
 </body>
 </html>

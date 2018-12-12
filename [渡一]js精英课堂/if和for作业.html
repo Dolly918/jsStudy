@@ -15,7 +15,8 @@
     次幂等于
     <span id="input2"></span>
   </h1>
-  <script>
+  <p>随便打</p>
+  <script defer="defer" async>
     /* 计算2的n次幂，n可输入，n为自然数 */
     function work1(n) {
       var count = 2;
@@ -24,8 +25,8 @@
         count *= 2;
         str += "*2"
       }
-      console.log(str, '结果是:')
-      console.log(count)
+      console.log(str, '结果是:');
+      console.log(count);
       document.getElementById('input1').innerText = n;
       document.getElementById('input2').innerText = count;
       return count;
