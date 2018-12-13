@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="xing.org1^">
+  <title>贪吃蛇小游戏</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <div class="main">
+    <div class="start">
+      开始游戏
+    </div>
+    <div class="header">
+      <div class="pause-btn off active">开始</div>
+      <div class="pause-btn on">暂停</div>
+      <h2 class="score">分数：<span class="playing-score">23</span></h2>
+    </div>
+    <div class="content">
+      <div class="snake-box">
+        <div class="snake head">
+          <div class="mouth"></div>
+          <div class="eyes">
+            <span class="eye eye-left"></span>
+            <span class="eye eye-right"></span>
+          </div>
+        </div>
+        <div class="snake body"></div>
+        <div class="snake body"></div>
+        <div class="snake body"></div>
+        <div class="snake body"></div>
+      </div>
+      <div class="food"></div>
+    </div>
+    <div class="layer hide">
+      <div class="end-layer">
+        <!-- <span class="close">X</span> -->
+        <h2>
+            Game Over
+        </h2>
+        <div class="txt">
+          30分
+          <p class="desc">
+              描述语！-你就是个天才！
+          </p>
+        </div>
+        <div class="reload">重新开始</div>
+      </div>
+    </div>
+    <footer>
+      copyright @xing.org1^ guojufeng 20181213-20181215
+    </footer>
+  </div>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

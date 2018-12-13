@@ -232,7 +232,7 @@ var xingorg1Utils = {
     for (var i = 1; i <= n; i++) {
       var count = 0;
       for (var j = 1; j <= i; j++) {
-        i % j == 0 ? count ++ : ''
+        i % j == 0 ? count++ : ''
       }
       count == 2 ? arr.push(i) : ''
     }
@@ -264,5 +264,28 @@ var xingorg1Utils = {
     }
     return max;
 
+  },
+  loadScript: function (url, callback) {
+    var script = document.createElement("script")
+    script.type = "text/javascript";
+    if (script.readyState) { //IE
+      script.onreadystatechange = function () {
+        if (script.readyState == "loaded" || script.readyState == "complete") {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function () {
+        callback();
+      };
+    }
+    script.src = url;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  },
+  getRandomColor: function() {
+    /* 获取随机的16进制颜色值 */
+    return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
+    // 或者可slice取-3，取三位也可以，但是没有这样的颜色值多
   }
 }
