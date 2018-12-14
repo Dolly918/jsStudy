@@ -144,6 +144,10 @@ var xingorg1Utils = {
     });
     return newArr;
   },
+  xingorgIsNaN: function(n){
+    /* 封装数组中的isNaN方法，原理是先调用Number，看返回值是不是NaN，然后字符串化后和'NaN'对比 */
+    return 'NaN' == Number(n) + ''?true:false;
+  },
   loadScript: function (url, call) {
     /* 
      * @Author: guojufeng@ 
@@ -287,5 +291,6 @@ var xingorg1Utils = {
     /* 获取随机的16进制颜色值 */
     return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
     // 或者可slice取-3，取三位也可以，但是没有这样的颜色值多
-  }
+  },
+  
 }
