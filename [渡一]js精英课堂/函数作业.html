@@ -16,7 +16,7 @@
       switch (ani) {
         case "小狗":
           console.log(str, "汪汪");
-          break;
+          return;//还可以写return
         case "小猫":
           console.log(str, "喵");
           break;
@@ -115,7 +115,13 @@
       return diguiF(n - 2) + diguiF(n - 1);
     }
     console.log(diguiF(10));
-    
+
+    function yingshe(a, b,c) {
+      arguments[2] = 3;
+      console.log(arguments);//1、2、3,新增了第三位的值
+      console.log('c的值',c);//undefined
+    }
+    yingshe(1, 2);
   </script>
 
 </body>

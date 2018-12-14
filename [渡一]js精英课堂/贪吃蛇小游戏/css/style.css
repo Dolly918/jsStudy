@@ -179,10 +179,17 @@ body {
 
 .food{
   position: absolute;
-  left: 30%;
-  top: 34%;
+  /* left: 30%;
+  top: 34%; */
   width: 20px;
   height: 20px;
+  transition: all .35s;
+  opacity: 0;
+  visibility: hidden;
+}
+.food.show{
+  opacity: 1;
+  visibility: visible;
 }
 .food:before,.food:after{
   content: "";

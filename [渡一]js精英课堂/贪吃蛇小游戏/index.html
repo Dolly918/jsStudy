@@ -16,12 +16,12 @@
       开始游戏
     </div>
     <div class="header">
-      <div class="pause-btn off active">开始</div>
+      <div class="pause-btn off active" id="pause">开始</div>
       <div class="pause-btn on">暂停</div>
-      <h2 class="score">分数：<span class="playing-score">23</span></h2>
+      <h2 class="score">分数：<span class="playing-score"  id="score">23</span></h2>
     </div>
-    <div class="content">
-      <div class="snake-box">
+    <div class="content" id="cont">
+      <div class="snake-box"  id="snake">
         <div class="snake head">
           <div class="mouth"></div>
           <div class="eyes">
@@ -34,27 +34,28 @@
         <div class="snake body"></div>
         <div class="snake body"></div>
       </div>
-      <div class="food"></div>
+      <div class="food" id="food"></div>
     </div>
-    <div class="layer hide">
+    <div class="layer hide" id="layer">
       <div class="end-layer">
         <!-- <span class="close">X</span> -->
         <h2>
             Game Over
         </h2>
-        <div class="txt">
+        <div class="txt" id="txt">
           30分
-          <p class="desc">
+          <p class="desc" id="desc">
               描述语！-你就是个天才！
           </p>
         </div>
-        <div class="reload">重新开始</div>
+        <div class="reload" id='reload'>重新开始</div>
       </div>
     </div>
     <footer>
       copyright @xing.org1^ guojufeng 20181213-20181215
     </footer>
   </div>
+  <script src="./js/pluging.js"></script>
   <script src="./js/main.js"></script>
 </body>
 
