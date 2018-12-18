@@ -144,9 +144,9 @@ var xingorg1Utils = {
     });
     return newArr;
   },
-  xingorgIsNaN: function(n){
+  xingorgIsNaN: function (n) {
     /* 封装数组中的isNaN方法，原理是先调用Number，看返回值是不是NaN，然后字符串化后和'NaN'对比 */
-    return 'NaN' == Number(n) + ''?true:false;
+    return 'NaN' == Number(n) + '' ? true : false;
   },
   loadScript: function (url, call) {
     /* 
@@ -287,10 +287,60 @@ var xingorg1Utils = {
     script.src = url;
     document.getElementsByTagName("head")[0].appendChild(script);
   },
-  getRandomColor: function() {
+  getRandomColor: function () {
     /* 获取随机的16进制颜色值 */
     return "#" + ("00000" + ((Math.random() * 16777215 + 0.5) >> 0).toString(16)).slice(-6);
     // 或者可slice取-3，取三位也可以，但是没有这样的颜色值多
   },
-  
+  getBytesLen: function (str) {
+    /* 返回字节长度
+    思路：
+      第一种方法，直接定义一个计数器，循环判断当前字符串对应个数上的字符的字节长度，
+      利用：str.charCodeAt(s)//返回当前字符的相应字节编码
+      若值大于255，就是中文，计数器累加2字节
+      若值小于255，则是英文，计数器累加1字节
+      最后抛出计数器就是字符的字节总长度
+    */
+    str = str.toString();
+    var strLen = 0;
+    for (let s = 0; s < str.length; s++) {
+      if (str.charCodeAt(s) >= 255) {
+        // 中文，字节为2.
+        strLen += 2;
+      } else {
+        // 非中文,字节为1.
+        strLen += 1;
+      }
+    }
+    return strLen;
+  },
+  getBytesLen02: function (str) {
+    /* 返回字节长度 方法二
+      思路：
+      因为不管中英文，即使全部是英文，有几个字母就是几个字节长度，所以计数器的数目累加基础就是字符串的长度；
+      因此，让累加器strLen先等于str.length。并建立一个累加器基础count，记录比1大的字符（也就是汉字字符）
+      因为已经加过一了，所以直接在累加器基础再加一即可。
+    */
+    if (str) {
+      str = str.toString();
+      var strLen,
+        count;
+      strLen = count = str.length;//在str的长度基础上
+      for (let s = 0; s < strLen; s++) {
+        console.log(str.charAt(i), "长度为：" + str.charCodeAt(i));
+        if (str.charCodeAt(s) >= 255)
+          count++;//字节大于1的再给计数器加1.等于1的就不用管了。
+      }
+      return count;
+    } else {
+      throw new Error('error: 请输入一个字符串参数')
+    }
+  },
+  getStrNum: function (str) {
+    /* 获取字符个数 - 适用于文本框下的计数器
+      获取的字节长度的基础上，除以2再向上取整即可。（或者四舍五入，反正奇数字节长度都是0.5）
+    */
+    return Math.ceil(getStrBytes(str) / 2);
+  }
+
 }
