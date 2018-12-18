@@ -340,7 +340,7 @@ var xingorg1Utils = {
     /* 获取字符个数 - 适用于文本框下的计数器
       获取的字节长度的基础上，除以2再向上取整即可。（或者四舍五入，反正奇数字节长度都是0.5）
     */
-    return Math.ceil(getStrBytes(str) / 2);
+    return Math.ceil(getBytesLen(str) / 2);
   }
 
 }
