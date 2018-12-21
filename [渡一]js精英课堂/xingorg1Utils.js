@@ -342,5 +342,4 @@ var xingorg1Utils = {
     */
     return Math.ceil(getBytesLen(str) / 2);
   }
-
 }
