@@ -47,6 +47,7 @@
       return this;
     }
     Array.prototype.gjfPush = function(){
+      console.log("直接在Array原型上操作")
       for(var key in arguments){
         this[this.length] = arguments[key];
         // 向往后边添加东西，就是往length位加东西
