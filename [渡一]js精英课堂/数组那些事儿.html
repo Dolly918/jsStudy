@@ -20,7 +20,7 @@
   <h1>push方法重构</h1>
   <pre>
     var pushArr = new Array(1,2,3,4);
-    pushArr.__proto__.arrPush = function(){
+    pushArr.__proto__.gjfPush = function(){
       for(var key in arguments){
         this[this.length] = arguments[key];
       }
@@ -39,12 +39,24 @@
   </pre>
   <script src="xingorg1Utils.js"></script>
   <script>
+    window.onload = function(){
+      console.log(' window.onload')
+    }
+    document.onDOMContentLoaded = function(){
+      alert(11)
+      console.log('load1');
+    }
+    document.addEventListener('DOMContentLoaded',function(){
+      console.log('load2');
+    },false)
+  </script>
+  <script>
     /* pop */
-    var arr = [1,2,3,4,55,6]
+    var arr = [1, 2, 3, 4, 55, 6]
     Array.prototype.gjfPop = function () {
       var arr = [],
-          len = this.length - 1,
-          popResult = this[len];
+        len = this.length - 1,
+        popResult = this[len];
       for (let i = 0; i < len; i++) {
         //深度拷贝原数组
         arr.push(this[i]);
@@ -52,30 +64,198 @@
       this.length = 0; //利用length = 0, 把原数组清空
       for (let i = 0; i < len; i++) {
         this.push(arr[i]);
-      } 
-      return popResult;//功能：返回踢掉的值
+      }
+      return popResult; //功能：返回踢掉的值
     }
     arr.gjfPop();
     console.log(arr)
-    Array.prototype.gjfsPop = function(){
+    Array.prototype.gjfPop2 = function () {
       var result;
-      if(this.length){
+      if (this.length) {
         result = this.length - 1;
-        this.length --;
+        this.length--;
       }
       return result;
     }
-    arr.gjfsPop();
+    arr.gjfPop2();
     console.log(arr)
     console.log('======pop==========')
-    Array.prototype.gjfShift = function(){
-      
+    Array.prototype.gjfShift = function () {
+      var arr = [],
+        len = this.length,
+        result = this[0];
+      for (let i = 1; i < len; i++) {
+        arr.push(this[i]);
+      }
+      this.length = 0;
+      for (let i = 0; i < len - 1; i++) {
+        this.push(arr[i]);
+      }
+      return result;
     }
+    arr.gjfShift();
     console.log('======shift==========')
+    var arr = [3, 4];
+    Array.prototype.gjfUnshift = function () {
+      var arr = [],
+        tLen = this.length;
+      aLen = arguments.length;
+      for (let i = 0; i < tLen; i++) {
+        arr.push(this[i]); //储备原数组
+      }
+      this.length = 0; //清空原数组
+      for (let i = 0; i < aLen; i++) {
+        this.push(arguments[i]); //空原数组先加参数值
+      }
+      for (let i = 0; i < tLen; i++) {
+        this.push(arr[i]); //原数组再合成原始值
+      }
+      return this.length; //返回数组长度
+    }
+    arr.gjfUnshift(11);
+    // 利用concant
+    Array.prototype.gjfUnshift2 = function () {
+      /* 
+        思路，用户传进来的是一个arguments类数组，转成真数组：Array.prototype.slice.call(arguments)
+        然后和现有数组concant连接即可。因为是unshift，所以让新数组使用concant来连接旧数组this
+      */
+      var arr = Array.prototype.slice.call(arguments).concat(this),
+        arrLen = arr.length;
+      this.length = 0;
+      for (let i = 0; i < arrLen; i++) {
+        this.push(arr[i]); //重新整理原数组
+      }
+      return this.length; //返回数组长度
+    }
+    arr.gjfUnshift2(11);
+    console.log('======gjfUnshift==========')
+    var arr = [1, 2, 3, 4, 5]
+    var arr2 = [1, 2, 3, , 5]
+    Array.prototype.gjfJoin = function () {
+      /* 只取第一个参数，然后将其字符串化。然后拼接数组和这个字符串 */
+      /* 排除个别情况，比如undefined和null */
+
+      var targetStr = arguments[0],
+        str = ',',
+        result = this[0],
+        len = this.length;
+      console.log(targetStr)
+      if (targetStr !== undefined) { //没有传参默认用逗号分隔||参数值就是undefined不用toString，防止报错,并用默认展示
+        console.log('targetStr传参')
+        if (targetStr === null) { //null不用toString，防止报错
+          console.log('===null')
+          str = 'null'
+        } else {
+          // 其他情况，正常toString
+          str = targetStr.toString();
+        }
+      }
+      for (let i = 1; i < len; i++) {
+        if (this[i] !== undefined && this[i] !== null) {//对于数组中的空项，不做拼接处理
+          result += (str + this[i]);
+        } else {
+          result += str;
+        }
+      }
+      console.log(str)
+      console.log(result)
+      return result; //返回拼接的字符串
+    }
+    Array.prototype.gjfJoin = function () {
+      var targetStr = arguments[0],
+        str = ',',
+        result = this[0],
+        len = this.length;
+      if (targetStr !== undefined) {
+        if (targetStr === null) {
+          str = 'null'
+        } else {
+          str = targetStr.toString();
+        }
+      }
+      for (let i = 1; i < len; i++) {
+        if (this[i] !== undefined && this[i] !== null) {
+          result += (str + this[i]);
+        } else {
+          result += str;
+        }
+      }
+      return result;
+    }
+    arr.gjfJoin();
+    arr.gjfJoin('-');
+    arr.gjfJoin(true);
+    arr.gjfJoin(false);
+    arr.gjfJoin(0);
+    arr.gjfJoin(null);
+    arr.gjfJoin(undefined);
+    arr.gjfJoin(NaN);
+    arr.gjfJoin([]);
+    arr.gjfJoin([7, 8]);
+    arr.gjfJoin({});
+    arr.gjfJoin({
+      n: 9
+    });
+    arr.gjfJoin(function () {});
+    arr.gjfJoin(function a() {});
+    console.log('======gjfJoin==========')
+    var arr = [1,2,3]
+    Array.prototype.gjfConcat = function(){
+      let arr = [],//因为不能重写原数组，所以新建
+          len = this.length,
+          aLen = arguments.length;
+      for(let i = 0; i < len; i++){
+        arr.push(this[i]);
+      }
+      for(let i = 0; i < aLen; i++){
+        if(Object.prototype.toString.call(arguments[i]) == '[object Array]'){
+          // 数组，要展开推入进去：多维数组只展开第一层
+          let arrLen = arguments[i].length;
+          for(let j = 0; j < arrLen; j++){
+            arr.push(arguments[i][j]);
+          }
+        }else{
+          // 非数组，直接push进去连接
+          arr.push(arguments[i]);
+        }
+      }
+      return arr;
+    }
+    arr.gjfConcat(function () {});
+    console.log('======gjfJoin==========');
+    var arr = [1,2,3]
+    Array.prototype.gjfReverse = function(){
+      var arr = [],
+        len = this.length;
+      for (let i = 0; i < len; i++) {
+        arr.push(this[len-1 - i]);//实现倒着push1
+      }
+      this.length = 0;
+      for (let i = 0; i < len; i++) {
+        this.push(arr[i]);
+      }
+      return arr;
+    }
+    arr.gjfReverse();
+    var arr = [4,5,6]
+    Array.prototype.gjfReverse2 = function(){
+      var arr = [],
+        len = this.length;
+      for (let i = len - 1; i >= 0; i--) {
+        arr.push(this[i]);//实现倒着push2
+      }
+      this.length = 0;
+      for (let i = 0; i < len; i++) {
+        this.push(arr[i]);
+      }
+      return arr;
+    }
+    arr.gjfReverse2();
+    console.log('======gjfJoin==========')
     /* 数组的各个方法原理剖析 push、shift、unshift、pop等 */
     /* push方法重构 */
     var pushArr = new Array(1, 2, 3, 4);
-    pushArr.__proto__.arrPush = function () {
+    pushArr.__proto__.gjfPush = function () {
       for (var key in arguments) {
         this[this.length] = arguments[key];
       }
@@ -85,13 +265,12 @@
       console.log("直接在Array原型上操作")
       for (var key in arguments) {
         this[this.length] = arguments[key];
-        // 向往后边添加东西，就是往length位加东西
       }
-      return this;
+      return this.length;
     }
     pushArr.gjfPush(5);
     console.log("新增后的数组：", pushArr)
-    pushArr.arrPush(undefined, null, false, 56, 34, "23");
+    pushArr.gjfPush(undefined, null, false, 56, 34, "23");
     console.log("新增后的数组：", pushArr)
     /* 纯数字数组 - 正排序、负排序、乱序 */
     var oLi = document.getElementsByTagName("li");
