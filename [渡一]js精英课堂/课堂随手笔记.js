@@ -1,3 +1,7 @@
+
+
+
+
 var a = 'window';
 function Obj(){
   // var a = 1;
@@ -9,7 +13,13 @@ function Obj(){
   }
 }
 var obj = new Obj();
-console.log(obj)
+console.log(111,obj)
+var b = new Obj().b;
+var f = new Obj().sayA;
+console.log(222,b,f)
+debugger;
+new Obj().c = 'cc';
+console.log(333,new Obj().c,'因为上一个new Obj()和这一行的new Obj()不是同一个堆内存，不是同一个地址')
 
 
 

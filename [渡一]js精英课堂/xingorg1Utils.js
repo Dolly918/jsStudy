@@ -47,6 +47,30 @@ var xingorg1Utils = {
     console.log("getType类型判断为: " + result)
     return result; //返回类型值的字符串形式
   },
+  getType2: function (target) {
+    /*
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-28 21:09:23
+     * @purpose 获取一个值的类型
+     * @param {variateName} target: 要获取类型的变量名或对象
+     * @output {string} result || "null": 返回的参数 - result或者null,为字符串形式的
+     */
+    /* 思路：利用Object的toString处理不同的值得到不同结果的情况，直接返回template[str]就是对应的类型 */
+    var type = typeof (target),
+      template = {
+        "[object Object]": 'object',
+        "[object Array]": 'array',
+        "[object Number]": '[object Number]',
+        "[object Boolean]": '[object Boolean]',
+        "[object String]": '[object String]',
+        "[object Null]": 'null'
+      };
+    if (type == 'object') {
+      return template[Object.prototype.toString.call(target)]
+    } else {
+      return type;
+    }
+  },
   deepClone: function (origin) {
     /*
      * @Author: guojufeng@ 
@@ -132,17 +156,53 @@ var xingorg1Utils = {
     // 循环原数组时，将数组的值当做对象的键，且对应值为true（/1皆可），
     // 然后每次拿原数组的下一个值都去判断一下对象中是否有这个值，
     // 没有再push到新数组中去，最后返回新数组。
-    var obj = {},
-      newArr = [];
-    obj[arr[0]] = true;
-    newArr.push(arr[0]);
-    arr.forEach((element) => {
-      if (!obj[element]) {
-        obj[element] = true;
-        newArr.push(element);
-      }
-    });
-    return newArr;
+    /* 容错： */
+    // 不是arr
+    // 伪数组
+    if (Object.prototype.toString.call(arr) == '[object Array]') {
+      var arr = Array.prototype.slice.call(arr),
+        obj = {},
+        resultArr = [];
+      arr.forEach(el => {
+        if (!obj[el]) {
+          obj[el] = true;
+          resultArr.push(el)
+        }
+      });
+      return resultArr;
+    } else {
+      console.log(new Error('请输入一个数组进行去重'))
+      return arr;
+    }
+  },
+  uniqArr2: function (arr) {
+    /* 
+     * @Author: guojufeng@ 
+     * @Date: 2018-12-29 10:28:05
+     * 数组去重
+     * @params {arr}: 要去重的原数组
+     * @return {newArr}: 返回去重后的数组
+     */
+    /* 思路 */
+    // 先排序，然后比较前一个和后一个相等的话就不放进新数组
+    if (Object.prototype.toString.call(arr) == '[object Array]') {
+      arr.sort((a, b) => {
+        return a - b;
+      });
+      var resultArr = [],
+        lastItem = arr[0];
+      resultArr.push(arr[0]);
+      arr.forEach((el) => {
+        if (el !== lastItem) {
+          resultArr.push(el);
+          lastItem = el;
+        }
+      });
+      return resultArr;
+    } else {
+      console.log(new Error('请输入一个数组进行去重'))
+      return arr;
+    }
   },
   xingorgIsNaN: function (n) {
     /* 封装数组中的isNaN方法，原理是先调用Number，看返回值是不是NaN，然后字符串化后和'NaN'对比 */
@@ -270,6 +330,9 @@ var xingorg1Utils = {
 
   },
   loadScript: function (url, callback) {
+    /* 
+      * 非阻塞的js动态脚本 插入
+     */
     var script = document.createElement("script")
     script.type = "text/javascript";
     if (script.readyState) { //IE
@@ -325,11 +388,11 @@ var xingorg1Utils = {
       str = str.toString();
       var strLen,
         count;
-      strLen = count = str.length;//在str的长度基础上
+      strLen = count = str.length; //在str的长度基础上
       for (let s = 0; s < strLen; s++) {
         console.log(str.charAt(i), "长度为：" + str.charCodeAt(i));
         if (str.charCodeAt(s) >= 255)
-          count++;//字节大于1的再给计数器加1.等于1的就不用管了。
+          count++; //字节大于1的再给计数器加1.等于1的就不用管了。
       }
       return count;
     } else {
@@ -341,5 +404,72 @@ var xingorg1Utils = {
       获取的字节长度的基础上，除以2再向上取整即可。（或者四舍五入，反正奇数字节长度都是0.5）
     */
     return Math.ceil(getBytesLen(str) / 2);
+  },
+  getUniqChat: function (str) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2018-12-26 14:31:02 
+     * @Last Modified by: @Guojufeng
+     * @Last Modified time: 2018-12-29 17:50:34
+     * 一个字符串[a-z]组成，请找出该字符串第一个只出现1次的字母5）
+     */
+    var arr = str.split(''),//或者不切割成数组，直接str.length + str.charAt(index)，也能实现数组遍历的效果。
+      len = arr.length,
+      obj = {},
+      result;
+    console.log(len);
+    for (let i = 0; i < len; i++) {
+      console.log('当前循环：', arr[i]);
+      if (!obj[arr[i]]) { //如果对象中已有，说明对比过且不符合条件，直接不做二次比较
+        for (let j = i + 1; j < len; j++) {
+          console.log('当前比较：', j, arr[j]);
+          if (arr[i] === arr[j]) {
+            /* 判断重复，添加到对象中做个记号 */
+            console.log(arr[i], '重复');
+            obj[arr[i]] = true;
+            result = undefined; //重复了，就把结果清空，给下一位腾位置
+            break;
+          } else {
+            result = arr[i];
+          }
+          if (j == len - 1 && result) {
+            /* 遍历到最后，结果还有值，就是这个值。 */
+            console.log('结果就是', result);
+            return;
+          }
+        }
+      }
+    }
+    console.log(obj);
+    /* 
+      无注释版本:
+      var arr = str.split(''),
+        len = arr.length,
+        obj = {},
+        result;
+      for (let i = 0; i < len; i++) {
+        if (!obj[arr[i]]) {
+          for (let j = i + 1; j < len; j++) {
+            if (arr[i] === arr[j]) {
+              obj[arr[i]] = true;
+              result = undefined;
+              break;
+            } else {
+              result = arr[i];
+            }
+            if (j == len - 1 && result) {
+              return result;
+            }
+          }
+        }
+      }
+     */
+  },
+  uniqStr: function(){
+    /* 
+     *  字符串去重
+     * 
+     */
+    
   }
 }

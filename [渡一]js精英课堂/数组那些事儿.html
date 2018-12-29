@@ -9,6 +9,65 @@
 </head>
 
 <body>
+  <h1>数组去重</h1>
+  <script>
+    var arr = [12, 124, null, null, 38, 23, 38, 21, 'gjf', 38, 12, 124, 112, 'a', 121, 23, 41, 12, 'gif', 'a'];
+    var arr2 = {
+      n: 1,
+      a: 1
+    };
+    // 方法一：存到对象里边，利用obj[key]来比对是否已经包含
+    /* 容错：
+      不是arr
+      伪数组
+    */
+    function gjfUniq(arr) {
+      if (Object.prototype.toString.call(arr) == '[object Array]') {
+        var arr = Array.prototype.slice.call(arr),
+          obj = {},
+          resultArr = [];
+        arr.forEach(el => {
+          if (!obj[el]) {
+            obj[el] = true;
+            resultArr.push(el)
+          }
+        });
+        return resultArr;
+      } else {
+        console.log(new Error('请输入一个数组进行去重'))
+        return arr;
+      }
+    }
+    var result = gjfUniq(arr);
+    var result2 = gjfUniq(arr2);
+
+    console.log(result, '=====去重========')
+    console.log(result2, '=====去重========')
+    // 方法二：先排序，然后比较前一个和后一个相等的话就不放进新数组
+    var arr = [12, 124, null, null, 38, 23, 38, 21, 'gjf', 38, 12, 124, 112, 'a', 121, 23, 41, 12, 'gif', 'a'];
+
+    function gjfUniq2(arr) {
+      if (Object.prototype.toString.call(arr) == '[object Array]') {
+        arr.sort((a, b) => {
+          return a - b;
+        });
+        var resultArr = [],
+          lastItem = arr[0];
+        resultArr.push(arr[0]);
+        arr.forEach((el) => {
+          if (el !== lastItem) {
+            resultArr.push(el);
+            lastItem = el;
+          }
+        });
+        return resultArr;
+      } else {
+        console.log(new Error('请输入一个数组进行去重'))
+        return arr;
+      }
+    }
+    gjfUniq2(arr);
+  </script>
   <h1>请看控制台</h1>
   <ul id="ul">
     <li>1</li>
@@ -39,16 +98,90 @@
   </pre>
   <script src="xingorg1Utils.js"></script>
   <script>
-    window.onload = function(){
+    window.onload = function () {
       console.log(' window.onload')
     }
-    document.onDOMContentLoaded = function(){
+    document.onDOMContentLoaded = function () {
       alert(11)
       console.log('load1');
     }
-    document.addEventListener('DOMContentLoaded',function(){
+    document.addEventListener('DOMContentLoaded', function () {
       console.log('load2');
-    },false)
+    }, false)
+    // 类数组
+    var obj = {
+      "0": "a",
+      "1": "b",
+      "2": "c",
+      "3": "d",
+      "length": 4,
+      "__proto__": Object.prototype,
+      "push": Array.prototype.push,
+      "splice": Array.prototype.splice,
+    }
+
+    var obj = {
+      "2": "a",
+      "3": "b",
+      "length": 2,
+      "push": Array.prototype.push
+    }
+    // 执行：
+    // obj.push('c');
+    // 再执行：
+    // obj.push('d');
+    // 求打印出obj的样子
+    // 第一步， 先执行
+    // Obj[Obj.length] = target;
+    // obj.length++;
+    // 由于length = 2， 所以
+    // 第一步执行结果：
+    // obj = obj = {
+    //   "2": "c", // a -> c
+    //   "3": "b",
+    //   "length": 3, // length++: 2 -> 3
+    //   "push": Array.prototype.push
+    // }
+    // 第二步， 再次执行
+    // Obj[Obj.length] = target;
+    // obj.length++;
+    // 由于length = 3， 所以
+    // 第二步执行结果：
+    // obj = obj = {
+    //   "2": "c",
+    //   "3": "d", // b -> d
+    //   "length": 4, // length++: 3 -> 4
+    //   "push": Array.prototype.push
+    // }
+
+    function getType(target) {
+      var type = typeof (target),
+        template = {
+          "[object Object]": 'object',
+          "[object Array]": 'array',
+          "[object Number]": '[object Number]',
+          "[object Boolean]": '[object Boolean]',
+          "[object String]": '[object String]',
+          "[object Null]": 'null'
+        };
+      if (type == 'object') {
+        return template[Object.prototype.toString.call(target)]
+      } else {
+        return type;
+      }
+    }
+    // uniq('target')
+    // uniq(1)
+    // uniq(true)
+    console.log(uniq(null))
+    // console.log(// uniq(undefined))
+    // console.log(// uniq(function(){}))
+    console.log(uniq([]))
+    console.log(uniq([1, 2]))
+    console.log(uniq({}))
+    console.log(uniq({
+      n: 1
+    }))
   </script>
   <script>
     /* pop */
@@ -151,7 +284,7 @@
         }
       }
       for (let i = 1; i < len; i++) {
-        if (this[i] !== undefined && this[i] !== null) {//对于数组中的空项，不做拼接处理
+        if (this[i] !== undefined && this[i] !== null) { //对于数组中的空项，不做拼接处理
           result += (str + this[i]);
         } else {
           result += str;
@@ -199,22 +332,22 @@
     arr.gjfJoin(function () {});
     arr.gjfJoin(function a() {});
     console.log('======gjfJoin==========')
-    var arr = [1,2,3]
-    Array.prototype.gjfConcat = function(){
-      let arr = [],//因为不能重写原数组，所以新建
-          len = this.length,
-          aLen = arguments.length;
-      for(let i = 0; i < len; i++){
+    var arr = [1, 2, 3]
+    Array.prototype.gjfConcat = function () {
+      let arr = [], //因为不能重写原数组，所以新建
+        len = this.length,
+        aLen = arguments.length;
+      for (let i = 0; i < len; i++) {
         arr.push(this[i]);
       }
-      for(let i = 0; i < aLen; i++){
-        if(Object.prototype.toString.call(arguments[i]) == '[object Array]'){
+      for (let i = 0; i < aLen; i++) {
+        if (Object.prototype.toString.call(arguments[i]) == '[object Array]') {
           // 数组，要展开推入进去：多维数组只展开第一层
           let arrLen = arguments[i].length;
-          for(let j = 0; j < arrLen; j++){
+          for (let j = 0; j < arrLen; j++) {
             arr.push(arguments[i][j]);
           }
-        }else{
+        } else {
           // 非数组，直接push进去连接
           arr.push(arguments[i]);
         }
@@ -223,12 +356,12 @@
     }
     arr.gjfConcat(function () {});
     console.log('======gjfJoin==========');
-    var arr = [1,2,3]
-    Array.prototype.gjfReverse = function(){
+    var arr = [1, 2, 3]
+    Array.prototype.gjfReverse = function () {
       var arr = [],
         len = this.length;
       for (let i = 0; i < len; i++) {
-        arr.push(this[len-1 - i]);//实现倒着push1
+        arr.push(this[len - 1 - i]); //实现倒着push1
       }
       this.length = 0;
       for (let i = 0; i < len; i++) {
@@ -237,12 +370,12 @@
       return arr;
     }
     arr.gjfReverse();
-    var arr = [4,5,6]
-    Array.prototype.gjfReverse2 = function(){
+    var arr = [4, 5, 6]
+    Array.prototype.gjfReverse2 = function () {
       var arr = [],
         len = this.length;
       for (let i = len - 1; i >= 0; i--) {
-        arr.push(this[i]);//实现倒着push2
+        arr.push(this[i]); //实现倒着push2
       }
       this.length = 0;
       for (let i = 0; i < len; i++) {
