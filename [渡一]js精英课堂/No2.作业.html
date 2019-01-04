@@ -9,6 +9,7 @@
 </head>
 
 <body>
+  <h2>click事件的target，this指向window还是自身？——答案是自身</h2>
   <script src="./xingorg1Utils.js"></script>
   <script>
     console.log(xingorg1Utils)
@@ -77,79 +78,18 @@
     console.log((inner.func = inner.func))
     console.log((inner.func = inner.func)()) // 25
 
-    // 一个字符串[a-z]组成，请找出该字符串第一个只出现1次的字母
-    function getUniqChat0(str) {
-      var arr = str.split(''),
-        len = arr.length,
-        obj = {};
-      arr.forEach(el => {
-        if (obj[el]) {
-          obj[el]++;
-        } else {
-          obj['v' + el] = 1;
-        }
-      });
-      console.log(obj);
+    // onclick里边的this指向谁？
+    document.onclick = function(){
+      console.log(this)
     }
-    getUniqChat0('afjdkafdizkjvh');
-    // 方法二，循环依次比较法
-    function getUniqChat(str) {
-      var arr = str.split(''),
-        len = arr.length,
-        obj = {},
-        result;
-      console.log(len);
-      for (let i = 0; i < len; i++) {
-        console.log('当前循环：', arr[i]);
-        if (!obj[arr[i]]) { //如果对象中已有，说明对比过且不符合条件，直接不做二次比较
-          for (let j = i + 1; j < len; j++) {
-            console.log('当前比较：', j, arr[j]);
-            if (arr[i] === arr[j]) {
-              /* 判断重复，添加到对象中做个记号 */
-              console.log(arr[i], '重复');
-              obj[arr[i]] = true;
-              result = undefined; //重复了，就把结果清空，给下一位腾位置
-              break;
-            } else {
-              result = arr[i];
-            }
-            if (j == len - 1 && result) {
-              /* 遍历到最后，结果还有值，就是这个值。 */
-              console.log('结果就是', result);
-              return;
-            }
-          }
-        }
-      }
-      console.log(obj);
+    var h2 = document.getElementsByTagName('h2')[0];
+    h2.onclick = function(){
+      console.log(this)
     }
-
-    function getUniqChat(str) {
-      var arr = str.split(''),
-        len = arr.length,
-        obj = {},
-        result;
-      for (let i = 0; i < len; i++) {
-        if (!obj[arr[i]]) {
-          for (let j = i + 1; j < len; j++) {
-            if (arr[i] === arr[j]) {
-              obj[arr[i]] = true;
-              result = undefined;
-              break;
-            } else {
-              result = arr[i];
-            }
-            if (j == len - 1 && result) {
-              return result;
-            }
-          }
-        }
-      }
-    }
-    var resu = getUniqChat('afjdkafdizkjvh');
-    var resu2 = getUniqChat('afjdkafdjk');
-    console.log('resu', resu)
-    console.log('resu2', resu2)
+    var fruits = ['Apple', 'Banana'];
+    fruits.forEach(function (item, index, array) {
+        console.log(item, index,array);
+    });
   </script>
 </body>
 

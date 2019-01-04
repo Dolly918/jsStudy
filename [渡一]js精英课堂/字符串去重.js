@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2018-12-29 18:11:32 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2018-12-29 19:09:28
+ * @Last Modified time: 2018-12-29 19:48:15
  */
 console.log('======字符串去重======');
 // 1.切割成数组，然后数组去重
@@ -27,8 +27,11 @@ var obj = {
 var name = 'window';
 function test(){
   var name = 'scope';
+  var age = 18;
   with(obj){
     console.log(name)
+    console.log(age)
   }
 }
-test()
+test();
+

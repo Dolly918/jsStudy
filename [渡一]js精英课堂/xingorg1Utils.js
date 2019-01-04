@@ -331,7 +331,7 @@ var xingorg1Utils = {
   },
   loadScript: function (url, callback) {
     /* 
-      * 非阻塞的js动态脚本 插入
+     * 非阻塞的js动态脚本 插入
      */
     var script = document.createElement("script")
     script.type = "text/javascript";
@@ -412,8 +412,9 @@ var xingorg1Utils = {
      * @Last Modified by: @Guojufeng
      * @Last Modified time: 2018-12-29 17:50:34
      * 一个字符串[a-z]组成，请找出该字符串第一个只出现1次的字母5）
+     * 思路，有点类似排序，拿着字符串去跟后边的比较。如果有重复的，停止比较，并拿下一个开始比较。如果比较过得，就放弃比较转换下一位比较。如果比较到结束还是没有想同的就是符合条件的
      */
-    var arr = str.split(''),//或者不切割成数组，直接str.length + str.charAt(index)，也能实现数组遍历的效果。
+    var arr = str.split(''), //或者不切割成数组，直接str.length + str.charAt(index)，也能实现数组遍历的效果。
       len = arr.length,
       obj = {},
       result;
@@ -465,11 +466,197 @@ var xingorg1Utils = {
       }
      */
   },
-  uniqStr: function(){
-    /* 
-     *  字符串去重
-     * 
+  uniqContiStr: function (str) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 09:57:14 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 09:57:14 
+     * 连续的字符串去重
+     * 形如aaaaaaaabbbbbbbbbbbbbbbccccccccccccdde，变成abcde
      */
-    
+    if (typeof (str) === 'string') {
+      var reg = /(\w)\1+/g;
+      return str.replace(reg, '$1');
+    } else {
+      throw new Error('error: 请输入一个字符串参数')
+    }
+  },
+  uniqStr: function (str) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 10:02:12 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 10:02:12 
+     *  字符串去重
+     *  形如annnnbksndadsnasd，变成anbksd
+     */
+    if (typeof (str) === 'string') {
+      var reg = /(\w)\1*/g,
+        arr = str.replace(reg, '$1').match(reg),
+        obj = {},
+        resuStr = '';
+      arr.forEach(el => {
+        if (!obj[el]) {
+          obj[el] = true;
+        }
+      });
+      for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          resuStr += key;
+        }
+      }
+      return resuStr;
+    } else {
+      throw new Error('error: 请输入一个字符串参数')
+    }
+
+  },
+  appointStrNum1: function (str, target) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 10:28:52 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 10:28:52 
+     * 检查字符串中某个特定字符出现的次数（或该字符的个数）
+     * 原理：for循环
+     */
+    if (typeof (str) === 'string') {
+      var len = str.length,
+        count = 0;
+      for (let i = 0; i < len; i++) {
+        if (str[i] === target) {
+          count++
+        }
+      }
+      return count;
+    } else {
+      throw new Error('error: 请输入一个字符串参数');
+    }
+
+    /* 写在原型上
+      String.prototype.getInCludes = function(x){
+        var len = this.length,
+        count = 0;
+        for (let i = 0; i < len; i++) {
+          console.log(this[i]);
+          console.log('------',this.indexOf(x))
+          if(this[i] === x){
+            count++
+          }
+        }
+        return count;
+      }
+    */
+  },
+  appointStrNum2: function (str, target) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 10:28:52 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 10:28:52 
+     * 检查字符串中某个特定字符出现的次数（或该字符的个数）
+     * 原理：split
+     */
+    if (typeof (str) === 'string') {
+      return str.split(target).length - 1;
+    } else {
+      throw new Error('error: 请输入一个字符串参数');
+    }
+    /* 写在原型上：
+      // 判断一个字符串中，指定字符的个数
+      String.prototype.getInCludes = function(x){
+        console.log(this.split(x))
+        return (this.split(x).length - 1)
+      }
+     */
+  },
+  appointStrNum3: function (str, target) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 10:28:52 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 10:28:52 
+     * 检查字符串中某个特定字符出现的次数（或该字符的个数）
+     * 原理：正则 + match
+     */
+    if (typeof (str) === 'string') {
+      var reg = new RegExp(target, 'g');
+      return str.match(reg).length
+    } else {
+      throw new Error('error: 请输入一个字符串参数')
+    }
+  },
+  scienceNote: function (str) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 14:27:08 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 14:27:08 
+     * 科学记数法
+     * 思路：因为要返着遍历，所以利用split将字符串切割成数组，再用数组的reverse方法翻转。遍历使用数组的forEach进行，通过回调函数的el和i参数，判断当i%3==0并且i不为0的时候，就是除了第一位0，其他在3的倍数的位都替换成“,”+el的情况。拼接而成的字符串还是返着的，还需要返回来。再次利用split+reverse。不过这次翻转后结果成了数组。最后利用数组的join传空串，将数组每一项连成字
+     */
+    str = str + '';
+    var arr = str.split('').reverse(), // reverse修改原数组
+      resultStr = '';
+    arr.forEach((el, i) => {
+      if (i % 3 == 0 && i != 0) {
+        resultStr += ',' + el;
+      } else {
+        resultStr += el
+      }
+    })
+    /* 翻转字符串？
+      字符串切割成数组，数组翻转，再粘合成字符串：str.split('').reverse().join('')
+     */
+    return resultStr.split('').reverse().join('');
+    console.log(arr, resultStr, resultStr.split('').reverse().join(''))
+  },
+  scienceNote2: function (str,symb) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 14:27:08 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 14:27:08 
+     * 科学记数法
+     * 思路：归根结底还是要变成数组翻转后，再拼成字符串，通过正则切割成以1-3位分割的样子。因为正则的贪婪匹配，会自动给我们优先分割成三位，最后不够三位的自动组成一起。然后巧妙利用数组join()不传参就是逗号","分割的特点将字符串加上逗号。然后再把字符串切割并翻转过来，然后把带有逗号的数组拼接成我们想要的字符串。
+     * @params {str}: string,要转换的字符串
+     * @params {symb}: string,用什么符号分割， 不传就是“,”分割
+     */
+    str += '';
+    str = str.split('').reverse().join('');
+    var reg = /\d{1,3}/g,
+        arr = str.match(reg);
+    var result = arr.join().split('').reverse().join('');
+    if(symb){
+      symb += '';
+      result = arr.join(symb).split('').reverse().join('');
+    }else{
+      result = arr.join().split('').reverse().join('');
+    }
+    return result;
+  },
+  scienceNote3: function (str,symb) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-03 14:27:08 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-03 14:27:08 
+     * 科学记数法 - 正则
+     * @params {str}: string,要转换的字符串
+     * @params {symb}: string,用什么符号分割， 不传就是“,”分割
+     * 此题先找规律：从后往前查，每三位打一个点。所以我们肯定要匹配一个东西然后换成另一个东西。至于匹配啥替 换啥呢？就是倒着匹配每第三位的空，然后换成'，'号。什么样的“空”？如果匹配后边有三个数的空，就只能匹配一个，但是无论后边有几个数，但是一定有一个规律就是，后边所有的数一定是三的倍数：
+      要达到这个规律，需要下边几个条件
+      1、从后往前查就要以"$"：表示以这个条件结尾。
+      2、三位数字“\d{3}”
+      3、三的倍数位数字“(\d{3})+"
+      4、找空，但是后边是3的倍数位的数字的空，正向预查："?="
+      5、空的前边得是非单词边界，要不然出现下边这样的情况：,100,000
+      最后，根据上边的条件，查到我们的目标“空”,并替换成指定symbol格式：
+     */
+    str += '';
+    symb += '';
+    var reg = /(?=(\B)(\d{3})+$)/g;
+    return str.replace(reg,symb);
   }
 }

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>正则表达式学习笔记</title>
+</head>
+<body>
+  <div class="demo"></div>
+<style>
+.demo{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  background: #eee;
+}
+  
+</style>
+  <div id="target">
+    <span>郭菊锋</span>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <script src="xingorg1Utils.js"></script>
+  <script>
+    // var str = '成哥很帅';
+    // str.length = 3;
+    // console.log(str);
+    // var str = 'aaaaaaadddddddswwwwwwwweeeeewwwwg'
+    // var reg = /(\w)\1*/g;
+    // console.log(str.replace(reg,'$1'))
+    // var name = '222';
+    // var a = {
+    //   name: '111',
+    //   say: function(){
+    //     console.log(1,this);
+    //     console.log(this.name);
+    //   }
+    // }
+    // var fun = a.say;
+    // fun();
+    // a.say();
+    // var b = {
+    //   name: '333',
+    //   say: function(fun){
+    //     console.log(2,this);
+    //     fun();
+    //   }
+    // }
+    // b.say(a.say);
+    // b.say = a.say;
+    // b.say();
+    // var oLi = document.getElementsByTagName('li');
+    // var len = oLi.length;
+    // for (var i = 0; i < len; i++) {
+    //   (function(i){
+    //     oLi[i].addEventListener('click',function(e){
+    //       console.log(i)
+    //     },false)
+    //   })(i)
+    // }
+    // var obj = {
+    //   a: 1,
+    //   b: [1,2,[23,3]],
+    //   c: function(){},
+    //   d: {
+    //     aa: 1,
+    //     bb: 2
+    //   }
+    // }
+    // function deepClone(obj){
+    //   var type = typeof(obj);
+    //   var result;
+    //   if(obj == null){
+    //     return null;
+    //   }
+    //   if(type == 'object'){
+    //     if(Object.prototype.toString.call(obj) == '[object Array]'){
+    //       result = [];
+    //       obj.forEach(function(el){
+    //         result.push(deepClone(el));
+    //       });
+    //     }else{
+    //       result = {};
+    //       for (const key in obj) {
+    //         if (obj.hasOwnProperty(key)) {
+    //           result[key] = deepClone(obj[key]);
+    //         }
+    //       }
+    //     }
+    //   }else if(type == 'function'){
+    //     result = function(){};
+    //     result = obj;
+    //   }else{
+    //     result = obj;
+    //   }
+    //   return result;
+    // }
+    // var newObj = deepClone(obj);
+    // console.log(newObj)
+    // newObj.b[2] = 888;
+    // console.log(obj)
+    // var a = null;
+    // var b = deepClone(a)
+    // console.log(b)
+    // -------------  以上 - 开班考试题
+    // function getDom(target,callback){
+    //   callback(target);
+    //   var list = target.children,
+    //      len = list.length;
+    //   for (let i = 0; i < len; i++) {
+    //     getDom(list[i],callback)
+    //   }
+    // }
+    // getDom(target,function(el){
+    //   console.log("当前访问",el)
+    // })
+    // if(" " == !!" "){
+    //   console.log(1);
+    // }else{
+    //   console.log(2," ",!!" ");
+    // }
+    // if(true == !!" "){
+    //   console.log(1);
+    // }else{
+    //   console.log(2," ",!!" ");
+    // }
+    // // ([][[]]+[])[+!![]]+([]+{})[!+[]+!![]] 
+    // // (!(~+[])+{})[--[~+""][+[]]*[~+[]] + ~~!+[]]+({}+[])[[~!+[]]*~+[]]
+    // if(0){
+    //   console.log("" == true)
+    // }
+    // if(" "){
+    //   console.log("" == true)
+    // }
+    // console.log('字符串换行符\\n：', "zifuc\nhuan")
+    // console.log('回车符\\r：', "zifuc\rhuan")
+    // console.log('正经回车符\\r\\n：', "zifuc\r\nhuan")
+    // console.log('制表符\\t：', "zifuc\thuan")
+    // console.log('垂直制表符\\v：', "zifuc\vhuan")
+    // console.log('换页符\\f：', "zifuc\fhuan")
+    // document.write('字符串换行符\\n：', "zifuc\nhuan</br>")
+    // document.write('回车符\\r：', "zifuc\rhuan</br>")
+    // document.write('正经回车符\\r\\n：', "zifuc\r\nhuan</br>")
+    // document.write('制表符\\t：', "zifuc\thuan</br>")
+    // document.write('垂直制表符\\v：', "zifuc\vhuan</br>")
+    // document.write('换页符\\f：', "zifuc\fhuan</br>");
+    // var str = 'absdewet';
+    // var reg = /sD/ig;
+    // console.log(str.match(reg))
+    // var str1 = '15127145529';
+    // var reg = /^1[34578]\d{9}$/g
+    // console.log(reg.test(str1))
+    // var str2 = '15127w-2-12145529';
+    // var reg2 = /[-]/g
+    // console.log('表达式中匹配中横线', str2.match(reg2))
+    // var str3 = 'abc2de';
+    // var reg3 = /[\w][\d][de]/g
+    // console.log('表达式中匹配中横线', str3.match(reg3))
+    // str4 = "abc23bcd12"
+    // reg4 = /(abc|bcd)[\w]{2}/g
+    // console.log(str4.match(reg4))
+
+    // str6 = "abc23bcd"
+    // reg6 = /(^ab)/g
+    // console.log(str6.match(reg6))
+
+
+    // str7 = "%ab3_w￥e2"
+    // reg7 = /[\w]/g
+    // console.log(str7.match(reg7))
+    // str8 = "%ab3_w￥e2"
+    // reg8 = /[\W]/g
+    // console.log(str8.match(reg8))
+    // str9 = "%ab3_w￥e2"
+    // reg9 = /[\d]/g
+    // console.log(str9.match(reg9))
+    // str10 = "%ab3_w￥e2"
+    // reg10 = /[\D]/g
+    // console.log(str10.match(reg10))
+    // str11 = "%ab3_w-22-2.323.34￥e2"
+    // reg11 = /\d-\d/g
+    // console.log(str11.match(reg11))
+    // str12 = "4.114125wef"
+    // reg12 = /^\d\.\d+/g
+    // console.log(str12.match(reg12))
+
+    // str13 = "1 2\n3\t4\f5\r6\v7\r\n8"
+    // reg13 = /\s/g
+    // console.log(str13.match(reg13))
+    // str14 = "1 2\n3\t4\f5\r6\v7"
+    // reg14 = /\S/g
+    // console.log(str14.match(reg14))
+    // str15 = "1 248"
+    // reg15 = /\b\w/g
+    // console.log('\\b', str15.match(reg15))
+    // str16 = "1 2438"
+    // reg16 = /\B\w/g
+    // reg1602 = /\B\w\B/g
+    // console.log('\\B', str16.match(reg16))
+    // console.log('\\B', str16.match(reg1602))
+    // str17 = "1  我的左边是按了一下键盘上的制表符"
+    // reg17 = /\t/g
+    // console.log('\\t', str17.match(reg17))
+    // str18 = '郭菊锋2019要加油！！！';
+    // reg18 = /\u90ed\u83ca\u950b\u0032\u0030\u0031\u0039\u8981\u52a0\u6cb9\uff01\uff01\uff01/g;
+    // console.log(str18.match(reg18))
+    // str1802 = '2019郭菊锋加油！！';
+    // reg1802 = /2019郭菊锋加油！！/g;
+    // console.log(str1802.match(reg1802))
+
+
+    // str19 = '2019\v3郭菊锋d s\t加油！\f';
+    // reg19 = /./g;
+    // console.log(str19.match(reg19))
+    // // 量词
+    // strL1 = 'ab_ds23￥d';
+    // regL1 = /\w+/g;
+    // console.log(strL1.match(regL1))
+
+    // strL2 = 'ab_ds23￥d';
+    // regL2 = /\w*/g;
+    // console.log(strL2.match(regL2))
+    // strL202 = 'absd';
+    // regL202 = /\d*/g;
+    // console.log(strL202.match(regL202))
+    // strL3 = 'ab_ds23￥d';
+    // regL3 = /\w?/g;
+    // console.log(strL3.match(regL3))
+    // strL4 = 'abcdefgh';
+    // regL4 = /\w{3}/g;
+    // console.log(strL4.match(regL4))
+    // strL5 = 'abcdefgh3';
+    // regL5 = /\w{3,5}/g;
+    // console.log(strL5.match(regL5))
+    // strL502 = '123456789';
+    // regL502 = /\w{2,4}/g;
+    // console.log(strL502.match(regL502))
+
+    // strL6 = '1\.123456789';
+    // regL6 = /\w{2,}/g;
+    // console.log(strL6.match(regL6))
+    // strL7 = '$a$ab$ab$ab$';
+    // regL7 = /a+/g;
+    // console.log(strL7.match(regL7))
+
+    // strQ1 = 'afa\nafe afe eaf';
+    // regQ1 = /^af+/;
+    // console.log(strQ1.match(regQ1))
+    // strQ2 = 'afa\nafe afe eaf';
+    // regQ2 = /af$/;
+    // console.log(strQ2.match(regQ2))
+    // reg = /a/g,
+    // str = 'aarqwrweeewqwaaweraaaaweweaaweweaaeeeeee';
+    // console.log(str.match(reg),str.match(reg).length);
+    // reg = /^\d(\s|\S)+\d$/g,
+    // str = '1aarqee2';
+    // console.log(reg.test(str));
+    // var str = 'ababab';
+    // var reg = /ab/g
+    // console.log(reg.lastIndex,'不中断-第一次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第二次打印',reg.exec(str))
+    // console.log('lastIndex来捣乱：')
+    // reg.lastIndex = 0;
+    // console.log('捣乱完毕后的现象：')
+    // console.log(reg.lastIndex,'不中断-第三次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第四次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第五次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第六次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第七次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'不中断-第八次打印',reg.exec(str))
+    // console.log(reg.lastIndex,'找以上的规律');
+    // var reg1 = /(\w)(\w)\2\1/g;
+    // var reg = /(\d)/g;
+    // var str = 'aabb23wwqq323edde';
+    // console.log('replace:',str.replace(reg,reg1))
+    // console.log('replace:',str.replace('dd','锋'))
+    // console.log('replace:',str.replace(reg,'锋'))
+    // console.log('split:',str.split(reg))
+    // console.log(str.search(reg))
+    // console.log('match:',str.match(reg))
+    // console.log('exec:',reg.exec(str))
+    // var str = 'xxyy';
+    // var reg = /(\w)\1(\w)\2/g;
+    // console.log('$2$2$1$1：', str.replace(reg, '$2$2$1$1'))
+    // console.log('$2$2-$1$1：', str.replace(reg, '$2$2-$1$1'))
+    // console.log('回调：', str.replace(reg, function (a, b, c) {
+    //   console.log(arguments)
+    //   return (c + c).toUpperCase() + '-' + (b + b).toUpperCase();
+    // }))
+    // var str2 = 'xyexye';
+    // var reg2 = /(\w)(\w)(\w)\1\2\3/g;
+    // console.log('222', str2.replace(reg2, function (a, b, c, d) {
+    //   console.log(arguments, a)
+    //   // 配合字符串的转换大小写等方法，可以自由发挥
+    //   return (c + c + c + c).toUpperCase()
+    // }))
+
+    // String.prototype.smallHump = function (str) {
+
+    // }
+    // str.smallHump(str)
+    // var str = 'the-first-child';
+    // var reg = /[^-]+/g;
+    // // console.log(str.match(reg));
+    // var arr = str.match(reg);
+    // var result = '';
+    // arr.forEach((el,i)=>{
+    //   if(i>0){
+    //     el = el.charAt(0).toUpperCase() + el.substring(1)
+    //   }
+    //   console.log(el)
+    //   result+=el
+    // })
+    // console.log(result)
+    // str = 'the-first-child';
+    // var reg1 = /-(\w)/g;
+    // console.log('变为空：',str.replace(reg1,''))
+    // console.log('变为空格：',str.replace(reg1,' '))
+    // console.log('变为_：',str.replace(reg1,'_'))
+    // console.log('变为第一个表达式：',str.replace(reg1,'$1'))
+    // console.log('变为去掉中横线：',str.replace(reg1,' $1'))
+    // console.log('变为第一个表达式的大写形式：',str.replace(reg1,function($,$1){
+    //   console.log(arguments)
+    //   return $1.toUpperCase();
+    // }))
+    // 正向预查
+    // var str = 'aaabaea';
+    // var reg = /a(?=b)/;
+    // var reg1 = /a(?!b)/g;
+    // console.log(str.match(reg))
+    // console.log(str.match(reg1))
+    // 贪婪匹配
+    // var str = 'aaabaaeaaaa';
+    // var reg = /a{2,5}/g;
+    // console.log(str.match(reg))
+    // // 非贪婪匹配
+    // var reg1 = /a{2,5}?/g;
+    // console.log(str.match(reg1))
+
+    // var str = 'aaabaaeaaaa';
+    // var reg2 = /a??/g; //同 /a*?/g 的结果
+    // console.log(str.match(reg2))
+
+    // var str = 'aa?abaaeaaaa';
+    // var reg3 = /\?/g;
+    // console.log(str.match(reg3))
+    // // 连续字符串去重
+    // var str = 'aaaaaaaabbbbbbbbbbbbbbbccccccccccccdde';
+    // var reg = /(\w)\1+/g
+    // console.log("str变成abc看效果：", str.match(reg));
+    // console.log("str变成abc的结果：", str.replace(reg, '$1'));
+    // var str1 = 'aaaaaaaabbbbbbbbbbbbbbbccccccccccccdde';
+    // var reg1 = /(\w)\1*/g
+    // console.log("str变成abc看效果：", str1.match(reg1));
+    // console.log("str变成abc的结果：", str1.replace(reg1, '$1'));
+    // // 非连续字符串去重
+    // var str = 'annnnbksndadsnasd';
+    // var reg = /(\w)\1*/g
+    // console.log("str变成abc看效果：", str.match(reg));
+    // console.log("str变成abc的结果：", str.replace(reg, '$1')); //anbksndadsnasd
+    // var newStr = str.replace(reg, '$1');
+    // console.log(newStr.split(''))
+    // var arr1 = newStr.split(''); //或者用match方法，复用正则切割：
+    // var arr2 = newStr.match(reg);
+    // console.log(arr1, arr2);
+    // var obj = {};
+    // arr2.forEach(el => {
+    //   if (!obj[el]) {
+    //     obj[el] = true;
+    //   }
+    // });
+    // console.log(obj);
+    // var resuStr = '';
+    // for (const key in obj) {
+    //   if (obj.hasOwnProperty(key)) {
+    //     resuStr += key;
+    //   }
+    // }
+    // console.log(resuStr);
+    // console.log(xingorg1Utils.uniqContiStr('aaaaavvvvvvvaaaaabbbbbbbbbbbbccccccccccddddddeeeee'))
+    // console.log(xingorg1Utils.uniqStr('annnnbksndadsnasd'))
+    // console.log('num2',xingorg1Utils.appointStrNum2('annnnbksndadsnasd','a'))
+    // console.log('num3',xingorg1Utils.appointStrNum3('annnnbksndadsnasd','a'))
+    // console.log('num1',xingorg1Utils.appointStrNum1('annnnbksndadsnasd','a'))
+    // var reg = /^\d|\d&/g,
+    //   str = '12';
+    // console.log(reg.test(str));
+    // var reg = /^\d(\s|\S)*\d$/g,
+    //   str = '21';
+    // console.log(reg.test(str));
+
+    // var reg = /a/g,
+    // str = 'aarqwrweeewqwaaweraaaaweweaaweweaaeeeeee';
+    // console.log(str.match(reg),str.match(reg).length);
+    // console.log('++++++++++++++++++')
+    // function testRandom(){
+    //   for (let i = 0; i < 100000; i++) {
+    //     var m = Math.random();
+    //     if(m == 0){
+    //       console.log('出现一次0')
+    //     }else if(m == 1){
+    //       console.log('出现一次1')
+    //     }
+    //   }
+    //   console.log("检测Math Random")
+    // }
+    // setInterval(testRandom,3000);
+    // testRandom();
+    //  给数字科学计数法
+    // 方法1，最笨的：
+    // var str = '10000000000';
+    // var arr = str.split('').reverse();
+    // // reverse修改原数组
+    // var resultStr = '';
+    // arr.forEach((el, i) => {
+    //   if (i % 3 == 0 && i != 0) {
+    //     resultStr += ',' + el;
+    //   } else {
+    //     resultStr += el
+    //   }
+    // })
+    /* 翻转字符串？
+      字符串切割成数组，数组翻转，再粘合成字符串：str.split('').reverse().join('')
+     */
+    // console.log(arr, resultStr, resultStr.split('').reverse().join(''))
+    // // var reg = //g;
+    // // console.log()
+    // console.log('给数字科学计数法scienceNote',xingorg1Utils.scienceNote(2345647623000))
+    // // 方法2，既然需要替换，使用正则和replace可以否
+    // // 问题是怎么翻过来？这么直接用正则取不到啊：
+    // var reg = /\d{1,3}/g;
+    // console.log(str.match(reg))
+    // // 目前学到的翻转只有reverse，只能是切割反转了，但是替换的时候可以不用数组：
+    // var str = '10000000000'.split('').reverse().join('');
+    // var reg = /\d{1,3}/g;
+    // var arr = str.match(reg);
+    // var result = arr.join().split('').reverse().join('');
+    // console.log(str,'\n', arr,'\n', result)
+    // console.log('给数字科学计数法scienceNote',xingorg1Utils.scienceNote2(2345647623000))
+    // console.log('给数字科学计数法scienceNote',xingorg1Utils.scienceNote2(2345647623000,'.'))
+    // console.log('给数字科学计数法scienceNote3',xingorg1Utils.scienceNote3(2345647623000,'-'))
+    // // 方法三，遍历字符串并且字符串replace替换方法
+    // var str = '100000000000';
+    // var result = '';
+    // for (let index = str.length - 1; index >= 0; index--) {
+    //   // 倒着遍历就是翻转啊~
+    //   result += str.charAt(index)
+    //   if(index % 3 == 0 && index != 0){
+    //     result += ','
+    //   }
+    //   console.log(result,str.charAt(index))
+    // }
+    // var str = '1000000000000';
+    // var reg = /(?=(\B)(\d{3})+$)/g;
+    // console.log(str.match(reg))
+    // console.log(str.replace(reg,','))
+    // var result = '';
+
+    // console.log(result)
+    // function testReg(reg,str){ 
+    // return reg.test(str); 
+    // } 
+    // var reg = /^[a-zA-Z][\.a-zA-Z\s,0-9]*?[a-zA-Z]+$/; 
+    // var str = 'No.8,ChangAn Street,BeiJing,China'; 
+    // var str2 = '8.No,ChangAn Street,BeiJing,China'; 
+    // var str3 = 'No.8,ChangAn Street,BeiJing,China88'; 
+    // console.log(testReg(reg,str)+'<br />') 
+    // console.log(testReg(reg,str2)+'<br />') 
+    // console.log(testReg(reg,str3)+'<br />') 
+
+    console.log('表达式实战')
+
+    // 拿出结尾的数字
+    var str = '2019xing.org1^888';
+    var reg = /\d+$/g;
+    console.log(str.match(reg));
+    /* \d匹配一个数字，+匹配一个或多个数字，$要求这个数字是结尾 */
+
+    // 判断一个字符串是不是纯数字组成
+    var str = '1';
+    var str = '1015';
+    var str1 = 'padding1015';
+    var reg = /^\d+$/g;
+    console.log(str.match(reg));
+    console.log(str1.match(reg));
+    console.log(reg.test(str), reg.test(str1));
+    /* 首先必须是数字开头^\d，然后中间应该是1到多个数字\d+，最后需要数字结尾\d$,合并三条条件后得到如上： */
+
+    // 电话号验证 
+    var str = '010-1234-5678'
+    var reg = /^\d{3}-\d{4}-\d{4}$/g;
+    console.log(str.match(reg));
+    console.log('是否正确电话号？', reg.test(str));
+    /* 010-1234-5678 || 400-8888-8898 这种，找规律：数字分三段，第一段三位纯数字，后两段四位纯数字，中间两个横线分割。开头结尾都是数字。*/
+
+    // 手机号正则
+    var str = '15127145529';
+    var str = '151271455292';
+    var str = '151271e45529';
+    var str = '11111111111';
+    var reg = /^1[345678]\d{9}$/g;
+    console.log(str.match(reg));
+    console.log('是否正确手机号？', reg.test(str));
+    /* 首先必须是纯数字，^\d$,然后第一位开头应该是1（按照现有市面上的规律），其次中间第二位按照我的眼界，只见过这几位数字的[345678]，所以设个区间任选其一。后边9位纯数字即可\d{9}，且应该数字结尾$。结合如上： */
+
+    // 统一空格个数
+    var str = '2019 guo    ju  feng 8   8 8 ';
+    var reg = /(\s)+/g;
+    console.log(str, str.match(reg));
+    console.log(str.replace(reg, ' '));
+    /* \s匹配一个空格，+匹配1到多个，()形成子表达式，记住每次匹配到的内容（打印出来就是str.match(reg)的数组结果项），然后把这些都在字符串中替换成一个空格。replace执行多次，match找到多少项、换句话说，match结果的数组长度是几，replace的函数就被调用了几次。然后把第一个参数reg匹配到的内容全部同一替换成第二个内容中的空格符号。 */
+    /* 删除字符串中的空格 - 系列 */
+    // 删除首尾空格
+    var str = '  2019 guo    ju  feng 8   8 8  ';
+    var reg = /^\s* | \s*$/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg, '-')); //这里应该换成空串，但是看不明显我就换成-了
+    console.log(str.replace(reg, '')); //这里应该换成空串，但是看不明显我就换成-了
+    console.log('删除首尾空格', str)
+    /* 匹配首有空格或者尾有空格，因为是全局g匹配，从左开始扫描字符串的时候，首有空格条件就会成立，下一轮检测到尾有空格时，条件也会成立。因此就会把首尾的空格都匹配上，replace替换成空串（替换的理念，就是你想换成什么就换成什么了） */
+    // 删除中间空格
+    var str = '2019 guo    ju  feng 8   8 8 '; //两头没空格
+    var str = '  2019guoju   feng888 '; //两头有空格
+    var reg = /^\s+/g; //先选出头部的空格
+    var reg = /\s+$/g; //再选出尾部的空格
+    var reg = /^\s* | \s*$/g; //同时选中首尾（见上边）
+    var reg = /^[^\s*]| ^[\s*$]/g; //取反，不取两边是成功了，但是中间的也取不上【失败】
+    // 转换思路，不从首尾^$上下手，而是正向预查，找两边都有内容的空格不就行了
+    var reg = / +/g; //选中所有的一个或多个空格
+    var reg = / +(?=\w)/g; //选中后边有字符的一个或多个空格
+    var reg = /(?=\w) +(?=\w)/g; //选中前后都有字符的一个或多个空格【失败】
+    // 所谓正向预查，这样才可以：
+    var reg = /o(?=j)/g;
+    // 放前边就选不到东西了
+    var reg = /(?=u)o/g;
+    // 再换思路，结尾的空格用正向预查，开头的用取反，查找那些不是空格开头、且后边有字符链接的多个空格
+    var reg = /^[^\s*]/g; //排除开头的空格
+    // 再再换思路 - 字符边界
+    var reg = /\b\s+\b/g; //选择左右都是单词边界的一个或多个空白字符
+    // var reg = /^[^\s]\s+^[\s$]/g;
+    console.log(str.match(reg));
+    console.log(111, str.replace(reg, ''), str);
+
+    // 删除所有空格
+    var str = '  2019 guo    ju  feng 8   8 8   ';
+    var reg = /\s+/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg, ''))
+    // 非负数、小数点后最多两位
+    var str = '-23.3';
+    var str = '0.32';
+    var str = '130.32';
+    var str = '23.3233';
+    var str = '0.2';
+    var str = '0';
+    var str = '0.0';//0.0居然也可以
+    var str = '0.00';//0.0居然也可以
+    var str = '0000000';//对于0000和0这种情况，再写一个正则匹配
+    var str = '1111';
+    var str = '130.43';
+    var str = '130';
+    var reg = /((^\d*\.?\d{1,2}$)|^\d*$)/g;
+    // var reg = /^\d*(\.)?\d{0,2}$/g;
+    console.log(str.match(reg));
+    console.log("是否正确：", reg.test(str));
+    if(str.match(reg)){
+      var newReg = /^[0]*(\.)?[0]*$/g;
+      console.log(str.match(newReg));
+      console.log("是否不符合第二个条件，如果true就是错的", newReg.test(str));
+    }
+    //限制输入框只能输入数字和小数点
+    var str = '23kj3k23'
+    var str = '23kj.3k23'
+    var str = '23.2sd3'
+    var str = '2323'
+    var str = '23.23'
+    var str = '.23'
+    var str = '0.'
+    var str = '2'
+    var reg = /^\d+\.?\d+$|^\d*$/g;
+    console.log(str.match(reg),reg.test(str));
+    /* 匹配数字开头，必须1到多个数字，中间点可以0到1个，之后是数字必须1-多个^\d+\.?\d+$ 
+      问题是一个字符的纯数字就不行了，所以加个或，匹配一个数字的时候/^\d+\.?\d+$|^\d*$/g;*/
+    // 替换小数点前的内容为指定内容
+    var str = '23.34';
+    var reg = /\w+(?=\.)/g
+    console.log(str.match(reg))
+    console.log(str.replace(reg,'@'))
+    /* 利用正向预查，匹配小数点前边的字符，查到这些字符直接replace */
+    // 替换指定符号（或单词）为指定内容（比如把小数点替换为逗号）
+    var str = 'fkafdaeoaefhaksdfjkafjd';
+    var reg = /a/g;//随心情，将a字符换成@
+    console.log(str.replace(reg,'@'));
+    /* 很随意很心不在焉的解释 */
+    // 只匹配中文的正则表达式子
+    var str = '郭菊锋'
+    var str = '2郭0菊1锋9'
+    var str = '郭菊xing.org锋'
+    var reg = /^[\u4e00-\u9fa5]*$/g;
+    console.log(str.match(reg));
+    // 把字符串中的汉字调出来
+    var str = '2郭0菊1锋9xi加ng.o油rg';
+    var reg = /[\u4e00-\u9fa5]+/g;
+    console.log(str.match(reg));
+    
+    // 返回字符串的中文字符个数
+    
+  </script>
+</body>
+
+</html>
