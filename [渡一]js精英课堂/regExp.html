@@ -7,21 +7,21 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>正则表达式学习笔记</title>
 </head>
+
 <body>
   <div class="demo"></div>
-<style>
-.demo{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 300px;
-  height: 300px;
-  margin: 0 auto;
-  background: #eee;
-}
-  
-</style>
+  <style>
+    .demo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      margin: 0 auto;
+      background: #eee;
+    }
+  </style>
   <div id="target">
     <span>郭菊锋</span>
     <ul>
@@ -556,16 +556,16 @@
     var reg = /\s+/g;
     console.log(str.match(reg))
     console.log(str.replace(reg, ''))
-    // 非负数、小数点后最多两位
+    // 非负数、小数点后最多两位 - 正则匹配价格
     var str = '-23.3';
     var str = '0.32';
     var str = '130.32';
     var str = '23.3233';
     var str = '0.2';
     var str = '0';
-    var str = '0.0';//0.0居然也可以
-    var str = '0.00';//0.0居然也可以
-    var str = '0000000';//对于0000和0这种情况，再写一个正则匹配
+    var str = '0.0'; //0.0居然也可以
+    var str = '0.00'; //0.0居然也可以
+    var str = '0000000'; //对于0000和0这种情况，再写一个正则匹配
     var str = '1111';
     var str = '130.43';
     var str = '130';
@@ -573,12 +573,12 @@
     // var reg = /^\d*(\.)?\d{0,2}$/g;
     console.log(str.match(reg));
     console.log("是否正确：", reg.test(str));
-    if(str.match(reg)){
+    if (str.match(reg)) {
       var newReg = /^[0]*(\.)?[0]*$/g;
       console.log(str.match(newReg));
       console.log("是否不符合第二个条件，如果true就是错的", newReg.test(str));
     }
-    //限制输入框只能输入数字和小数点
+    //限制输入框只能输入数字和小数点数（这个适合价格input填）
     var str = '23kj3k23'
     var str = '23kj.3k23'
     var str = '23.2sd3'
@@ -588,19 +588,19 @@
     var str = '0.'
     var str = '2'
     var reg = /^\d+\.?\d+$|^\d*$/g;
-    console.log(str.match(reg),reg.test(str));
+    console.log(str.match(reg), reg.test(str));
     /* 匹配数字开头，必须1到多个数字，中间点可以0到1个，之后是数字必须1-多个^\d+\.?\d+$ 
       问题是一个字符的纯数字就不行了，所以加个或，匹配一个数字的时候/^\d+\.?\d+$|^\d*$/g;*/
     // 替换小数点前的内容为指定内容
     var str = '23.34';
     var reg = /\w+(?=\.)/g
     console.log(str.match(reg))
-    console.log(str.replace(reg,'@'))
+    console.log(str.replace(reg, '@'))
     /* 利用正向预查，匹配小数点前边的字符，查到这些字符直接replace */
     // 替换指定符号（或单词）为指定内容（比如把小数点替换为逗号）
     var str = 'fkafdaeoaefhaksdfjkafjd';
-    var reg = /a/g;//随心情，将a字符换成@
-    console.log(str.replace(reg,'@'));
+    var reg = /a/g; //随心情，将a字符换成@
+    console.log(str.replace(reg, '@'));
     /* 很随意很心不在焉的解释 */
     // 只匹配中文的正则表达式子
     var str = '郭菊锋'
@@ -608,13 +608,123 @@
     var str = '郭菊xing.org锋'
     var reg = /^[\u4e00-\u9fa5]*$/g;
     console.log(str.match(reg));
+    /* 汉字的区间写在中括号中。必须是以中文开头、以中文结尾，且中间有0-多个中文 */
+    // 表单验证 - 只支持中文或者字母
+    var str = "郭菊锋"
+    // var str = "xing.org1"
+    var str = "xingorg"
+    var reg = /^([A-z]|[\u4e00-\u9fa5])+$/g;
+    console.log('中文或字母名字：', str.match(reg));
+    // 表单验证 - 用户名正则（中、英、数字、下划线、4-16位
+    var str = 'gjf2018' //正常
+    // var str = 'gjf.2018'//包含特殊字符
+    // var str = 'gjf郭菊锋_18'//包含下划线正常
+    // var str = 'gjfxingorg1郭菊锋19888'//超出16位
+    var str = 'gjf' //不够4位
+    var reg = /^(\w|[\u4e00-\u9fa5]){4,16}$/g;
+    console.log(str.match(reg));
+    console.log('用户名是否符合条件？', reg.test(str));
+    var str = 'Aa_1'
+    var reg = /\w+/g
+    console.log(str.match(reg))
+    /* 匹配中文或者字符（\w自己就是字母、数字和下划线了）4-16位,开头或结尾， */
     // 把字符串中的汉字调出来
-    var str = '2郭0菊1锋9xi加ng.o油rg';
+    var str = '2郭0菊1锋9xi加ng.o油啊rg';
     var reg = /[\u4e00-\u9fa5]+/g;
     console.log(str.match(reg));
-    
+    /* 中文1到多个，这样匹配，如果中文是连在一起的也是直接将连在一起的取出来 */
     // 返回字符串的中文字符个数
+    var str = '2郭0菊1锋9xi加ng.o油啊rg';
+    var reg = /[\u4e00-\u9fa5]/g;
+    console.log(str.match(reg));
+    /* 因是要计算个数，所以不能匹配出来的文字是连着的，所以每次只匹配一个汉字， */
+    // 匹配ip地址的前三段
+    var str = '198.121.001.88';
+    // var str = '198.121.002.0';
+    // var str = '198.121.003.883';
+    // 三种思路，
+    // 第一是根据.直接取出前三个
+    var reg = /(\d{1,3})(?=\.)/g;
+    console.log(str.match(reg));
+    var result = str.match(reg).join('.');
+    console.log(result)
+    /* 结果不尽人意，最后一段匹配出来的是一个点，后来改成直接取出前三段的数字，然后join('.')成一个字符串也可以 */
+    // 第二是将最后一段替换成空
+    var reg = /\.\d{1,3}$/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg, ''))
+    /* 取出最后一段，规律是点后边跟着1-3个数字，并且数字是结尾的。然后将其替换成空串 */
+    // 第三种，我自己想的办法，利用正向预查：
+    var reg = /^\S+(?=\.\d{1,3}$)/g;
+    console.log(str.match(reg));
+    /* 正向预查，后边跟着.123的字符。一开始我选择的\w+(正向预查)，但是发现选不中.，于是改成非空白字符 */
+    // 匹配<ul></ul>内部的内容
+    var str = '<ul><li>1</li><li>2</li><li>3</li></ul>'
+    // var reg = /[<ul>-</ul>]/g;
+    /* 难点在于，怎么匹配标签？上边这么写，直接报错 */
+    var reg = /<ul>[\s\S]+?<\/ul>/ig;
+    console.log(str.match(reg));
+    /* 变态 */
+    // 用正则表达式获取文件名 
+    var str = 'G:/999git/jsStudy/base64/images/demo.jpg';
+    var str = 'G:/999git/jsStudy/base64/images/示例.jpg';
+    var str = 'G:/999git/images/示例demo.jpg';
+    var reg = /[^\\\/]*[\\\/]+/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg, ''))
+    /* 思路是获取每一段的路径，然后将他们都替换成空串 */
+    // 获取文件后缀
+    var reg = /\.\w+$/g;
+    console.log(str.match(reg));
+    /* 获取点后的所有字符 */
+    // 如果想要没有点的后缀
+    var reg = /\w+$/gi
+    console.log(str.match(reg))
+    /* 获取一到多个字母， 因为.和\和/这些都不包含在\w中，所以直接使用了。*/
+
+    // 去掉文件后缀，只获取文件名字
+    var reg = /\w+(?=\.)/gi; //匹配纯英文（字母）名字
+    var reg = /(\w+|[\u4e00-\u9fa5]+)(?=\.)/gi; //匹配中文或者字母名字
+    var reg = /(\w|[\u4e00-\u9fa5])+(?=\.)/gi; //匹配中英混合的名字
+    console.log(str.match(reg));
+    /* 正向预查，后边跟着点的那一段单词，后来考虑到中文字符，改成或者中文的情况 */
+    // 绝对路径换成相对路径 G:/999git/images/示例demo.jpg -> ../../images/示例demo.jpg
+    var reg = /[^\\\/]*[\\\/]+/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg, '../'))
+    /* [^\\\/]*表示非/或\的字符0到多个，后边[\\\/]+至少1到多个非/或\字符，匹配出来的就是路径名字了，最后再替换成../即可 */
+    // 【不会】配英文地址
+    var str = 'No.8,ChangAn Street,BeiJing,China';
+    var reg = /[A-z]+\.[0-9]+|[A-z]+/g;
+    var reg = /^[A-z][\.\s,A-z0-9]*?[A-z]$/g;
+    console.log(str.match(reg));
+    /* 匹配开头结尾都是字母，中间可能是逗号点数字和字母组成的0到多个串，非贪婪匹配 */
+    // 身份证号 
+    var str = '120145123012123433'; //【瞎编的身份证号，如有雷同，那就是缘分】
+    var str1 = '12014512301212343x'; //【瞎编的身份证号，如有雷同，那就是缘分】
+    var str2 = '120145123012123433x'; //【瞎编的身份证号，如有雷同，那就是缘分】
+    var reg = /^\d{17}[\dx]$/g;
+    var reg = /^(\d{14}|\d{17})(\d|[xX])$/g; //优化
+    console.log(str2.match(reg))
+    console.log(str1.match(reg))
+    console.log(str.match(reg))
+    /* 匹配18位数字或者17位数字+一位x，优化后包括15位的身份证号和末尾包含大写X的号码 */
+    // 要求文本有指定行数(比如两行)
+    var str = 'jkajflaj\r\nalkdfjladfjl';
+    var reg = /\S+(?=[^.]$)/g; //匹配非空字符，正向预查后边有换行符的非空字符。因为.是除了换行和行结束符以外的符号，所以匹配非.
+
+    console.log(str.match(reg))
+    /* 思路，行数从正则里匹配，就只能匹配换行符。且单纯换行还不行，即每一行必须有文字 */
     
+
+
+
+
+
+
+
+
+    console.log('\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n')
   </script>
 </body>
 
