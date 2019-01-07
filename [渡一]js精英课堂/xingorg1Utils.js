@@ -92,7 +92,7 @@ var xingorg1Utils = {
       /* 对象 */
       target = {};
       for (const key in origin) {
-        if (origin.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(origin,key)) {
           /* 注意，只拷贝元素身上的，而不拷贝其原型上的值 */
           const el = origin[key];
           target[key] = this.deepClone(el);
@@ -502,7 +502,7 @@ var xingorg1Utils = {
         }
       });
       for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(obj,key)) {
           resuStr += key;
         }
       }
