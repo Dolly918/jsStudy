@@ -716,8 +716,17 @@
     console.log(str.match(reg))
     /* 思路，行数从正则里匹配，就只能匹配换行符。且单纯换行还不行，即每一行必须有文字 */
     
-
-
+    // getClass需要
+    var str = '   guo       ju   feng   ';//假设这是class类名
+    // var reg = /^\w[\s\S*]\w$/g;
+    var reg = /^\s+ | \s+$/g;//去除前后空格
+    console.log(str.match(reg))
+    console.log(str.replace(reg,''))
+    var reg = /\s+/g;
+    console.log(str.match(reg))
+    console.log(str.replace(reg,' '))
+    var reg = /[^\s]+/g;
+    console.log(str.match(reg))
 
 
 

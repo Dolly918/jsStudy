@@ -6,9 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>第四期-深浅拷贝</title>
+  <style>
+    .txt {
+      margin: 30px;
+      height: 200px;
+      /* line-height: 400px; */
+      font-size: 145px;
+      text-align: center;
+      background: #adf;
+      background: -webkit-linear-gradient(top, red,  blue 100%);
+      /* 实际是背景色渐变，但是只展示文字区域的背景色。此时的文字不是文字，而是文字外形构成并透出的背景色 */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      box-shadow: 1px 2px 3px yellow;
+      text-shadow: 1px 2px 3px yellow;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="txt">
+    290,167
+  </div>
   <script>
     var obj = {
       a: 1,
@@ -317,18 +336,18 @@
       name: 'a',
       b: {
         name: 'b',
-        func: function(){
-          console.log(this,this.name)
+        func: function () {
+          console.log(this, this.name)
         }
       }
     }
     a.b.func()
 
-function bind(fn,obj){
-  return function(){
-    return fn.apply(obj,arguments);
-  }
-}
+    function bind(fn, obj) {
+      return function () {
+        return fn.apply(obj, arguments);
+      }
+    }
     // 作者： 木易杨说
     // 链接： https: //juejin.im/post/5bfcbb4be51d452aa770fa2b
     //   来源： 掘金
@@ -336,6 +355,25 @@ function bind(fn,obj){
     /* 
       
     */
+
+    function bind(origin, target) {
+      return function () {
+        return origin.apply(target, arguments);
+      }
+    }
+    var obj = {
+      a: 1,
+      b: 2
+    }
+
+    function fff(c) {
+      console.log(this.a + this.b + c)
+    }
+    var a = bind(fff, obj);
+    console.log(a)
+    a(3);
+    // 软绑定
+    
   </script>
 </body>
 

@@ -658,5 +658,121 @@ var xingorg1Utils = {
     symb += '';
     var reg = /(?=(\B)(\d{3})+$)/g;
     return str.replace(reg,symb);
+  },
+  getDomByClass: function(clsName){
+    /*
+      * @Author: @Guojufeng 
+      * @Date: 2019-01-11 15:58:45 
+      * @Last Modified by:   @Guojufeng 
+      * @Last Modified time: 2019-01-11  17:01:35 
+      * 模拟getElementsByClassName - function getDomByClass
+      * 给Element.prototype和Document.prototype上添加方法getDomByClass，模拟getElementsByClassName功能。
+      * 如果支持原生方法，使用原生，如果不支持就执行我们自己的function
+      */
+    if (clsName !== undefined) {
+      /* 第一步，格式化clsName */
+      clsName += '';
+      var reg = /\w+/g,
+        getClsArr = clsName.length > 0 && clsName.match(reg),
+        ele = Array.prototype.slice.call(document.getElementsByTagName('*')),
+        result = []; //原生方法里，返回值始终是类数组。即使只有一个结果、或没有结果
+      // 遍历所有元素，获取各元素上的类名。
+      ele.forEach(function (tag) {
+        if (tag.className) {
+          //没有类名就不执行下边了。
+          var haveCls = 0,//准备一个计数器
+            tagClsArr = tag.className.match(reg); //将每个标签上的类名都格式化成数组
+          // 遍历这个单个标签上的所有类名组成的数组
+          tagClsArr.forEach(function (cls) {
+            // 遍历所有类名，和参数进行匹配。
+            if (getClsArr.length <= 1) {// 参数中，只查找一个类名的时候
+              if (cls === clsName) {
+                result.push(tag);
+              }
+            } else {
+              getClsArr.forEach(function (getCls) {
+                if (cls === getCls) {
+                  haveCls++;
+                }
+              });
+              if (haveCls == getClsArr.length) {
+                // 当这个标签达到要求时，插入到结果中。
+                result.push(tag);
+              }
+            }
+          });
+        }
+      });
+      return result;//遗憾，返回结果是一个数组，而非节点类数组
+    } else {
+      throw new TypeError('你还没传参呢，我又不知道你想要什么！',
+        'Failed to execute \'getElementsByClassName\' on \'Document\': 1 argument required, but only 0 present.')
+    }
+  },
+  formatCurrentUrl: function(str) {
+    /*
+     * @Author: guojufeng@ 
+     * @Date: 2019-01-11 13:27:32
+     * @Last Modified by: @Guojufeng
+     * @Last Modified time: 2019-01-11 17:04:27
+     * 格式化当前页面的url
+     * formatCurrentUrl('https://www.baidu.com:8080/s/path/name/index?ie=utf-8&f=8#xing.org1^')
+     */
+    var L = str || window.location,
+      searchStr = '',
+      obj = {};
+    if (!str) {
+      /* 使用当前页面url */
+      obj = {
+        hash: L.hash,
+        host: L.host,
+        hostname: L.hostname,
+        href: L.href,
+        origin: L.origin,
+        pathname: L.origin,
+        port: L.port,
+        protocol: L.protocol,
+      };
+      searchStr = L.search;
+    } else {
+      //这么写还是有问题，如果是不规范的url，获取出来的数组可能会错位，进而导致结果有问题。
+      obj = {
+        hash: '',
+        host: str.match(/[\w.]+/g) ? str.match(/[\w.]+/g)[1] : '',
+        hostname: str.match(/[\w.]+/g) ? str.match(/[\w.]+/g)[1] : '',
+        href: str,
+        origin: str.match(/^[\w]+:\/\/[\w.]+/g) ? str.match(/^[\w]+:\/\/[\w.]+/g)[0] : '',
+        pathname: str.match(/\/[\w\/]+/g) ? str.match(/\/[\w\/]+/g)[1] : '',
+        port: str.match(/:[\d]+/g) ? str.match(/:[\d]+/g)[0].slice(1) : '',
+        protocol: str.match(/^[\w]+:/g) ? str.match(/^[\w]+:/g)[0] : '',
+      };
+      /* 检测 - 传入的字符串是否有类似search或类似hash */
+      var start = str.indexOf('?'),
+        end = str.indexOf('#');
+      if (start !== -1) {
+        if (end !== -1 && start > end || end === -1) {
+          searchStr = str.substring(start);
+        } else {
+          searchStr = str.substring(start, end);
+        }
+      }
+      if (end !== -1) {
+        if (start !== -1 && end > start || start === -1) {
+          obj.hash = str.substring(end + 1);
+        } else {
+          obj.hash = str.substring(end + 1, start);
+        }
+      }
+    }
+    obj.search = {};
+    if (searchStr) {
+      var searchArr = searchStr.slice(1).split('&');
+      searchArr.forEach(function (el) {
+        var arr = el.split('=');
+        obj.search[arr[0]] = arr[1]
+      });
+    }
+    console.log(obj);
+    return obj;
   }
 }
