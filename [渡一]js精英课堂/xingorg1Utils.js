@@ -92,7 +92,7 @@ var xingorg1Utils = {
       /* 对象 */
       target = {};
       for (const key in origin) {
-        if (Object.prototype.hasOwnProperty.call(origin,key)) {
+        if (Object.prototype.hasOwnProperty.call(origin, key)) {
           /* 注意，只拷贝元素身上的，而不拷贝其原型上的值 */
           const el = origin[key];
           target[key] = this.deepClone(el);
@@ -107,6 +107,27 @@ var xingorg1Utils = {
       target = origin;
     }
     return target;
+    // 写法二
+    var type = typeof (origin),
+      result = null;
+    if (type === 'object' && origin !== null) {
+      if (Object.prototype.toString.call(origin) === '[object Array]') {
+        result = [];
+        origin.forEach(el => {
+          result.push(deepClone(el));
+        });
+      } else {
+        result = {};
+        for (const key in origin) {
+          if (origin.hasOwnProperty(key)) {
+            result[key] = deepClone(origin[key]);
+          }
+        }
+      }
+    } else {
+      return origin;
+    }
+    return result;
   },
   sortNumber: function (array, type) {
     /* 
@@ -502,7 +523,7 @@ var xingorg1Utils = {
         }
       });
       for (const key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj,key)) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
           resuStr += key;
         }
       }
@@ -612,7 +633,7 @@ var xingorg1Utils = {
     return resultStr.split('').reverse().join('');
     console.log(arr, resultStr, resultStr.split('').reverse().join(''))
   },
-  scienceNote2: function (str,symb) {
+  scienceNote2: function (str, symb) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-03 14:27:08 
@@ -626,17 +647,17 @@ var xingorg1Utils = {
     str += '';
     str = str.split('').reverse().join('');
     var reg = /\d{1,3}/g,
-        arr = str.match(reg);
+      arr = str.match(reg);
     var result = arr.join().split('').reverse().join('');
-    if(symb){
+    if (symb) {
       symb += '';
       result = arr.join(symb).split('').reverse().join('');
-    }else{
+    } else {
       result = arr.join().split('').reverse().join('');
     }
     return result;
   },
-  scienceNote3: function (str,symb) {
+  scienceNote3: function (str, symb) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-03 14:27:08 
@@ -657,18 +678,19 @@ var xingorg1Utils = {
     str += '';
     symb += '';
     var reg = /(?=(\B)(\d{3})+$)/g;
-    return str.replace(reg,symb);
+    return str.replace(reg, symb);
   },
-  getDomByClass: function(clsName){
+  getDomByClass: function (clsName) {
     /*
-      * @Author: @Guojufeng 
-      * @Date: 2019-01-11 15:58:45 
-      * @Last Modified by:   @Guojufeng 
-      * @Last Modified time: 2019-01-11  17:01:35 
-      * 模拟getElementsByClassName - function getDomByClass
-      * 给Element.prototype和Document.prototype上添加方法getDomByClass，模拟getElementsByClassName功能。
-      * 如果支持原生方法，使用原生，如果不支持就执行我们自己的function
-      */
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-11 15:58:45 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-11  17:01:35 
+     * 模拟getElementsByClassName - function getDomByClass
+     * @params {str}: string, 要查找的class类名，可以是一个：'xingorg1'，可以是多个。多个用空格隔开：'guo ju feng'
+     * 给Element.prototype和Document.prototype上添加方法getDomByClass，模拟getElementsByClassName功能。
+     * 如果支持原生方法，使用原生，如果不支持就执行我们自己的function
+     */
     if (clsName !== undefined) {
       /* 第一步，格式化clsName */
       clsName += '';
@@ -680,12 +702,12 @@ var xingorg1Utils = {
       ele.forEach(function (tag) {
         if (tag.className) {
           //没有类名就不执行下边了。
-          var haveCls = 0,//准备一个计数器
+          var haveCls = 0, //准备一个计数器
             tagClsArr = tag.className.match(reg); //将每个标签上的类名都格式化成数组
           // 遍历这个单个标签上的所有类名组成的数组
           tagClsArr.forEach(function (cls) {
             // 遍历所有类名，和参数进行匹配。
-            if (getClsArr.length <= 1) {// 参数中，只查找一个类名的时候
+            if (getClsArr.length <= 1) { // 参数中，只查找一个类名的时候
               if (cls === clsName) {
                 result.push(tag);
               }
@@ -703,19 +725,20 @@ var xingorg1Utils = {
           });
         }
       });
-      return result;//遗憾，返回结果是一个数组，而非节点类数组
+      return result; //遗憾，返回结果是一个数组，而非节点类数组
     } else {
       throw new TypeError('你还没传参呢，我又不知道你想要什么！',
         'Failed to execute \'getElementsByClassName\' on \'Document\': 1 argument required, but only 0 present.')
     }
   },
-  formatCurrentUrl: function(str) {
+  formatCurrentUrl: function (str) {
     /*
      * @Author: guojufeng@ 
      * @Date: 2019-01-11 13:27:32
      * @Last Modified by: @Guojufeng
      * @Last Modified time: 2019-01-11 17:04:27
      * 格式化当前页面的url
+     * @params {str}: string, 要格式化切割的字符串
      * formatCurrentUrl('https://www.baidu.com:8080/s/path/name/index?ie=utf-8&f=8#xing.org1^')
      */
     var L = str || window.location,
@@ -764,6 +787,15 @@ var xingorg1Utils = {
         }
       }
     }
+    /* 換一種reduce的做法
+    var strArr = searchStr.slice(1).split('&');
+    if(searchStr){
+      obj.search = strArr.reduce(function (prevValue, el, i, arr) {
+        var objArr = el.split('=');
+        prevValue[objArr[0]] = objArr[1]
+        return prevValue;
+      }, {});
+    } */
     obj.search = {};
     if (searchStr) {
       var searchArr = searchStr.slice(1).split('&');
@@ -774,5 +806,57 @@ var xingorg1Utils = {
     }
     console.log(obj);
     return obj;
+  },
+  debounce: function (fn, delay) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-13 09:49:43 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-13 09:55:15
+     * 防抖 
+     * @params { fn }: variable, 事件触发后要执行的函数
+     * @params { delay }: number, 事件触发的时间间隔条件（定时器延迟时间）
+     * 思路：
+      每次事件执行， 清除上一次定时器， 重开一个定时器准备触发函数。 如果本次新开的定时器到时间没有被清除， 将触发函数。 如果被清除了， 重新计时准备出发函数。
+     */
+    // 闭包形成私有化变量
+    var timer = null;
+    return function (e) {
+      // 因为keyup执行时拿到的是这个匿名函数，所以此匿名函数里边的this值得就是事件目标input2
+      // 且此匿名函数的第一个参数就是事件对象e
+      // console.log(this);
+      var self = this,
+        _args = arguments;
+      clearTimeout(timer); //先清除
+      timer = setTimeout(() => { // 再开新的。
+        console.log(arguments)
+        fn.apply(self, _args); //用apply重新改变fn（getAjax）里边的this。并把事件对象e和其他参数传给fn。
+      }, delay);
+    }
+  },
+  throttle: function (fn, wait) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-13 09:55:43 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-13 10:22:40
+     * 节流
+     * @params { fn }: variable, 事件触发后要执行的函数
+     * @params { wait }: number, 事件触发的时间间隔条件（定时器延迟时间）
+     * 思路：
+     */
+    var lastTime = 0; //初始触发时间/上次触发时间（重新赋值后）
+    return function () {
+      var self = this,
+          _args = arguments, //预存this 和e对象
+          now = new Date().getTime(); //当前函数触发时间
+      if (now - lastTime > wait) {
+        // 如果现在触发的时间，和上一次比。大于需要延迟的时间，说明不是快速点击。执行函数
+        // 由于now是1970年到现在的时间戳，减去0肯定大于wait延迟，所以第一次触发时，条件肯定是成立的。
+        // 而等到触发成功后lastTime就被重新赋值为刚才触发的时间了。
+        fn.apply(self, _args);
+        lastTime = now; //将点击事件重新改为刚才触发的时间。
+      }
+    }
   }
 }

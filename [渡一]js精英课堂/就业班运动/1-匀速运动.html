@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>匀速运动</title>
+  <style>
+    .demo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: tomato;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    #start,
+    #end {
+      margin-top: 130px;
+    }
+
+    .line {
+      position: absolute;
+      top: 0;
+      left: 300px;
+      width: 2px;
+      height: 150px;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="demo" id="demo">
+  </div>
+  <div class="line" id='line'>一睹墙</div>
+  <button id="start">开始</button>
+  <button id="end">结束</button>
+  <script>
+    var demo = document.getElementById('demo'),
+      start = document.getElementById('start'),
+      line = document.getElementById('line'),
+      end = document.getElementById('end');
+    // 老师代码优点一，把速度（每次要增加的值）拿出来了。
+    var speed = 5,
+      timer = null;
+    start.onclick = function (e) {
+      clearInterval(timer); //每次点击清空上一个定时器，停止上一个运动
+      timer = setInterval(() => {
+        if (parseInt(demo.style.left) + demo.clientWidth >= line.offsetLeft) {
+          // 老师思路if (line - offsetLeft - parseInt(demo.style.left) + demo.clientWidth < speed)
+          // demo.style.left = demo.offsetLeft + 'px';优化
+          demo.style.left = line.offsetLeft - demo.clientWidth + 'px';
+          clearInterval(timer);
+          timer = null;
+        } else {
+          demo.style.left = demo.offsetLeft + speed + 'px';
+        }
+      }, 60);
+    }
+    end.onclick = function (e) {
+      clearInterval(timer);
+      timer = null;
+    }
+  </script>
+</body>
+
+</html>
