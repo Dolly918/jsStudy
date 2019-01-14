@@ -20,65 +20,84 @@
 
     .share {
       position: relative;
+      /* bottom: 100px; */
+      top: 30px;
       left: -300px;
-      top: 50%;
-      transform: translateY(-50%);
       width: 300px;
       height: 200px;
-      background: #ffa700;
+      line-height: 200px;
+      text-align: center;
+      background: sandybrown;
+      color: #fff;
     }
 
     .share-btn {
       position: absolute;
-      left: 100%;
       top: 0;
-      color: #fff;
+      /* right: 0; */
+      left: 100%;
+      width: 40px;
+      /* height: 40px; */
+      background: tomato;
       cursor: pointer;
-      background: #ff5858;
-      width: 20px;
-      height: 40px;
-      padding: 10px;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
     }
 
-    .share-btn:hover {
-      background: #f33;
+    .demo {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      background: sandybrown;
+      color: #fff;
+    }
+
+    .demo::after,
+    .test {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: tomato;
     }
   </style>
 </head>
 
 <body>
-  <div class="share" id='box'>
-    <span>
-      我是分享悬浮框
-    </span>
-    <span class="share-btn" id='btn'>
-      看我
-    </span>
+  <div class="demo">
+    <!-- <span class="test">aa</span> -->
+    <div class="test">aaa</div>
+  </div>
+  <div class="share" id="share">
+    独乐乐不如众乐乐
+    <span class="share-btn">分享</span>
   </div>
   <script>
-    var btn = document.getElementById('box'),
-      btn = document.getElementById('btn');
-    var timer = null;
-    function showShare(dom, target) {
-      clearInterval(timer)
-      timer = setInterval(function(){
-        var speed = (target - dom.offsetLeft) / 7;
-        //如果speed是正数时，当其不为整数时进行向上取整（0.34->1），反之向下取整(-0.55 -> -1)。
+    var share = document.getElementById('share');
+    share.onmouseenter = function () {
+      shareMove(this, 0, 20);
+    }
+    share.onmouseleave = function () {
+      shareMove(this, -this.clientWidth, 20);
+    }
+    function shareMove(dom, target, mySpeed) {
+      var timer = null,
+        speed = null;
+      clearInterval(timer);
+      timer = setInterval(function () {
+        var dis = target - dom.offsetLeft;
+        speed = dis / mySpeed;
         speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-        if(target === dom.offsetLeft){
-          clearInterval(timer)
-        }else{
+        if (Math.abs(dis) <= Math.abs(speed)) {
+          dom.style.left = target + 'px';
+          clearInterval(timer);
+          timer = null;
+        } else {
           dom.style.left = dom.offsetLeft + speed + 'px';
         }
-      },50)
-    }
-    box.onmouseover = function () {
-      showShare(this, 0)
-    }
-    box.onmouseout = function () {
-      showShare(this, -300)
+      })
     }
   </script>
 </body>

@@ -848,8 +848,8 @@ var xingorg1Utils = {
     var lastTime = 0; //初始触发时间/上次触发时间（重新赋值后）
     return function () {
       var self = this,
-          _args = arguments, //预存this 和e对象
-          now = new Date().getTime(); //当前函数触发时间
+        _args = arguments, //预存this 和e对象
+        now = new Date().getTime(); //当前函数触发时间
       if (now - lastTime > wait) {
         // 如果现在触发的时间，和上一次比。大于需要延迟的时间，说明不是快速点击。执行函数
         // 由于now是1970年到现在的时间戳，减去0肯定大于wait延迟，所以第一次触发时，条件肯定是成立的。
@@ -857,6 +857,20 @@ var xingorg1Utils = {
         fn.apply(self, _args);
         lastTime = now; //将点击事件重新改为刚才触发的时间。
       }
+    }
+  },
+  getStyle(ele, attr) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-14 21:57:04 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-14 21:58:34 
+     * 获取元素css上de样式
+     */
+    if (window.getComputedStyle) {
+      return window.getComputedStyle(ele, null)[attr];
+    } else {
+      return ele.currentStyle[attr];
     }
   }
 }
