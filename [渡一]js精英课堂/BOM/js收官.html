@@ -40,7 +40,7 @@
        * @Author: guojufeng@ 
        * @Date: 2019-01-11 13:27:32
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-11 17:06:34
+ * @Last Modified time: 2019-01-11 17:31:55
        * 格式化当前页面的url
        * formatCurrentUrl('https://www.baidu.com:8080/s/path/name/index?ie=utf-8&f=8#xing.org1^')
        */
@@ -233,6 +233,23 @@
     var b = document.getElementsByClassName('author');
     console.log(444, b);
 
+    var length = 10;
+    function fn(){
+      console.log('fn中的this',this)
+      console.log(this.length)
+    }
+    var obj = {
+      length: 5,
+      method: function(fn){
+        fn();
+        arguments[0]();
+        console.log(arguments[0])
+        // this.a = arguments[0];
+        // this.a();
+        // console.log('obj中的this',this)
+      }
+    }
+    obj.method(fn,1);
     // var innn = document.getElementsByTagName('input')[0];
     // innn.onclick = function () {
     //   console.log('关联后，点击label也能触发input事件');
