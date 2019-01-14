@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-13 12:14:59 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-13 16:59:52
+ * @Last Modified time: 2019-01-14 16:42:21
  */
 // ajax获取数据源
 console.log(origin);
@@ -66,7 +66,7 @@ function throttle(fn, wait) {
 function debounce(fn, delay) {
   var timer = null;
   return function (e) {
-    console.log(e)
+    // console.log(e)
     var self = this,
       _args = arguments;
     clearTimeout(timer);
@@ -77,7 +77,10 @@ function debounce(fn, delay) {
 }
 
 // click
-btns.addEventListener('click', throttle(chooseSex, 350), false);
+// btns.addEventListener('click', throttle(chooseSex, 350), false);
+for (let i = 0; i < btn.length; i++) {
+  btn[i].onclick = throttle(chooseSex, 350);
+}
 // input
 txt.onkeyup = debounce(filterOrigin, 1000);
 
@@ -87,7 +90,7 @@ function chooseSex(e) {
   btnArr.forEach((el, i) => {
     btn[i].className = 'btn';
   })
-  e.target.className += ' active';
+  this.className += ' active';
   curBtn = e.target;
   filterOrigin();
 }
@@ -100,7 +103,7 @@ function filterOrigin() {
   */
   var value = txt.value,
     result = origin;
-  console.log(value)
+  // console.log(value)
   if (value) {
     result = filterName(value, origin);
   }
@@ -112,7 +115,7 @@ function filterOrigin() {
 function filterSex(arr) {
   // 数据渲染
   var clsName = curBtn.innerText;
-  console.log(clsName);
+  // console.log(clsName);
   var result = [];
   arr.forEach(el => {
     if (clsName === 'All') {
@@ -127,7 +130,7 @@ function filterSex(arr) {
 function filterName(name, arr) {
   // 数据渲染
   var result = arr.reduce((prev, el) => {
-    if (!el.name.indexOf(name))
+    if (el.name.indexOf(name) > -1)
       prev.push(deepClone(el));
     return prev;
   }, []);

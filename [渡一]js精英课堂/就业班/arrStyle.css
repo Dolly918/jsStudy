@@ -79,6 +79,10 @@ li.item {
   margin-top: -1px;
   padding: 20px 0;
   border-top: 1px dashed #eee;
+  cursor: pointer;
+}
+li.item:hover{
+  background: #faf9fe;
 }
 
 .head {
