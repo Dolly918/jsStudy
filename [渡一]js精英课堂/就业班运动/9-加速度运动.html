@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>加速度运动</title>
+  <style>
+    .demo{
+      width: 100px;
+      height: 100px;
+      background: tomato;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo" id="demo"></div>
+  <script>
+    demo.onclick = function(){
+      startMove(this,{
+        left: 0
+      });
+    }
+    function getStyle(dom,attr){
+      if(window.getComputedStyle){
+        return window.getComputedStyle(dom,null)[attr];
+      }else{
+        return dom.currentStyle(attr);
+      }
+    }
+    function startMove(dom,attrObj){
+      var speed = null,dis = null;
+      clearInterval(dom.timer);
+      dom.timer = setInterval(funciton(){
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key];
+            
+          }
+        }
+      },40)
+    }
+  </script>
+</body>
+</html>
