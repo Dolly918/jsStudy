@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>拖拽</title>
+  <style>
+    #demo {
+      width: 100px;
+      height: 100px;
+      background: tomato;
+      position: absolute;
+      left: 0;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="demo"></div>
+  <script>
+    /* 拖拽 */
+    demo.onmousedown = function(e){
+      document.onmousemove = function(e){
+        console.log(e.clientX,e.clientY);
+        //代码
+      }
+    }
+    demo.onmouseup = function(){
+      demo.onmousedown = null;
+      document.onmousemove = null;
+    }
+
+
+    demo.onclick = function () {
+      // startMove(this)
+    }
+
+    function startMove(dom) {
+      var speedX = 13,
+        speedY = 15,
+        newLeft = null,
+        newTop = null,
+        oW = document.body.clientWidth || document.documentElement.clientWidth,
+        oH = document.body.clientHeight || document.documentElement.clientHeight,
+        dW = dom.clientWidth,
+        dH = dom.clientHeight,
+        gravitySpd = 5, //重力
+        wastage = 0.5, //能量损耗
+        timer = null;
+      console.log(oW, oH, dW, dH)
+      clearInterval(timer);
+      timer = setInterval(function () {
+        /* 加速度 */
+        speedY += gravitySpd;
+        newLeft = dom.offsetLeft + speedX;
+        newTop = parseInt(dom.offsetTop + speedY);
+        /* 向下碰撞 */
+        console.log(newTop, oH, dH, newTop >= oH - dH);
+        /* 优化 */
+        if (newTop >= oH - dH) {
+          speedY *= -1;
+          /* 碰撞发生时，加上能量损耗 */
+          speedX *= wastage;
+          speedY *= wastage;
+          newTop = oH - dH;
+        }
+        if (newTop <= 0) {
+          speedY *= -1;
+          /* 碰撞发生时，加上能量损耗 */
+          speedX *= wastage;
+          speedY *= wastage;
+          newTop = 0;
+        }
+        if (newLeft >= oW - dW) {
+          speedX *= -1;
+          /* 碰撞发生时，加上能量损耗 */
+          speedX *= wastage;
+          speedY *= wastage;
+          newLeft = oW - dW;
+        }
+        if (newLeft <= 0) {
+          speedX *= -1;
+          /* 碰撞发生时，加上能量损耗 */
+          speedX *= wastage;
+          speedY *= wastage;
+          newLeft = 0;
+        }
+        /* 运动停止判断 */
+        if (Math.abs(speedX) < 1) {
+          speedX = 0;
+        }
+        if (Math.abs(speedY) < 1) {
+          speedY = 0;
+        }
+        if (speedY == 0 && speedX == 0 && newTop == (oH - dH)) {
+          clearInterval(timer)
+        } else {
+          dom.style.top = newTop + 'px';
+          dom.style.left = newLeft + 'px';
+        }
+      }, 40);
+    }
+  </script>
+</body>
+
+</html>

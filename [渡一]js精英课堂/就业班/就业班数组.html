@@ -291,16 +291,28 @@
       return result;
     }
     // filter 返回符合条件的数组
+    var result222 = originArr.filter((el) => {
+      var reg = /c/g;
+      return reg.test(el.name);
+    });
+    console.log('result222ya',result222);
     var result = originArr.filter((el) => {
-      /* if (el.name.indexOf('c') !== -1) {
+      /* 写法1
+      if (el.name.indexOf('c') !== -1) {
         return true;
       } */
-      return el.name.indexOf('c') !== -1;
+      /* 写法2 */
+      // return el.name.indexOf('c') !== -1;
+      /* 写法3 */
+      var reg = /c/g;
+      // var result = reg.test(el.name)
+      return reg.test(el.name);
     }).map((el) => {
+      console.log('el',el);
       el.age = el.age * 2 + '';
       return el;
     });
-    console.log(result);
+    console.log('结果',result);
   </script>
   <h1>
     今日头条：使用reduce方法实现map方法
