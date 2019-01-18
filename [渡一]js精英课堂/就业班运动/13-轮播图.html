@@ -184,6 +184,7 @@
     /* 自动轮播 */
     function carousel() {
       clearTimeout(timer);
+      console.log(i)
       if (i >= len) {
         /* 极端问题，一直向右超出所有轮播的时候，右边没图了，就立马跳转到开始，并预备下一次i值为展示第二张 */
         i = 1;
@@ -193,9 +194,9 @@
         //极端问题，一直向左没有值时，当左边没图了的时候，立马跳转到最后一张双包胎，并预备让i变成倒数第二张图
         i = len - 1;
         oUl.style.left = -(liWidth * i) + 'px';
+        console.log(i,-(liWidth * i) + 'px')
       } else {
         /* 正常情况，图片运动和小圆点类名切换 */
-        console.log(i)
         changeClass(i);
         startMove(oUl, {
           'left': -(i * liWidth)
