@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>学生管理系统</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 数据的增删改查、表单验证、数组的操作 -->
+  <div class="wrapper">
+    <header class="header">
+      <div class="header-img">
+        <img src="http://q1.qlogo.cn/g?b=qq&nk=702004176&s=100&t=1547103209" alt="">
+      </div>
+      <span class="header-txt">渡一教育</span>
+    </header>
+    <section class="container">
+      <nav class="nav">
+        <dl class="nav-list">
+          <dt>学生管理</dt>
+          <dd class="cur">学生列表</dd>
+          <dd>新增学生</dd>
+        </dl>
+      </nav>
+      <article class="cont">
+        <div class="forms">
+          <form action="" class="form">
+            <div class="row">
+              <span class="left">
+                <label for="name">姓名：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="name" name="name">
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="">性别：</label>
+              </span>
+              <span class="right">
+                <input type="radio" id="female" name="sex" checked value="0">
+                <label for="female">女</label>
+                <input type="radio" id="male" name="sex" value="1">
+                <label for="male">男</label>
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="userNum">学号：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="userNum" name="userNum">
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="email">邮箱：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="email" name="email">
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="brithYear">出生年：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="brithYear" name="birthYear">
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="userPhone">手机号：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="userPhone" name="userPhone">
+              </span>
+            </div>
+            <div class="row">
+              <span class="left">
+                <label for="userSite">住址：</label>
+              </span>
+              <span class="right">
+                <input type="text" id="userSite" name="userSite">
+              </span>
+            </div>
+            <div class="row">
+                <input type="submit" value="提交" class="submit">
+                <input type="reset" value="重置" class="reset">
+            </div>
+          </form>
+        </div>
+        <!-- 学社功能列表 -->
+        <div class="tables" style="display:none;">
+          <table class="user-table">
+            <thead class="table-head">
+              <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>邮箱</th>
+                <th>年龄</th>
+                <th>手机号</th>
+                <th>住址</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr>
+                <td>xing.org1^</td>
+                <td>115</td>
+                <td>女</td>
+                <td>702004176@qq.com</td>
+                <td>18</td>
+                <td>14121425235</td>
+                <td>中国 北京</td>
+                <td>
+                  <span class="edit">编辑</span>
+                  <span class="del">删除</span>
+                </td>
+              </tr>
+              <tr>
+                <td>xing.org1^</td>
+                <td>115</td>
+                <td>女</td>
+                <td>702004176@qq.com</td>
+                <td>18</td>
+                <td>14121425235</td>
+                <td>中国 北京</td>
+                <td>
+                  <span class="edit">编辑</span>
+                  <span class="del">删除</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>
