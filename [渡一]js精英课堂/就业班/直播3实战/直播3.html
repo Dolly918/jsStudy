@@ -19,15 +19,60 @@
       <span class="header-txt">渡一教育</span>
     </header>
     <section class="container">
-      <nav class="nav">
+      <nav class="nav" id="nav">
         <dl class="nav-list">
           <dt>学生管理</dt>
           <dd class="cur">学生列表</dd>
           <dd>新增学生</dd>
         </dl>
       </nav>
-      <article class="cont">
-        <div class="forms">
+      <article class="cont" id="container">
+        <!-- 学生功能列表 -->
+        <div class="cont-items">
+          <table class="user-table">
+            <thead class="table-head">
+              <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>邮箱</th>
+                <th>年龄</th>
+                <th>手机号</th>
+                <th>住址</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr>
+                <td>xing.org1^</td>
+                <td>115</td>
+                <td>女</td>
+                <td>702004176@qq.com</td>
+                <td>18</td>
+                <td>14121425235</td>
+                <td>中国 北京</td>
+                <td>
+                  <span class="edit">编辑</span>
+                  <span class="del">删除</span>
+                </td>
+              </tr>
+              <tr>
+                <td>xing.org1^</td>
+                <td>115</td>
+                <td>女</td>
+                <td>702004176@qq.com</td>
+                <td>18</td>
+                <td>14121425235</td>
+                <td>中国 北京</td>
+                <td>
+                  <span class="edit">编辑</span>
+                  <span class="del">删除</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cont-items hide">
           <form action="" class="form">
             <div class="row">
               <span class="left">
@@ -89,59 +134,17 @@
               </span>
             </div>
             <div class="row">
-                <input type="submit" value="提交" class="submit">
-                <input type="reset" value="重置" class="reset">
+              <input type="submit" value="提交" class="submit">
+              <input type="reset" value="重置" class="reset">
             </div>
           </form>
         </div>
-        <!-- 学社功能列表 -->
-        <div class="tables" style="display:none;">
-          <table class="user-table">
-            <thead class="table-head">
-              <tr>
-                <th>学号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>邮箱</th>
-                <th>年龄</th>
-                <th>手机号</th>
-                <th>住址</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody class="table-body">
-              <tr>
-                <td>xing.org1^</td>
-                <td>115</td>
-                <td>女</td>
-                <td>702004176@qq.com</td>
-                <td>18</td>
-                <td>14121425235</td>
-                <td>中国 北京</td>
-                <td>
-                  <span class="edit">编辑</span>
-                  <span class="del">删除</span>
-                </td>
-              </tr>
-              <tr>
-                <td>xing.org1^</td>
-                <td>115</td>
-                <td>女</td>
-                <td>702004176@qq.com</td>
-                <td>18</td>
-                <td>14121425235</td>
-                <td>中国 北京</td>
-                <td>
-                  <span class="edit">编辑</span>
-                  <span class="del">删除</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+
       </article>
     </section>
   </div>
+  <script src="ajax.js"></script>
+  <!-- <script src="myAjax.js"></script> -->
   <script src="main.js"></script>
 </body>
 
