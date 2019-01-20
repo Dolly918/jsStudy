@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-17 20:40:26 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-18 20:57:30
+ * @Last Modified time: 2019-01-20 20:17:13
  */
 * {
   margin: 0;
@@ -19,7 +19,8 @@ img {
   display: block;
 
 }
-.hide{
+
+.hide {
   display: none;
 }
 
@@ -175,6 +176,7 @@ input[type='submit'] {
   margin-left: 90px;
   margin-right: 10px;
 }
+
 input[type='submit']:hover {
   background: #2fc35e;
 }
@@ -252,4 +254,47 @@ tbody.table-body {
 .del:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+/* 编辑弹窗 */
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.layer .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-weight: 600;
+  border-radius: 50%;
+  border: 1px solid;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  color: #808080;
+  cursor: pointer;
+}
+.layer .close:hover{
+  color: #333;
+}
+
+.edit-student {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 380px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 14px 0px #004646;
+  background: #fff;
+}
+
+.edit-student h3 {
+  text-align: center;
 }
