@@ -35,7 +35,7 @@
     }
     show();
     // 其实就是
-    window.show()
+    window.show();
     // 用call
     show.call(obj);
     // 其实就是这样
@@ -83,26 +83,56 @@
     show.apply(obj, [1, 'str', true]);
 
 
-    Function.prototype.gjfCall = function (obj, a, b, c) {
-      var test = Array.prototype.shift.call(arguments);
-      console.log(111,obj,arguments);
-      obj = obj == undefined ? window : obj;
+    Function.prototype.gjfCall = function () {
       var newName = this.name;
+      var obj = Array.prototype.shift.call(arguments) || window;
+      var len = arguments.length;
+      var argArr = Array.prototype.reduce.call(arguments, function (pre, cur, i) {
+        pre.push('arguments[' + i + ']');
+        return pre;
+      }, []);
       obj.newName = this;
-      var rst = obj.newName();
+      console.log(argArr.join());
+      var rst = eval('obj.newName(' + argArr.join() + ')');
       delete obj.newName;
       return rst;
     }
-    show.gjfCall(obj, 2, 'str', true);
+    Function.prototype.gjfCall = function () {
+      var newName = this.name,
+        rst = null,
+        obj = arguments[0] || window,
+        len = arguments.length,
+        argArr = [];
+      for (let i = 1; i < len; i++) {
+        argArr.push('arguments[' + i + ']')
+      }
+      obj.newName = this;
+      console.log(argArr, argArr.join());
+      rst = eval('obj.newName(' + argArr.join() + ')');
+      delete obj.newName;
+      return rst;
+    }
+    var result122 = show.gjfCall(obj, 3, 'str', true);
+    console.log(result122)
     Function.prototype.gjfApply = function (obj, array) {
-      obj = obj == undefined ? window : obj;
-      var newName = this.name;
+      var newObj = arguments[0] || window,
+        len = arguments[1] && arguments[1].length,
+        newName = this.name,
+        argArr = [],
+        rst = null;
       obj.newName = this;
-      var rst = obj.newName(array[0], array[1], array[2]);
+      if (arguments[1]) {
+        for (var i = 0; i < len; i++) {
+          argArr.push('arguments[1][' + i + ']');
+        }
+        rst = eval('obj.newName(' + argArr.join() + ')');
+      } else {
+        rst = obj.newName();
+      }
       delete obj.newName;
       return rst;
     }
-    show.gjfApply(obj, [1, 'str', true]);
+    show.gjfApply(obj, [4, 'str', true]);
   </script>
 </body>
 

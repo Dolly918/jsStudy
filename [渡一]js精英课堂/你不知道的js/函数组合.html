@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 左倾函数
+    function compose(f,g){
+      return function(x){//此函数只关心参数
+        return f(g(x));//此函数只关心组合函数的执行顺序
+      }
+    }
+    function add(str){//组合函数一号
+      return str += '!';
+    }
+    function toUpCase(str){//组合函数二号
+      return str.toUpperCase();
+    }
+    var rst1 = compose(add,toUpCase);//组合函数使用示例
+    console.log(rst1('xing.org1^'))
+    </script>
+</body>
+</html>

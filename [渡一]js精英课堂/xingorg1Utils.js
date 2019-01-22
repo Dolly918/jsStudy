@@ -1,3 +1,4 @@
+/* 各种工具方法库 */
 var xingorg1Utils = {
   getSearch: function (str) {
     /*

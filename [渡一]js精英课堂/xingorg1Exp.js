@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-04 11:30:55 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-04 13:55:55
+ * @Last Modified time: 2019-01-22 15:36:38
  * 专门记录我的正则组件库
  */
 function trimSpace(str) {

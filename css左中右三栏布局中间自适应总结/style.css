@@ -1,8 +1,8 @@
 /*
  * @Author: @Guojufeng 
  * @Date: 2017-09-05 12:58:07
- * @Last Modified by: @Guojufeng
- * @Last Modified time: 2018-12-11 11:57:18
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2019-01-21 21:28:16
  */
 *{
   margin: 0;
@@ -133,6 +133,9 @@ li{
 }
 .p-cont .person-box{
   right: 20px;
+}
+.p-cont .info-box{
+  margin: 0 140px 0 220px;
 }
 /*3*/
 .d-cont{
