@@ -860,7 +860,7 @@ var xingorg1Utils = {
       }
     }
   },
-  getStyle(ele, attr) {
+  getStyle: function (ele, attr) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-14 21:57:04 
@@ -873,5 +873,70 @@ var xingorg1Utils = {
     } else {
       return ele.currentStyle[attr];
     }
+  },
+  theLeftFun: function () {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-23 14:33:45 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-23 14:54:03 
+     * 函数组合 - 左倾函数
+     * 举例是这么调用a(b(c(d()))) => d()调用，结果给 c()调用，结果给 b()调用，结果给 a()调用 
+     * 就是倒着调用arguments的每一个函数，后一个参数函数调用的结果再当参数传给前一个参数函数。
+     * @params { fn*n }: variable, 要执行的函数[群]，即多个流程函数
+     */
+    var args = Array.prototype.slice.call(arguments);
+    return function (str) {
+      return args.reduceRight(function (pre, cur, i) { //从右向左遍历
+        // pre = args[i](pre);
+        pre = cur(pre);
+        return pre;
+      }, str);
+    }
+    /* 调用示例
+    var result = gjfCompose(join, reverse, split, toUpperCase);
+    console.log(result('xing.org1^'));
+
+    function join(arr) {
+      return arr.join('-');
+    }
+
+    function reverse(arr) {
+      return arr.reverse();
+    }
+
+    function split(x) {
+      return x.split('');
+    }
+
+    function toUpperCase(x) {
+      return x.toUpperCase();
+    } 
+    */
+  },
+  pipeFun: function () {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-23 15:12:19 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-23 15:24:43 
+     * 函数组合 - 通道
+     * 把上边的左倾函数翻过来，就是通道
+     */
+    var args = Array.prototype.slice.call(arguments);
+    return function(str){
+      return args.reduce(function(pre,cur){
+        return cur(pre);
+      },str);
+    }
+  },
+  curry: function(){
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-23 15:43:12 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-23 15:24:43 
+     * 函数式变成 - 柯里化函数
+     */
   }
 }
