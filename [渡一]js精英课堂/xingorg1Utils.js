@@ -924,19 +924,48 @@ var xingorg1Utils = {
      * 把上边的左倾函数翻过来，就是通道
      */
     var args = Array.prototype.slice.call(arguments);
-    return function(str){
-      return args.reduce(function(pre,cur){
+    return function (str) {
+      return args.reduce(function (pre, cur) {
         return cur(pre);
-      },str);
+      }, str);
     }
   },
-  curry: function(){
+  fixedCurry: function (fn) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-23 15:43:12 
      * @Last Modified by:   @Guojufeng 
      * @Last Modified time: 2019-01-23 15:24:43 
-     * 函数式变成 - 柯里化函数
+     * 函数式编程 - 固定调用次数 - 两次调用必须把参数全部传完 - 固定参数的柯里化函数
+     * @params { fn }: variable, 要执行的目标函数
+     * @params { arguments }: variable, 其他多个参数，必填
      */
-  }
+    var args = Array.prototype.slice.call(arguments, 1);
+    return function () {
+      var args2 = Array.prototype.slice.call(arguments);
+      return fn.apply(this, args.concat(args2));
+    }
+  },
+  curry: function (fn, len) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-23 15:43:12 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-01-23 15:24:43 
+     * 函数式编程 - 柯里化函数
+     * @params { fn }: variable, 要执行的目标函数，必填
+     * @params { len }: variable, 目标函数参数个数，可填
+     */
+    len = len || fn.length;
+    return function () {
+      var args = Array.prototype.slice.call(arguments),
+        argsLen = args.length,
+        params = [fn].concat(args);
+      if (argsLen < len) {
+        return Curry(fixedCurry.apply(this, params), len - argsLen);
+      } else {
+        return fn.apply(this, args);
+      }
+    }
+  },
 }

@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
-  
+  <script>
+    // 扁平化
+    var originArr = [1, 2, [
+        [
+          [
+            [
+              [4, [5, 6], null]
+            ]
+          ], undefined
+        ]
+      ], 'gjf', {},
+      [
+        [
+          [
+            ['xing.org1^']
+          ],
+          [], {
+            name: 'gjf'
+          }
+        ]
+      ]
+    ]
+    // =>[1,2,4,5,6,null,undefined,gjf,{},'xing.org1^',{name:'gjf'}];这样的结果
+    /* 无意实现了一个浅拷贝 */
+    function flattening(arr) {
+      return arr.reduce(function (pre, cur, i) {
+        if (Object.prototype.toString.call(cur) === '[object Array]') {
+          pre.push(flattening(cur));
+        } else {
+          pre.push(cur);
+        }
+        return pre;
+      }, []);
+    }
+    var result = flattening(originArr);
+    console.log(result);
+    result[5][0][2].name = 'gjf666';
+    console.log(result, originArr);
+
+    function flattening1(arr) {
+      return arr.reduce(function (pre, cur, i) {
+        if (Object.prototype.toString.call(cur) === '[object Array]') {
+          // pre.push(flattening1(cur));
+          pre = pre.concat(flattening1(cur)); //核心，是数组不进行push，而是进行合并。concat合并两个数组成为一个新数组，并且还不改变原数组。
+        } else {
+          pre.push(cur);
+        }
+        return pre;
+      }, []);
+    }
+    var result1 = flattening1(originArr);
+    console.log(result1);
+
+    var value = 1;
+    var obj = {
+      value: 2,
+      foo: function () {
+        console.log(this.value);
+      }
+    }
+    console.log((obj.foo)());
+    console.log((obj.foo = obj.foo)());
+    console.log((false || obj.foo)());
+    console.log((obj.foo, obj.foo)());
+  </script>
 </body>
+
 </html>

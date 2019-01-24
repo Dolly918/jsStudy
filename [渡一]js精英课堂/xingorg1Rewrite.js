@@ -2,20 +2,20 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-22 15:35:34
+ * @Last Modified time: 2019-01-24 09:00:58
  * 仿写 - 各种方法
  */
 
 /* Function各种方法仿写 */
 // call
 Function.prototype.gjfCall = function () {
-  var newName = this.name,
-      rst = null,
+  var rst = null,
       obj = arguments[0] || window,
       len = arguments.length,
       argArr = [];
   for (let i = 1; i < len; i++) {
-    argArr.push('arguments['+i+']')
+    argArr.push('arguments['+i+']');
+    //这里也可以用reduce的思想，但是用reduce会用到Array原型上的call方法，故而放弃。
   }
   obj.newName = this;
   console.log(argArr,argArr.join());
