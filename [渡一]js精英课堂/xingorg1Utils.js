@@ -109,7 +109,7 @@ var xingorg1Utils = {
     }
     return target;
     // 写法二
-    var type = typeof (origin),
+    /* var type = typeof (origin),
       result = null;
     if (type === 'object' && origin !== null) {
       if (Object.prototype.toString.call(origin) === '[object Array]') {
@@ -128,7 +128,7 @@ var xingorg1Utils = {
     } else {
       return origin;
     }
-    return result;
+    return result; */
   },
   sortNumber: function (array, type) {
     /* 
@@ -967,5 +967,25 @@ var xingorg1Utils = {
         return fn.apply(this, args);
       }
     }
+  },
+  flatten: function (arr) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-24 22:22:27 
+     * @Last Modified by: @Guojufeng
+     * @Last Modified time: 2019-01-24 22:35:29
+     * 扁平化数组
+     * @params { arr }: variable, 要扁平化的目标数组
+     */
+    arr = arr || [];
+    return arr.reduce((pre, cur) => {
+      return Object.prototype.toString.call(cur) === '[object Array]' ? pre.concat(this.flatten(cur)) : pre.concat(cur);
+      /* if(Object.prototype.toString.call(cur) === '[object Array]'){
+        pre= pre.concat(this.flatten(cur))
+      }else{
+        pre= pre.concat(cur)
+      }
+      return pre; */
+    }, []);
   },
 }

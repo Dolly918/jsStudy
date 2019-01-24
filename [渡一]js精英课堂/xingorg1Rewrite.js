@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-12 21:18:38 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-24 09:00:58
+ * @Last Modified time: 2019-01-24 22:21:10
  * 仿写 - 各种方法
  */
 
@@ -56,6 +56,13 @@ Function.prototype.gjfBind = function (target) {
   return f;
 }
 /* Array的各种方法仿写 */
+/* 新增方法 */
+Array.prototype.flatten = function(){
+  return this.reduce((pre,cur)=>{
+    return Object.prototype.toString.call(cur) === '[object Array]' ? pre.concat(cur.flatten()) : pre.concat(cur);
+  },[]);
+}
+/* 重写方法 */
 // push
 Array.prototype.gjfPush = function () {
   console.log("直接在Array原型上操作")
