@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>dom</title>
+  <style>
+    .pie{
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: tomato;
+      background-image: linear-gradient(to right, transparent 50%,#5f220c  0);
+    }
+    .pie::before{
+      content: "";
+      display: block;
+      margin-left: 50%;
+      height: 100%;
+      border-radius: 0 100% 100% 0/50%;
+      background-color: inherit;
+      transform-origin: left;
+      transform: rotate(.1turn); /* 10% */
+      transform: rotate(.2turn); /* 20% */
+      transform: rotate(.3turn); /* 30% */
+    }
+  </style>
+</head>
+<body>
+  <div class="pie">
+    
+  </div>
+
+  
+</body>
+</html>
