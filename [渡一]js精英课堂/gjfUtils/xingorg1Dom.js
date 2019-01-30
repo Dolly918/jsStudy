@@ -2,11 +2,11 @@
  * @Author: @Guojufeng 
  * @Date: 2019-01-30 13:17:26 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-30 13:32:38
+ * @Last Modified time: 2019-01-30 17:11:44
  * DOM相关的方法封装
  */
 var xingoeg1Dom = {
-  printSon: function (father,grand) {
+  printSon: function (father, grand) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-30 13:29:15 
@@ -15,27 +15,20 @@ var xingoeg1Dom = {
      * {返回值}: 子元素组成的数组
      */
     var childrens = ele.childNodes,
-        len = childrens.length,
-        arr = [];
+      len = childrens.length,
+      arr = [];
     for (var i = 0; i < len; i++) {
-      if (childrens[i].nodeType === 1) {
-        if(grand){
-          arr.push(this.printSon(childrens[i]));
-        }else{
-          arr.push(childrens[i]);
+      if (childrens[i].nodeType === 1) { //元素节点
+        arr.push(childrens[i]);
+        if (grand && childrens[i].childNodes.length > 1) {
+          // 获取子孙节点
+          arr.push(this.printSon(childrens[i], grand));
         }
       }
     }
     return arr;
   },
-  printGrandSon: function (forefathers) {
-    /*
-     * @Author: @Guojufeng 
-     * @Date: 2019-01-30 13:29:15 
-     * 打印father下的所有子孙元素
-     */
-  },
-  getFather: function (target, num) {
+  getParent: function (target, num) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-30 13:21:38 
@@ -45,7 +38,6 @@ var xingoeg1Dom = {
      * {返回值}: 返回null，表示exceed（越界）
      */
     for (var i = 0; i < num; i++) {
-      console.log(target)
       target = target === null ? null : target.parentElement;
     }
     return target;
@@ -62,6 +54,7 @@ var xingoeg1Dom = {
      *           n = 0: 返回自身
      *           n值超范围: 返回null
      */
+    /* 
     if (n > 0) {
       for (let i = 0; i < n; i++) {
         ele = ele == null ? null : ele.nextElementSibling;
@@ -70,7 +63,103 @@ var xingoeg1Dom = {
       for (let i = n; i < 0; i++) {
         ele = ele == null ? null : ele.previousElementSibling;
       }
+    } 
+    // 以上，兼容性不好
+    */
+    while (ele & n) {
+      if (n > 0) {
+        if (ele.nextElementSibling) {
+          ele = ele.nextElementSibling;
+        } else {
+          /* 
+          //思路 - 先看兄弟节点是不是元素
+          ele = ele.nextSibling;
+          if(ele.nodeType !== 1){
+            // 如果不是元素节点，接着判断下一个
+            ele = ele.nextSibling;
+            if(...循环往复){}
+          } */
+          for (ele = ele.nextSibling; ele && ele.nodeType !== 1; ele = ele.nextSibling); //后边大括号不写值可以直接省略
+        }
+        n--;
+      } else {
+        if (ele.previousElementSibling) {
+          ele.previousElementSibling;
+        } else {
+          for (ele = ele.previousSibling; ele && ele.nodeType !== 1; ele = ele.previousSibling);
+        }
+        n++;
+      }
     }
     return ele;
+  },
+  myChildren: function (ele) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-30 15:30:01 
+     * 获取该元素下的直接子节点（同printSon不传第二个参数时），解决以前部分浏览器的兼容性问题
+     * params {ele} variable 目标元素
+     */
+    var child = ele.childNodes,
+      len = child.length,
+      arr = {
+        length: 0,
+        push: Array.prototype.push,
+        splice: Array.prototype.splice
+      };
+    for (var i = 0; i < len; i++) {
+      if (child[i].nodeType === 1) {
+        arr.push(child[i]);
+      }
+    }
+    return arr;
+  },
+  hasChildren: function (ele) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-30 15:32:17 
+     * 判断目标元素ele下是否有子元素
+     * params {ele} variable 目标元素
+     * @return true or false
+     */
+    var child = ele.childNodes,
+      len = child.length,
+      result = false;
+    for (var i = 0; i < len; i++) {
+      if (child[i].nodeType === 1) {
+        result = true;
+      }
+    }
+    return result;
+  },
+}
+/* 原型链编程 */
+Element.prototype.insertAfter = function (target, site) {
+  /*
+   * @Author: @Guojufeng 
+   * @Date: 2019-01-30 16:58:35 
+   * 将target插入到site后边
+   * @params {target} 要插入的目标元素
+   * @params {target} 要插入目标元素的参照元素
+   */
+  var next = site.nextElementSibling;
+  if (next == null) {
+    this.insertBefore(target, next);
+  } else {
+    this.appendChild(target);
+  }
+}
+Element.prototype.reverseEle = function () {
+  /*
+   * @Author: @Guojufeng 
+   * @Date: 2019-01-30 16:59:27 
+   * 将结构翻转
+   */
+  var list = this.childNodes,
+    len = list.length - 1;
+  for (var i = len; i > 0; i--) {
+    if (list[i].nodeType === 1) {
+      this.appendChild(this.removeChild(list[i]));
+    }
   }
 }

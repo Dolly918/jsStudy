@@ -1010,7 +1010,13 @@
     var reg = /^<(h\d) [\s\S]+>[^<]+?<\/\1>$/g;//这样直接就把整个字符串截取出来了，得换种思路。
     console.log(str.match(reg));
 
-
+    // 判断一个字符串是不是回文
+    function isPalindrome(str){
+      str = str.replace(/\W/g,'').toLowerCase();//大写，把所有非正规字符过滤掉并且转小写
+      return str === str.split('').reverse().join('');
+      return (str === str.split('').reverse().join(''));//括和不括这个就是为了明显点，没啥区别
+    }
+    console.log(isPalindrome('lEv-el'));
 
 
 
