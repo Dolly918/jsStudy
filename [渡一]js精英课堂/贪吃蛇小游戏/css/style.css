@@ -6,7 +6,7 @@ body,
   padding: 0;
   color: #333;
   text-align: center;
-
+  font-family: sans-serif;
 }
 
 body {
@@ -51,19 +51,14 @@ body {
   color: #ebf5ff;
   padding-bottom: 4px;
   font-size: 24px;
+  opacity: 1;
+  visibility: visible;
   background: #60afff;
   border-radius: 10px;
   box-shadow: 3px 4px 20px 0px #bfd0e0;
   cursor: pointer;
   transition: all .35s linear;
   animation: glint 1s linear infinite alternate;
-}
-
-.start:hover {
-  color: #eff7ff;
-  background: #198cff;
-  box-shadow: 3px 4px 20px 0px #a8d5ff;
-  animation: none;
 }
 
 @keyframes glint {
@@ -75,8 +70,60 @@ body {
 
   100% {
     color: #eff7ff;
-    background: #198cff;
+    /* background: #198cff; */
+    background: #ff05ff;
     box-shadow: 3px 4px 20px 0px #fff;
+  }
+}
+
+.start:hover {
+  color: #eff7ff;
+  background: #198cff;
+  box-shadow: 3px 4px 20px 0px #a8d5ff;
+  animation: none;
+}
+
+
+/* count-down */
+.count-down {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 160px;
+  color: red;
+}
+
+.count-down.ani {
+  -webkit-animation: countDown 1s linear infinite forwards;
+  animation: countDown 1s linear infinite forwards;
+}
+
+@-webkit-keyframes countDown {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  50%,
+  85% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes countDown {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  50%,
+  85% {
+    transform: translate(-50%, -50%) scale(1);
+
   }
 }
 
@@ -177,7 +224,7 @@ body {
   height: 15px;
 }
 
-.food{
+.food {
   position: absolute;
   /* left: 30%;
   top: 34%; */
@@ -187,33 +234,43 @@ body {
   opacity: 0;
   visibility: hidden;
 }
-.food.show{
+
+.food.show {
   opacity: 1;
   visibility: visible;
 }
-.food:before,.food:after{
+
+.food:before,
+.food:after {
   content: "";
   display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 50%;
 }
-.food:after{
+
+/* .food:after, */
+.food-body {
   position: absolute;
   top: 2px;
   left: 0;
   z-index: 1;
-  background: red;
+  /* background: red; */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }
-.food::before{
+
+.food::before {
   border: 2px solid #333;
-  border-right: none;
-  border-bottom: none;
-  border-top: none;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
   margin-left: 7px;
   margin-top: -10px;
   /* z-index: -1; */
 }
+
 /* layer */
 .layer {
   top: 0;
@@ -259,10 +316,12 @@ body {
   font-weight: bolder;
   margin: 30px 0 50px;
 }
-.desc{
+
+.desc {
   font-size: 14px;
   color: #666;
 }
+
 .reload {
   width: 100%;
   line-height: 34px;

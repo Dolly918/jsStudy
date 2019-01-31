@@ -1,10 +1,20 @@
 /*
  * @Author: @Guojufeng 
  * @Date: 2018-12-14 16:22:28 
- * @Last Modified by:   @Guojufeng 
- * @Last Modified time: 2018-12-14 16:22:28 
+ * @Last Modified by: @Guojufeng
+ * @Last Modified time: 2019-01-31 22:31:04
  */
 var xingorg1Utils = {
+  /* 获取随机颜色值 */
+  getRandomColor: () => {
+    var color = '#',
+      arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+    for (var i = 0; i < 6; i++) {
+      var random = Math.floor(Math.random() * 16);
+      color += arr[random];
+    }
+    return color;
+  },
   /*
    * 添加事件
    * @param {variable} element 元素
