@@ -75,6 +75,16 @@
           console.log(i + 1)
         }, false);
     } */
+    /* 第四种写法 - 利用forEach遍历li */
+    /* var ul = document.getElementsByTagName('ul')[0];
+    var li = ul.getElementsByTagName('li');
+    console.log(li);
+    Array.prototype.forEach.call(li,function(ele,i){
+      ele.addEventListener('click', function () {
+          console.log(i + 1 +'hah')
+        }, false);
+    }) */
+   
     /* 事件委托时，this指的谁
       js绑定的方法，指的是ul
       jq绑定的方法指的是li
@@ -91,6 +101,10 @@
     $('li').each((i,el)=>{
       console.log(i,el)
     });
+  </script>
+  <script>
+    // 事件2
+    
   </script>
 </body>
 </html>

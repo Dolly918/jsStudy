@@ -988,4 +988,70 @@ var xingorg1Utils = {
       return pre; */
     }, []);
   },
+  getScrollOffset: function () {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-31 10:58:54 
+     * 获取页面滚动条的距离-兼容写法封装
+     */
+    if (window.pageXOffset) {
+      return {
+        x: window.pageXOffset,
+        y: window.pageYOffset
+      }
+    } else {
+      return {
+        x: document.body.scrollLeft || document.documentElement.scrollLeft,
+        y: document.body.scrollTop || document.documentElement.scrollTop
+      }
+    }
+  },
+  getViewPortOffset: function () {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-31 11:17:24 
+     * 获取页面可视窗口的尺寸，兼容现代浏览器、ie及标准模式、怪异模式
+     */
+    if (window.innerWidth) {
+      // ie9及以上
+      return {
+        w: window.innerWidth,
+        h: window.innerHeight
+      }
+    } else {
+      if (document.compatMode == 'CSS1Compat') {
+        // ie8及以下+标准模式
+        return {
+          w: document.documentElement.clientWidth,
+          h: document.documentElement.clientHeight
+        }
+      } else {
+        // ie8及以下+怪异模式 - backCompat - 向后兼容
+        return {
+          w: document.body.clientWidth,
+          h: document.body.clientHeight
+        }
+      }
+    }
+  },
+  getElementPosition(ele) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-01-31 13:39:41 
+     * 返回元素相对于文档的坐标(用offset求，而不是scrollLeft)
+     * 原理：利用offsetLeft之类返回的是相对于定位父级的坐标的规则，把本次获取的当前元素的left、top值，（通过递归）累加上定位父级再相对于其父级的坐标，一直累加到body上，最终的累加值就是相对于文档的坐标了。
+     */
+    var oLeft = ele.offsetLeft,
+      oTop = ele.offsetTop,
+      fatherOffset = null;
+    if (ele.offsetParent) {//判断如果还有定位父级，因为body的定位父级是null，所以条件不会成立。
+      fatherOffset = getElementPosition(ele.offsetParent);
+      oLeft += fatherOffset.left
+      oTop += fatherOffset.top
+    }
+    return {
+      left: oLeft,
+      top: oTop
+    }
+  },
 }
