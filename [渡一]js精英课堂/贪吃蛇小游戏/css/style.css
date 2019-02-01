@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-12-13 13:16:06 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-01 18:41:07
+ * @Last Modified time: 2019-02-01 18:47:16
  */
 html,
 body,
@@ -65,22 +65,24 @@ body {
   border-radius: 30px;
   box-shadow: 3px 4px 20px 0px #bfd0e0;
   cursor: pointer;
-  transition: all .35s linear;
+  /* transition: all .35s linear; */
   animation: glint 1s linear infinite alternate;
 }
 
 @keyframes glint {
   0% {
     color: #ebf5ff;
+    transform: scale(1);
     background: #60afff;
     box-shadow: 3px 4px 20px 0px #bfd0e0;
   }
 
   100% {
     color: #eff7ff;
+    transform: scale(1.03);
     /* background: #198cff; */
     background: #ff05ff;
-    box-shadow: 3px 4px 20px 0px #fff;
+    box-shadow: 3px 4px 20px 0px #e0bfdc;
   }
 }
 

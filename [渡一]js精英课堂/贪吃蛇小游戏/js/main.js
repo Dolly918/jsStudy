@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2018-12-13 14:55:22 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-01 18:31:34
+ * @Last Modified time: 2019-02-01 18:48:45
  */
 
 var debug = true;
@@ -220,8 +220,8 @@ SnakeGame.prototype.snakeCreat = function () {
     if (cur[2] === 'head') {
       // 下边+this.snakeL||T的做法，是为了让蛇在初始位置的基础上，加上随机出来的坐标值，这样每次开始游戏，蛇的位置也就随机了。
       pre += `<div class="head ${ this.dir }" 
-      style="left: ${ this.snakeBody[i][0] * 20 }px;
-      top: ${ this.snakeBody[i][1] * 20 }px">
+      style="left: ${ this.snakeBody[i][0] * 20 + this.snakeL }px;
+      top: ${ this.snakeBody[i][1] * 20 + this.snakeT }px">
       <span class="eyes">
         <span class="eye eye-left"></span>
         <span class="eye eye-right"></span>
@@ -229,8 +229,8 @@ SnakeGame.prototype.snakeCreat = function () {
     </div>`
     } else {
       pre += `<div class="body" 
-      style="left: ${ this.snakeBody[i][0] * 20 }px;
-      top: ${ this.snakeBody[i][1] * 20 }px">
+      style="left: ${ this.snakeBody[i][0] * 20 + this.snakeL }px;
+      top: ${ this.snakeBody[i][1] * 20 + this.snakeT }px">
       </div>`;
     }
     return pre;
