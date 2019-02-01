@@ -18,13 +18,17 @@
       <!-- <div class="pause-btn on active">暂停</div> -->
       <h2 class="score">
         分数：
-        <span class="playing-score"  id="score">0</span>
+        <span class="playing-score" id="score">0</span>
       </h2>
     </div>
     <!-- 游戏区 -->
     <div class="content" id="cont">
+      <!-- 食物 -->
+      <div class="food" id="food">
+        <span id="foodBody" class="food-body"></span>
+      </div>
       <!-- 蛇 -->
-      <div class="snake-box"  id="snake">
+      <div class="snake-box" id="snake">
         <!-- <div class="head right">
           <span class="eyes">
             <span class="eye eye-left"></span>
@@ -35,10 +39,7 @@
         <div class="body"></div>
         <div class="body"></div> -->
       </div>
-      <!-- 食物 -->
-      <div class="food" id="food">
-        <span id="foodBody" class="food-body"></span>
-      </div>
+
     </div>
     <!-- 开始按钮 -->
     <div class="start" id="start">
@@ -53,12 +54,12 @@
       <div class="end-layer">
         <!-- <span class="close">X</span> -->
         <h2>
-            Game Over
+          Game Over
         </h2>
         <div class="txt" id="txt">
-          30分
+          0分
           <p class="desc" id="desc">
-              描述语！-你就是个天才！
+            描述语！-你就是个天才！
           </p>
         </div>
         <div class="reload" id='reload'>重新开始</div>
