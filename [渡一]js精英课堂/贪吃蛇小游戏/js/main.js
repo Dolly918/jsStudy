@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2018-12-13 14:55:22 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-01 17:04:19
+ * @Last Modified time: 2019-02-01 18:31:34
  */
 
 var debug = true;
@@ -178,6 +178,7 @@ SnakeGame.prototype.snakeControl = function () {
     // console.log(this.dir);
   }
 };
+var num = 1;
 SnakeGame.prototype.snakeMove = function () {
   /* 蛇的运动 */
   clearInterval(this.timer); //清除掉上一次的定时器
@@ -205,7 +206,11 @@ SnakeGame.prototype.snakeMove = function () {
       default:
         break;
     }
-    this.snakeCreat(); // 数据修改后，重新格式化视图
+    if (this.snakeCrash() == true) {
+      this.gameOver();
+    } else {
+      this.snakeCreat(); // 数据修改后，重新格式化视图
+    }
   }, this.speed);
 };
 SnakeGame.prototype.snakeCreat = function () {
@@ -214,11 +219,18 @@ SnakeGame.prototype.snakeCreat = function () {
     // 代做 - 现在默认都是向左走，怎么根据生成的随机位置改变初始的移动方向？比如生成的位置特别靠右，那么就让蛇一生下来就像左走？
     if (cur[2] === 'head') {
       // 下边+this.snakeL||T的做法，是为了让蛇在初始位置的基础上，加上随机出来的坐标值，这样每次开始游戏，蛇的位置也就随机了。
-      pre = this.snakeCrash(this.snakeBody[i][0] * 20 + this.snakeL, this.snakeBody[i][1] * 20 + this.snakeT);
+      pre += `<div class="head ${ this.dir }" 
+      style="left: ${ this.snakeBody[i][0] * 20 }px;
+      top: ${ this.snakeBody[i][1] * 20 }px">
+      <span class="eyes">
+        <span class="eye eye-left"></span>
+        <span class="eye eye-right"></span>
+      </span>
+    </div>`
     } else {
       pre += `<div class="body" 
-      style="left: ${ this.snakeBody[i][0] * 20 + this.snakeL }px;
-      top: ${ this.snakeBody[i][1] * 20 + this.snakeT }px">
+      style="left: ${ this.snakeBody[i][0] * 20 }px;
+      top: ${ this.snakeBody[i][1] * 20 }px">
       </div>`;
     }
     return pre;
@@ -239,12 +251,12 @@ SnakeGame.prototype.addCount = function () {
   this.totalCount++;
   // 代做 - 根据吃到食物总花费的时间，分值不同。目前只做了+1;
   var scoreDom = document.getElementById('score');
-  scoreDom.innerText = this.totalCount + '分';
+  scoreDom.innerText = this.totalCount;
   /* 根据分值的增加，速度增加 */
   this.speed = 150 - this.totalCount;
-  console.log(this.speed + '迈');
+  console.log('当前' + this.speed + '迈');
   /* 蛇生长 */
-  this.snakeBody.push([1,1,'body']);
+  this.snakeBody.push([1, 1, 'body']);
   /* 食物重生 */
   this.hideFood();
   this.foodL = parseInt(Math.random() * (this.canOw - this.foodSize)); //随机的食物left位置点
@@ -258,39 +270,19 @@ SnakeGame.prototype.addCount = function () {
 
 SnakeGame.prototype.snakeCrash = function (l, t) {
   /* 碰撞检测 */
-  // console.log(l, t);
-  var str = '';
-  var x = 0,
-    y = 0;
-  if (l <= 0) {
-    x = 0;
-    y = t;
-    this.gameOver();
-  } else if (l >= this.canOw) {
-    x = this.canOw - this.snakeSize;
-    y = t;
-    this.gameOver();
-  } else if (t <= 0) {
-    x = l;
-    y = 0;
-    this.gameOver();
-  } else if (t >= this.canOh) {
-    x = this.canOh;
-    y = t;
-    this.gameOver();
-  } else {
-    x = l;
-    y = t;
+  var dom = snakeDom.children[0];
+  var left = parseInt(dom.style.left);
+  var top = parseInt(dom.style.top);
+  if (left <= 0 || left >= this.canOw - 20 || top <= 0 || top + 20 >= this.canOh) {
+    return true;
   }
-  str = `<div class="head ${ this.dir }" 
-          style="left: ${ x }px;
-          top: ${ y }px">
-          <span class="eyes">
-            <span class="eye eye-left"></span>
-            <span class="eye eye-right"></span>
-          </span>
-        </div>`;
-  return str;
+  var snakeX = this.snakeBody[0][0]
+  var snakeY = this.snakeBody[0][1]
+  for (let i = 1; i < this.snakeBody.length; i++) {
+    if (snakeX ==  this.snakeBody[i][0] && snakeY ==  this.snakeBody[i][1]) {
+      return true;
+    }
+  }
 };
 
 
@@ -302,11 +294,11 @@ SnakeGame.prototype.gameOver = function () {
   snakeDom.classList = 'snake-box dead';
   // 计分
   var txtDom = document.getElementById('txt');
-  txtDom.innerText = this.totalCount + '分';
+  txtDom.innerText = this.totalCount + ' 分';
   // 展示总分面板
-  setTimeout(()=>{
+  setTimeout(() => {
     this.showCount();
-  },500)
+  }, 500)
 };
 SnakeGame.prototype.snakeStop = function () {
   /* 暂停移动 */
@@ -319,7 +311,7 @@ SnakeGame.prototype.showFood = function () {
   /* 出现食物、并随机更改食物的颜色值和位置 */
   foodDom.style.left = this.foodL + 'px';
   foodDom.style.top = this.foodT + 'px';
-  foodBodyDom.style.background = xingorg1Utils.getRandomColor();
+  foodBodyDom.style.background = xingorg1Utils.getRedRandomColor();
   foodDom.className = 'food show';
 };
 SnakeGame.prototype.hideFood = function () {

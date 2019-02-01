@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2018-12-14 16:22:28 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-01-31 22:31:04
+ * @Last Modified time: 2019-02-01 18:06:37
  */
 var xingorg1Utils = {
   /* 获取随机颜色值 */
@@ -10,6 +10,16 @@ var xingorg1Utils = {
     var color = '#',
       arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
     for (var i = 0; i < 6; i++) {
+      var random = Math.floor(Math.random() * 16);
+      color += arr[random];
+    }
+    return color;
+  },
+  getRedRandomColor: () => {
+    // 生成红色范围的颜色值
+    var color = '#ff',
+      arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+    for (var i = 0; i < 4; i++) {
       var random = Math.floor(Math.random() * 16);
       color += arr[random];
     }
