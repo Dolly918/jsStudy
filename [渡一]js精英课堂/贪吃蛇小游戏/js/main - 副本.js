@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2018-12-13 14:55:22 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-01 14:01:11
+ * @Last Modified time: 2019-02-01 13:59:06
  */
 
 var debug = true;
@@ -37,6 +37,13 @@ function SnakeGame() {
   ]; //蛇的数据模型：[x,y,身体某一节]
   /* 游戏属性 */
   this.dir = 'right'; //蛇头朝向
+  this.OTop = true;
+  this.ORight = false;
+  this.OBottom = true;
+  this.OLeft = false;
+  if (this.snakeL > Math.ceil(this.canOw / 2)) {
+    this.dir = 'left';
+  }
 }
 SnakeGame.prototype.init = function () {
   /* 初始化效果 */
@@ -114,12 +121,131 @@ SnakeGame.prototype.startGame = function () {
 SnakeGame.prototype.snakeInit = function () {
   /* 蛇的初始化 */
   snakeDom.className = 'snake-box'; //展示蛇
+  this.snakeCreat(this.snakeL, this.snakeT); //创建蛇
+  var speed = 50;
+  this.timer = setInterval(() => {
+    // this.snakeCreat(Math.floor(this.snakeL += this.snakeSize / 5), this.snakeT);
+    this.snakeMove()
+  }, speed);
+  this.controlSnake();
 };
 SnakeGame.prototype.snakeCreat = function (oL, oT) {
   /* 生成蛇 */
+  // 蛇的位置，下一节应该是上一节的位置+/- 自身的宽度
+  /*  var str = ''
+   for (let i = 0; i < this.snakeBody.length; i++) {
+     if(this.snakeBody[i][2] == 'head'){
+       str += `<div class="head ${this.dir}" 
+       style="left: ${ this.snakeBody[i][0] * 20 }px;top: ${ this.snakeBody[i][1] * 20 }px">
+       <span class="eyes">
+         <span class="eye eye-left"></span>
+         <span class="eye eye-right"></span>
+       </span>
+     </div>`;
+     }else{
+       str += `<div class="body" 
+       style="left: ${ this.snakeBody[i][0] * 20 }px;top: ${ this.snakeBody[i][1] * 20 }px">
+       </div>`
+     }
+   } */
+  var str = this.snakeBody.reduce((pre, cur, i) => {
+    if (cur[2] === 'head') {
+      pre += `<div class="head ${ this.dir }" 
+      style="left: ${ this.snakeBody[i][0] * 20 }px;top: ${ this.snakeBody[i][1] * 20 }px">
+      <span class="eyes">
+        <span class="eye eye-left"></span>
+        <span class="eye eye-right"></span>
+      </span>
+    </div>`;
+    } else {
+      /* var dis = (this.snakeBody[1][0] - cur[0]) * this.snakeSize;
+      var bodyL = oL - dis;
+      if (this.dir == 'left') {
+        // 初始方向向左还是向右
+        bodyL = oL + dis;
+      }
+      console.log(bodyL) */
+      pre += `<div class="body" 
+      style="left: ${ this.snakeBody[i][0] * 20 }px;top: ${ this.snakeBody[i][1] * 20 }px">
+      </div>`
+    }
+    return pre;
+  }, '');
+  console.log(str);
+  snakeDom.innerHTML = str;
+};
+SnakeGame.prototype.controlSnake = function () {
+  // 绑定键盘事件
+  document.onkeydown = (e) => {
+    // 控制蛇头的方向
+    switch (e.keyCode) {
+      case 37:
+        if (this.dir !== 'right') { //当蛇在向右走，左边不能按
+          this.dir = 'left';
+        }
+        break;
+      case 38:
+        if (this.dir !== 'bottom') {
+          this.dir = 'top';
+        }
+        break;
+      case 39:
+        if (this.dir !== 'left') {
+          this.dir = 'right';
+        }
+        break;
+      case 40:
+        if (this.dir !== 'top') {
+          this.dir = 'bottom';
+        }
+        break;
+      default:
+        break;
+    }
+    this.snakeRest();//清除
+    this.snakeCreat();//重绘
+  }
+}
+SnakeGame.prototype.snakeMove = function () {
+  /* 蛇移动 */
+  // 改变映射数据
+  var moveDis = this.snakeSize / 5; //每次的移动距离
+  
+  for (let i = this.snakeBody.length - 1; i > 0; i--) {
+    var ele = this.snakeBody[i];
+    ele[0] = this.snakeBody[i - 1][0];
+    ele[1] = this.snakeBody[i - 1][1];
+  }
+  switch (this.dir) { //根据放向，移动蛇头
+    case 'top':
+      this.snakeBody[0][1] -= moveDis;
+      break;
+    case 'right':
+      this.snakeBody[0][0] += moveDis;
+      break;
+    case 'bottom':
+      this.snakeBody[0][1] += moveDis;
+      break;
+    case 'left':
+      this.snakeBody[0][0] -= moveDis;
+      break;
+    default:
+      break;
+  }
+  if (debug) {
+    this.snakeCreat(Math.floor(this.snakeL += this.snakeSize / 5), this.snakeT);
+    return false;
+  }
   
 };
-
+SnakeGame.prototype.snakeRest = function () {
+  /* 蛇停止 */
+  clearInterval(this.timer);
+  this.timer = null;
+};
+SnakeGame.prototype.snakeClear = function () {
+  snakeDom.innerHTML = '';
+};
 SnakeGame.prototype.showFood = function () {
   /* 出现食物、并随机更改食物的颜色值和位置 */
   foodDom.style.left = this.foodL + 'px';

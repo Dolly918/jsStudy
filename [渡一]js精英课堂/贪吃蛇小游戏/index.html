@@ -12,35 +12,43 @@
 
 <body>
   <div class="main">
-    <div class="start" id="start">
-      开始游戏
-    </div>
-    <div class="count-down" id="countDownBox">
-      3
-    </div>
+    <!-- header -->
     <div class="header">
       <div class="pause-btn off" id="pause">开始</div>
       <!-- <div class="pause-btn on active">暂停</div> -->
-      <h2 class="score">分数：<span class="playing-score"  id="score">23</span></h2>
+      <h2 class="score">
+        分数：
+        <span class="playing-score"  id="score">0</span>
+      </h2>
     </div>
+    <!-- 游戏区 -->
     <div class="content" id="cont">
+      <!-- 蛇 -->
       <div class="snake-box"  id="snake">
-        <div class="snake head">
-          <div class="mouth"></div>
-          <div class="eyes">
+        <!-- <div class="head right">
+          <span class="eyes">
             <span class="eye eye-left"></span>
             <span class="eye eye-right"></span>
-          </div>
+          </span>
         </div>
-        <div class="snake body"></div>
-        <div class="snake body"></div>
-        <div class="snake body"></div>
-        <div class="snake body"></div>
+        <div class="body"></div>
+        <div class="body"></div>
+        <div class="body"></div> -->
       </div>
+      <!-- 食物 -->
       <div class="food" id="food">
         <span id="foodBody" class="food-body"></span>
       </div>
     </div>
+    <!-- 开始按钮 -->
+    <div class="start" id="start">
+      开始游戏
+    </div>
+    <!-- 倒计时效果 -->
+    <div class="count-down" id="countDownBox">
+      3
+    </div>
+    <!-- 计分板蒙层 -->
     <div class="layer hide" id="layer">
       <div class="end-layer">
         <!-- <span class="close">X</span> -->
@@ -56,8 +64,9 @@
         <div class="reload" id='reload'>重新开始</div>
       </div>
     </div>
+    <!-- footer -->
     <footer>
-      copyright @xing.org1^ guojufeng 20181213-20181215
+      copyright @xing.org1^ guojufeng 20181213-20181215-20190201
     </footer>
   </div>
   <script src="./js/pluging.js"></script>
