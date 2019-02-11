@@ -1,0 +1,28 @@
+/*
+ * @Author: @Guojufeng 
+ * @Date: 2019-02-11 20:29:13 
+ * @Last Modified by:   @Guojufeng 
+ * @Last Modified time: 2019-02-11 20:29:13 
+ */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f1f1f1;
+}
+
+a{
+  color: #333;
+  text-decoration: none;
+}
+a:hover{
+  color: cornflowerblue;
+}
