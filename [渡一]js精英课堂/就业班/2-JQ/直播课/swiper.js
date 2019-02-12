@@ -2,7 +2,8 @@
  * @Author: @Guojufeng 
  * @Date: 2019-02-11 20:45:23 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-12 11:51:42
+ * @Last Modified time: 2019-02-12 13:52:40
+ * JQ版 swiper封装
  */
 /* 使用示例
 $('div').swiper({
