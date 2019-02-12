@@ -45,6 +45,18 @@
   </ul>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
+var opts = {
+  scale: scale,
+  // 添加的scale 参数
+  canvas: canvas,
+  //自定义 canvas
+  logging: false,
+  //日志开关，便于查看html2canvas的内部执行流程
+  width: width,
+  //dom 原始宽度
+  height: height,
+  useCORS: true // 【重要】开启跨域配置
+};
     var obj = {
       x: 'iojb',
       a: function () {
