@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-02-11 20:29:21 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-12 15:26:29
+ * @Last Modified time: 2019-02-12 17:33:32
  */
 (function () {
   // 立即执行函数，防止全局污染
@@ -14,6 +14,7 @@
   temp.hide();
   drawDom();
   $('.change').on('click', function () {
+    // curPage = ++curPage % totalPage（老师的写法）
     if (curPage < totalPage) {
       curPage ++;
     } else {
@@ -40,8 +41,8 @@
         .addClass(ele.hisSearch - ele.search > 0 ? 'up' : 'down')
         .end()
         .end()
-        .appendTo('.list-cont')
-    }
+        .appendTo('.list-cont');
+      }
     /* data.slice(curPage, len).forEach(function(ele,i){
       var r = temp.clone().removeClass('tel').fadeIn();//这里删除类名一定要，否则就会出现死循环，最终因为最大栈占用报错
       $(r)
