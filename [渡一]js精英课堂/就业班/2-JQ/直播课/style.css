@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-02-11 20:29:13 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-12 20:49:51
+ * @Last Modified time: 2019-02-13 08:49:05
  */
 * {
   margin: 0;
@@ -17,6 +17,7 @@ li {
 body {
   font-family: 'Courier New', Courier, monospace;
   background: #f1f1f1;
+  padding: 20px;
 }
 
 a {
