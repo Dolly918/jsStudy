@@ -72,6 +72,30 @@ var xingorg1Utils = {
       return type;
     }
   },
+  class2type: function(){
+    var obj = {};
+    var typeArr = "Boolean Number String Function Array Date RegExp Object Error Symbol".split(" ");
+    typeArr.forEach((e,l)=>{
+      obj["[object " + e + "]"] = e.toLowerCase();
+    });
+    console.log(obj)
+    return obj;
+  },
+  getType3: function (target) {
+    /*
+     * @Author: guojufeng@ 
+     * @Date: 2019-02-15 10:40:15
+     * @purpose 获取一个值的类型【jq源码写法】
+     * @param {variateName} target: 要获取类型的变量名或对象
+     * @output {string} result || "null": 返回的参数 - result或者null,为字符串形式的
+     * 缺点是不能区分包装类
+     */
+    if (target == null) {
+      return target + '';
+    } 
+    console.log(toString.call(target))
+    return typeof target === "object" || typeof target === "function" ? this.class2type()[toString.call(target)] || "object" : typeof target;
+  },
   deepClone: function (origin) {
     /*
      * @Author: guojufeng@ 
@@ -808,24 +832,39 @@ var xingorg1Utils = {
     console.log(obj);
     return obj;
   },
+  searchToObj: function () {
+    /* 简易版的页面路径search的格式化 */
+    var obj = {};
+    if (str) {
+      str = str.substring(str.indexOf('?') + 1);
+      var searchArr = str.split('&');
+      searchArr.forEach(function (el) {
+        var arr = el.split('=');
+        obj[arr[0]] = arr[1]
+      });
+    }
+    return obj;
+  },
   debounce: function (fn, delay) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-13 09:49:43 
      * @Last Modified by:   @Guojufeng 
      * @Last Modified time: 2019-01-13 09:55:15
-     * 防抖 
+     * 防抖 - 多用于input搜索输入框 - 延迟一段时间后执行
      * @params { fn }: variable, 事件触发后要执行的函数
      * @params { delay }: number, 事件触发的时间间隔条件（定时器延迟时间）
+     * 原理：想想帕金森打字，不能每次按下键盘都请求一下吧，那服务器崩了要。得等一段时间不触发按键时再去请求。
      * 思路：
-      每次事件执行， 清除上一次定时器， 重开一个定时器准备触发函数。 如果本次新开的定时器到时间没有被清除， 将触发函数。 如果被清除了， 重新计时准备出发函数。
+      键盘按下，开一个一次性定时器，每次事件执行，清除上一次定时器，重开一个定时器准备触发函数。 
+      如果本次新开的定时器到时间没有被清除（没有再按键）， 将触发函数。 
+      如果被清除了（又触发了键盘按下事件）， 重新计时准备触发函数。
      */
     // 闭包形成私有化变量
     var timer = null;
     return function (e) {
-      // 因为keyup执行时拿到的是这个匿名函数，所以此匿名函数里边的this值得就是事件目标input2
-      // 且此匿名函数的第一个参数就是事件对象e
-      // console.log(this);
+      // * 重要思想：keyup这类事件回调函数执行时，第一个参数是事件对象e，是系统自动给你传的。
+      // 另外，因为事件回调函数，最终就是这个返回出去的匿名函数，所以此匿名函数里边的this指得就是事件目标input2（而不是window） console.log(this);就知道了。
       var self = this,
         _args = arguments;
       clearTimeout(timer); //先清除
@@ -834,6 +873,32 @@ var xingorg1Utils = {
         fn.apply(self, _args); //用apply重新改变fn（getAjax）里边的this。并把事件对象e和其他参数传给fn。
       }, delay);
     }
+    //应用案例 input2.onkeyup = debounce(getAjax执行目标函数, 1000);
+  },
+  debounce2: function (fn, delay) {
+    /* 新版 -- 防抖 - 支持用户传入自定义参数 */
+    // 拿到防抖函数后边的所有参数
+    var _args1 = Array.prototype.slice.call(arguments, 2);
+    console.log('用户传入的目标函数fn需要用到的参数', _args1);
+    var timer = null;
+    return function (e) {
+      console.log('系统自动给我们加的事件对象(e)参数', arguments);
+      // 合并当前函数中系统自动给我们加的事件对象(e)参数、和之前用户传入的目标函数fn需要用到的参数
+      var _args2 = Array.prototype.concat.call(Array.prototype.slice.call(arguments), _args1);
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        // 把新的组合好的参数传给目标函数fn，用户执行的时候第一个参数是事件对象，之后的是自定义需要的参数
+        console.log('组合好的参数', _args2);
+        fn.apply(this, _args2);
+      }, delay);
+    }
+    // 运行示例
+    /* function getAjax(e, a) {
+      // 执行函数（我的目标函数，想往里边传参数，比如这个a）
+      console.log('最终传参结果：', e, a) //打印出事件对象e 和 参数a
+      console.log(this.value);
+    }
+    input2.onkeyup = debounce2(getAjax, 1000, 'A'); */
   },
   throttle: function (fn, wait) {
     /*
@@ -841,16 +906,19 @@ var xingorg1Utils = {
      * @Date: 2019-01-13 09:55:43 
      * @Last Modified by:   @Guojufeng 
      * @Last Modified time: 2019-01-13 10:22:40
-     * 节流
+     * 节流 - 点击按钮发送请求等 - 一段时间只执行一次
      * @params { fn }: variable, 事件触发后要执行的函数
      * @params { wait }: number, 事件触发的时间间隔条件（定时器延迟时间）
-     * 思路：
+     * 原理：懒癌晚期，点击多次只触发一次。模拟石家庄203路公交发车，隔一段时间再发车，上一次发车时间到下一个发车点之间，任凭你怎么骂怎么戳，他都不为所动。
+     * 思路：记录上一次函数触发的时间戳，如果本次函数触发的时间戳 - 上次触发函数的时间戳 > 预定的等待时间（说明延迟超过了我们设定的等待时间）。就可以再次触发函数了。并记录下本次触发函数的时间戳（此时这个时间点就成了上次触发函数的时间点了）。因为在立即函数中执行，触发函数同样需要apply改变内部的this指向，并把需要的参数传过去。
      */
     var lastTime = 0; //初始触发时间/上次触发时间（重新赋值后）
-    return function () {
+    return function (e) {
+      // * 重要思想[同防抖]：事件回调函数执行时，第一个参数是事件对象e，是系统自动给你传的。
+      // 另外，因为事件回调函数，最终就是这个返回出去的匿名函数，所以此匿名函数里边的this指得就是事件目标input（而不是window） console.log(this);就知道了。
       var self = this,
-        _args = arguments, //预存this 和e对象
-        now = new Date().getTime(); //当前函数触发时间
+        _args = arguments, //预存this 和e对象,其实没必要存self和arguments，因为下边没有匿名函数了再
+        now = new Date().getTime(); //当前函数触发时间。当前时间点，也可以这么写+new Date();
       if (now - lastTime > wait) {
         // 如果现在触发的时间，和上一次比。大于需要延迟的时间，说明不是快速点击。执行函数
         // 由于now是1970年到现在的时间戳，减去0肯定大于wait延迟，所以第一次触发时，条件肯定是成立的。
@@ -1044,7 +1112,7 @@ var xingorg1Utils = {
     var oLeft = ele.offsetLeft,
       oTop = ele.offsetTop,
       fatherOffset = null;
-    if (ele.offsetParent) {//判断如果还有定位父级，因为body的定位父级是null，所以条件不会成立。
+    if (ele.offsetParent) { //判断如果还有定位父级，因为body的定位父级是null，所以条件不会成立。
       fatherOffset = getElementPosition(ele.offsetParent);
       oLeft += fatherOffset.left
       oTop += fatherOffset.top

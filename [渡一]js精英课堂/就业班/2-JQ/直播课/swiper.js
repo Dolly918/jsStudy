@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-02-11 20:45:23 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-02-12 13:52:40
+ * @Last Modified time: 2019-02-14 11:14:16
  * JQ版 swiper封装
  */
 /* 使用示例
