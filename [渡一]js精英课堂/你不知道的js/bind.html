@@ -156,7 +156,7 @@
     B('c');
 
     var newB = A.bind(o);
-    var newBRst = new newB(otherObj);
+    // var newBRst = new newB(otherObj);
     // 1. 函数A调用bind方法时，需要传递的参数o,x,y,z...
     // 2. 返回新的函数B
     // 3. 函数B在执行的时候，具体的功能实际上还是使用A的，只不过this指向变成了第一个参数，这里是o
@@ -205,17 +205,42 @@
     }
 
     Function.prototype.gjfBind = function (target) {
+      console.log(target)
       var self = this,
         _args = Array.prototype.slice.call(arguments, 1);
       var temp = function () {};
       var f = function () {
         var _arg = Array.prototype.slice.call(arguments);
-        return self.apply(this instanceof temp.prototype ? this : (target || window), _args.concat(_arg));
+        console.log(this instanceof temp, this, (target || window))
+        return self.apply(this instanceof temp ? this : (target || window), _args.concat(_arg));
       }
       temp.prototype = self.prototype;
       f.prototype = new temp();
       return f;
     }
+    var name = 'widow';
+    function show(a,b){
+      // this.name = 'in show';
+      console.log(this,this.name,a,b);
+    }
+    var obj = {
+      name: 'obj'
+    };
+    var obj2 = {
+      name: 'obj2'
+    };
+
+    var ns = show.bind(obj);
+
+    ns('aaa1','aaa2');
+
+    show.call(obj2,'ad','e');
+    // var shili = null;
+    // shili = new ns('aaa1','aaa2');//bind以后再new一下，this不改变
+
+    // console.log(shili);
+
+
   </script>
 </body>
 
