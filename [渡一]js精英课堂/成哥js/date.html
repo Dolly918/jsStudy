@@ -32,6 +32,14 @@
     setInterval(function () {
       div.innerText = formatDate();
     }, 1000);
+
+    function getDay(y,m){
+      var date = new Date();
+      console.log(date.setFullYear(y,m));
+      console.log(date.setDate(0));
+      console.log(date.getDate());
+    }
+    getDay(2019,02);
     
   </script>
 </body>

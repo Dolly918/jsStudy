@@ -119,6 +119,26 @@
         document.onmouseup = null;
       }
     }
+
+    demo3.onmousedown = function (e) {
+      var self = this,
+        mL = e.clientX,
+        mT = e.clientY,
+        oL = this.offsetLeft,
+        oT = this.offsetTop,
+        mouseInObjL = mL - oL, 
+      mouseInObjT = mT - oT; 
+      document.onmousemove = function (e) {
+        var mL = e.clientX,
+          mT = e.clientY;
+        self.style.left = mL - mouseInObjL + 'px';
+        self.style.top = mT - mouseInObjT + 'px';
+      }
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }
+    }
   </script>
 </body>
 
