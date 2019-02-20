@@ -203,7 +203,8 @@
       f.prototype = new temp(); //* 返回的新函数f和原函数self形成继承关系，让返回的f在被new执行构造函数的时候，能够顺着原型找到temp。进而找到self原函数。那么new f()时创建的实例对象能找到constructor - self原函数。也就是self是f的constructor。这样用new方式执行，内部this就不执行。
       return f;
     }
-
+    
+    
     Function.prototype.gjfBind = function (target) {
       console.log(target)
       var self = this,
@@ -229,7 +230,7 @@
     var obj2 = {
       name: 'obj2'
     };
-
+ 
     var ns = show.bind(obj);
 
     ns('aaa1','aaa2');
