@@ -1018,8 +1018,22 @@
     }
     console.log(isPalindrome('lEv-el'));
 
+    // 使abab变成baba
+    var str = 'abab';
+    var reg = /\w/g;
+    console.log(str.match(reg));
+    console.log(str.match(reg).reverse().join(''));
 
-
+    var str = 'abab';
+    var reg = /(\w)(\w)(\w)(\w)/g;
+    console.log(str.match(reg));
+    console.log(str.replace(reg,'$4$3$2$1'));
+    
+    var reg = /(\w)(\w)+/g;
+    console.log(str.match(reg));
+    console.log(str.replace(reg,'$2$1$2$1'));
+    // console.log(str.match(reg).reverse().join(''));
+    
   </script>
 </body>
 

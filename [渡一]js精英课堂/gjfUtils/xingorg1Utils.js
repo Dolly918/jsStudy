@@ -72,10 +72,10 @@ var xingorg1Utils = {
       return type;
     }
   },
-  class2type: function(){
+  class2type: function () {
     var obj = {};
     var typeArr = "Boolean Number String Function Array Date RegExp Object Error Symbol".split(" ");
-    typeArr.forEach((e,l)=>{
+    typeArr.forEach((e, l) => {
       obj["[object " + e + "]"] = e.toLowerCase();
     });
     console.log(obj)
@@ -92,7 +92,7 @@ var xingorg1Utils = {
      */
     if (target == null) {
       return target + '';
-    } 
+    }
     console.log(toString.call(target))
     return typeof target === "object" || typeof target === "function" ? this.class2type()[toString.call(target)] || "object" : typeof target;
   },
@@ -1102,7 +1102,7 @@ var xingorg1Utils = {
       }
     }
   },
-  getElementPosition(ele) {
+  getElementPosition: function (ele) {
     /*
      * @Author: @Guojufeng 
      * @Date: 2019-01-31 13:39:41 
@@ -1122,4 +1122,39 @@ var xingorg1Utils = {
       top: oTop
     }
   },
+  cookieHandle: function () {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-02-21 14:42:25 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-02-21 14:56:23
+     * 操作cookie
+     */
+    return {
+      setCookie: function (name, value, time) {
+        // 增、改
+        document.cookie = name + '=' + value + ';max-age=' + time;
+        return this;
+      },
+      delCookie: function (name) {
+        // 删
+        return this.setCookie(name, '', -1);
+      },
+      getCookie: function (name, callback) {
+        // 格式化cookie 字符串->对象
+        var allCookieArr = document.cookie.split('; '),
+          len = allCookieArr.length;
+        for (let i = 0; i < len; i++) { //for循环和forEach的区别是，for循环找到就停止循环，forEach就必须全部循环完
+          var itemArr = allCookieArr[i].split('=');
+          if (itemArr[0] == name) {
+            callback(itemArr[1]);
+            return this;
+          }
+        }
+        callback(undefined);
+        return this;
+      }
+    }
+  },
+
 }
