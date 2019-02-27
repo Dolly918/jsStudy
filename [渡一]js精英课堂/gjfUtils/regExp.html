@@ -1033,6 +1033,15 @@
     console.log(str.match(reg));
     console.log(str.replace(reg,'$2$1$2$1'));
     // console.log(str.match(reg).reverse().join(''));
+
+    // 时间补零
+    var str = '16'
+    var str1 = '6'
+    var reg = /^(\d)$/;//^\d&只能匹配到单独一个数字的情况
+    console.log(str.match(reg));
+    console.log(str.replace(reg,'0$1'));//利用反向引用，
+    console.log(str1.match(reg));
+    console.log(str1.replace(reg,'0$1'));
     
   </script>
 </body>

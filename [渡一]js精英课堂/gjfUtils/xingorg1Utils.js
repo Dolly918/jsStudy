@@ -1087,6 +1087,7 @@ var xingorg1Utils = {
         h: window.innerHeight
       }
     } else {
+      console.log('we2')
       if (document.compatMode == 'CSS1Compat') {
         // ie8及以下+标准模式
         return {
@@ -1156,5 +1157,81 @@ var xingorg1Utils = {
       }
     }
   },
+  getAjax: function (params) {
+    /*
+     * @Author: @Guojufeng 
+     * @Date: 2019-02-27 13:51:50 
+     * @Last Modified by:   @Guojufeng 
+     * @Last Modified time: 2019-02-27 13:51:50 
+     * 原生ajax封装
+     */
 
+    var xhr = null,
+      async = params.async || true,
+        type = params.type.toUpperCase(),
+        prm = [];
+    if (params.data) {
+      for (var key in params.data) {
+        prm.push(key + '=' + params.data[key])
+      }
+    }
+    prm = prm.join('&');
+    if (window.XMLHttpRequest) {
+      xhr = new XMLHttpRequest();
+    } else {
+      xhr = new ActiveXObject('Microsoft.XMLHttp');
+    }
+    //get请求是将参数键值对字符串拼接到open方法的url参数后边，post请求是将键值对字符串传入send括号里
+    if (type === 'POST') {
+      xhr.open(type, params.url, async) //第三个参数表示采用异步的方式
+      //post请求还得规定设置一个请求头
+      xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+      // 第一个参数规定要用什么编码格式：content-type，
+      // 第二个参数写具体的编码格式：form表单的格式application/x-www-form-urlencoded
+      xhr.send(prm);
+    } else {
+      if (prm.length) {
+        params.url += '?'
+      }
+      xhr.open(type, params.url + prm, async); //第三个参数表示采用异步的方式
+      xhr.send();
+    }
+
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          params.success({
+            data: JSON.parse(xhr.responseText).data,
+            status: xhr.status,
+            txt: xhr.statusText
+          });
+        } else {
+          params.error({
+            data: xhr.responseText,
+            status: xhr.status,
+            txt: xhr.statusText
+          })
+        }
+
+      }
+    }
+    /* 
+      *用例:
+      getAjax({
+        url: urlPost,
+        type: 'post',
+        data: {
+          admin: 'guojufeng',
+          password: '123456'
+        },
+        success: function (rst) {
+          console.log(rst);
+        },
+        error: function (e) {
+          console.log(e);
+        }
+      });
+     */
+  },
 }
