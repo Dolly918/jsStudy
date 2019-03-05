@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .menu li{
+      float: left;
+    }
+    .menu li a{
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="cont">
+    <ul class="menu">
+      <li>
+        <a href="">home
+        <ul class="sub">
+          <li><a href="">1</a></li>
+          <li><a href="">2</a></li>
+          <li><a href="">3</a></li>
+          <li><a href="">4</a></li>
+        </ul>
+      </a>
+      </li>
+      <li><a href="">first</a></li>
+      <li>
+          <a href="">second
+          <ul class="sub">
+            <li><a href="">5</a></li>
+            <li><a href="">6</a></li>
+            <li><a href="">7</a></li>
+            <li><a href="">8</a></li>
+          </ul>
+        </a>
+      </li>
+      <li><a href="">third</a></li>
+    </ul>
+  </div>
+  <script>
+    var a = document.getElementsByClassName('cont')[0]
+    console.log(a)
+    var xxx = 1234;
+    function test(xxx){
+      console.log(xxx);
+      var xxx = 123;
+      function xxx(){}
+      console.log(xxx);
+    }
+  </script>
+</body>
+</html>
