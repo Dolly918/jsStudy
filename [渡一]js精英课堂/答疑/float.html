@@ -17,9 +17,22 @@
     .menu li a{
       display: block;
     }
+    .box1{
+      float: left;
+      color: red;
+      padding-right: 20px;
+    }
+    .box2{
+      color: blue;
+      background: #ddffec;
+    }
   </style>
 </head>
 <body>
+  <div class="box">
+    <span class="box1">afda</span>
+    <div class="box2">aaa</div>
+  </div>
   <div class="cont">
     <ul class="menu">
       <li>
@@ -56,6 +69,60 @@
       function xxx(){}
       console.log(xxx);
     }
+    for (let i = 0; i < 10; i++) {
+      if(i==3){
+        // continue
+        break
+        // return false;//报错
+      }else{
+        console.log(i)
+      }
+    }
+    var residueCollects = {
+      '1': true,
+      '2': true,
+      '3': true,
+      '4': true,
+      '5': true,
+      '6': true,
+      '7': true
+    };
+    setTimeout(function(){
+      residueCollects[2] = false;
+      console.log(residueCollects)
+    },1000);
+    var x = 0;
+    var foo = {
+      x: 1,
+      bar: {
+        // x: 2,
+        baz:function(){
+          console.log('..',this,this.x)
+        }
+      }
+    }
+    var a = foo.bar.baz;
+    foo.bar.baz();
+    a();
+
+    // var y = 0;
+    function bb(){
+      var y = 'bb';
+      var foo1 = {
+        y: 1,
+        bar: {
+          y: 2,
+          baz: () =>{
+            console.log('---',this,this.y)
+          }
+        }
+      }
+
+      var a1 = foo1.bar.baz;
+      foo1.bar.baz();
+      a1();
+    }
+    bb()
   </script>
 </body>
 </html>
