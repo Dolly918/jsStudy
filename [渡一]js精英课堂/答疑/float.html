@@ -1,53 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
-    *{
+    * {
       margin: 0;
       padding: 0;
       list-style: none;
     }
-    .menu li{
+
+    .menu li {
       float: left;
     }
-    .menu li a{
+
+    .menu li a {
       display: block;
     }
-    .box1{
+
+    .box1 {
       float: left;
       color: red;
       padding-right: 20px;
     }
-    .box2{
+
+    .box2 {
       color: blue;
       background: #ddffec;
     }
+    .in{
+      float: left;
+    }
+    .blue,.red{
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      line-height: 100px;
+      border: 1px solid ;
+      /* vertical-align: text-bottom; */
+    }
+    .red{
+      border-color: red;
+    }
+    .box111{
+      padding: 1px;
+    }
   </style>
 </head>
+
 <body>
+  <!-- <div class="box111"> -->
+    <div class="blue">
+      y阿德
+    </div>
+    <div class="red">
+      x中文
+    </div>
+
+  <!-- </div> -->
+  <div contenteditable="true" id="contentEdit">打发</div>
   <div class="box">
-    <span class="box1">afda</span>
+    <!-- <span class="11">afda</span> -->
+    <input type="text" class="in">
     <div class="box2">aaa</div>
   </div>
   <div class="cont">
     <ul class="menu">
       <li>
         <a href="">home
-        <ul class="sub">
-          <li><a href="">1</a></li>
-          <li><a href="">2</a></li>
-          <li><a href="">3</a></li>
-          <li><a href="">4</a></li>
-        </ul>
-      </a>
+          <ul class="sub">
+            <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+          </ul>
+        </a>
       </li>
       <li><a href="">first</a></li>
       <li>
-          <a href="">second
+        <a href="">second
           <ul class="sub">
             <li><a href="">5</a></li>
             <li><a href="">6</a></li>
@@ -60,21 +94,26 @@
     </ul>
   </div>
   <script>
+    contentEdit.onkeyup = function(e){
+      console.log(e)
+    }
     var a = document.getElementsByClassName('cont')[0]
     console.log(a)
     var xxx = 1234;
-    function test(xxx){
+
+    function test(xxx) {
       console.log(xxx);
       var xxx = 123;
-      function xxx(){}
+
+      function xxx() {}
       console.log(xxx);
     }
     for (let i = 0; i < 10; i++) {
-      if(i==3){
+      if (i == 3) {
         // continue
         break
         // return false;//报错
-      }else{
+      } else {
         console.log(i)
       }
     }
@@ -87,17 +126,17 @@
       '6': true,
       '7': true
     };
-    setTimeout(function(){
+    setTimeout(function () {
       residueCollects[2] = false;
       console.log(residueCollects)
-    },1000);
+    }, 1000);
     var x = 0;
     var foo = {
       x: 1,
       bar: {
-        // x: 2,
-        baz:function(){
-          console.log('..',this,this.x)
+        x: 2,
+        baz: function () {
+          console.log('..', this, this.x)
         }
       }
     }
@@ -105,15 +144,19 @@
     foo.bar.baz();
     a();
 
+    var a = function () {
+      console.log(this.x)
+    }
+
     // var y = 0;
-    function bb(){
+    function bb() {
       var y = 'bb';
       var foo1 = {
         y: 1,
         bar: {
           y: 2,
-          baz: () =>{
-            console.log('---',this,this.y)
+          baz: () => {
+            console.log('---', this, this.y)
           }
         }
       }
@@ -125,4 +168,5 @@
     bb()
   </script>
 </body>
+
 </html>
