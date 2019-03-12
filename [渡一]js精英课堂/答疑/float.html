@@ -48,23 +48,27 @@
     .box111{
       padding: 1px;
     }
+    img:hover{
+      content: url(http://pic3.nipic.com/20090527/1242397_102231006_2.jpg)
+    }
   </style>
 </head>
 
 <body>
+  <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg" alt="" width="300" height="250">
   <!-- <div class="box111"> -->
-    <div class="blue">
-      y阿德
-    </div>
-    <div class="red">
-      x中文
-    </div>
+  <div class="blue">
+    y阿德
+  </div>
+  <div class="red">
+    x中文
+  </div>
 
   <!-- </div> -->
   <div contenteditable="true" id="contentEdit">打发</div>
   <div class="box">
     <!-- <span class="11">afda</span> -->
-    <input type="text" class="in">
+    <input type="text" class="in" id="myInput">
     <div class="box2">aaa</div>
   </div>
   <div class="cont">
@@ -93,8 +97,32 @@
       <li><a href="">third</a></li>
     </ul>
   </div>
+  <div id="MYcheckBox">
+    <input type="checkbox" name="a" id="">a
+    <input type="checkbox" name="b" id="">b
+    <input type="checkbox" name="a" id="">c
+  </div>
+  <!-- 带label的input怎么根据label选中 -->
+  <label for="aa">aad
+    <input type="checkbox" name="a" id="aa">
+  </label>
+  <label for="bb">bbb
+    <input type="checkbox" name="b" id="bb">
+  </label>
+  <ul class="announce_box_gambit_List">
+    <li class="listItem">
+      <label class="lableCheck" for="checkBox">我的桃花签
+        <input type="checkbox" class="checkBox" id="checkBox" />
+      </label>
+    </li>
+    <li class="listItem">单身日记</li>
+    <li class="listItem">我的择偶标准</li>
+    <li class="listItem">只想爆个照</li>
+    <li class="listItem">工作时的你</li>
+    <li class="listItem">2019许个愿</li>
+  </ul>
   <script>
-    contentEdit.onkeyup = function(e){
+    contentEdit.onkeyup = function (e) {
       console.log(e)
     }
     var a = document.getElementsByClassName('cont')[0]
@@ -166,6 +194,78 @@
       a1();
     }
     bb()
+  </script>
+  <script>
+    function inputButClick() {
+      var name = prompt("请输入当前月份", "一月份");
+      var arr = ['三月份', '五月份', '七月份', '八月份', '十月份', '十二月份'];
+      var nextMonthDay = 0;
+      if (name != null && name != "") {
+        for (var item of arr) {
+          console.log(item, name, item == name);
+          if (name === '一月份') {
+            nextMonthDay = 28
+          } else if (item === name) {
+            if (item == '七月份' || item == '十二月份') {
+              nextMonthDay = 31;
+            } else {
+              nextMonthDay = 30;
+            }
+            break;
+          } else {
+            nextMonthDay = 31;
+          }
+        }
+        document.write(`${name}你好! 这个月过得好吗？ 下个月有${nextMonthDay}天`)
+      }
+    }
+    // inputButClick();
+    //  使用正则来限制prompt只能输入1~12月份应该怎么样写呢
+    /* 计算点击的个数 */
+    // checkBox
+    // 输入一个月份数字，计算下个月的天数
+    function nextMonth(year, month) {
+      month = month + 1 > 12 ? (year++, 1) : month + 1;
+      var date = new Date();
+      date.setFullYear(year, month);
+      date.setDate(0);
+      var day = date.getDate();
+      console.log(`${year}、下个月是${month}月，天数为${day}`)
+      return day
+    }
+    nextMonth(2019, 1);
+    nextMonth(2019, 2);
+    nextMonth(2019, 3);
+    nextMonth(2019, 4);
+    nextMonth(2019, 5);
+    nextMonth(2019, 6);
+    nextMonth(2019, 7);
+    nextMonth(2019, 8);
+    nextMonth(2019, 9);
+    nextMonth(2019, 10);
+    nextMonth(2019, 11);
+    nextMonth(2019, 12);
+    myInput.onkeydown = function (e) {
+      if (e.keyCode == 13) {
+        console.log(myInput.value);
+        var date = new Date();
+
+      }
+    }
+  </script>
+  <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
+  <script>
+    var checkbox = $("#checkBox");
+    console.log(checkbox);
+    $(".lableCheck").click(function (e) {
+      e.stopPropagation();
+      console.log($(this))
+      console.log(checkbox.is(":checked"));
+    });
+    $(".box2").css({
+      'border': '1px solid red',
+      'color': 'green'
+    })
   </script>
 </body>
 

@@ -1048,7 +1048,13 @@
     var str = 'afaielajsdflajfdoaei';
     var reg = /^[a-z]$/g;
     console.log(str.match(reg));
+
+    // 使用正则来限制prompt只能输入1~12月份应该怎么样写呢
+    var str = '09';
+    var reg = /^([0-9]|[0-1][1-2])$/g;
+    console.log(str.match(reg));
   </script>
+  
 </body>
 
 </html>
