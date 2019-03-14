@@ -51,10 +51,16 @@
     img:hover{
       content: url(http://pic3.nipic.com/20090527/1242397_102231006_2.jpg)
     }
+    .margin{
+      width: 50%;
+      background: #0ff;
+    }
   </style>
 </head>
 
 <body>
+  <div class="margin">adfhkafhd</div>
+  <img src="./images/bg.png" alt="" width="200px" height="150px">
   <img src="http://www.pptbz.com/pptpic/UploadFiles_6909/201203/2012031220134655.jpg" alt="" width="300" height="250">
   <!-- <div class="box111"> -->
   <div class="blue">
@@ -255,6 +261,9 @@
   </script>
   <script src="http://www.jq22.com/jquery/jquery-1.7.1.js"></script>
   <script>
+    $('.announce_box_gambit_List').on('click','li',function(){
+      console.log($(this))
+    })
     var checkbox = $("#checkBox");
     console.log(checkbox);
     $(".lableCheck").click(function (e) {
@@ -265,7 +274,28 @@
     $(".box2").css({
       'border': '1px solid red',
       'color': 'green'
-    })
+    });
+    var foo = 213;
+    function print(){
+      this.foo =234;
+      console.log(foo)
+    }
+    print();
+    var a = {};
+    var b = {
+      key: 1
+    }
+    var c = {
+      key: 2
+    }
+    a[b] = 123;
+    a[c] = 234;
+    a[b.key] = 11;
+    a[c.key] = 22;
+    for (const key in a) {
+      console.log(typeof key)
+    }
+    console.log(a)
   </script>
 </body>
 
