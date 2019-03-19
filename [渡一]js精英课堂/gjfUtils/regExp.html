@@ -25,11 +25,13 @@
   <div id="target">
     <span>郭菊锋</span>
     <ul>
-      <li>1</li>
+      <li>'fasfasdf
+        adfafsdaf'</li>
       <li>2</li>
       <li>3</li>
     </ul>
   </div>
+  
   <script src="xingorg1Utils.js"></script>
   <script>
     // var str = '成哥很帅';
@@ -1053,6 +1055,16 @@
     var str = '09';
     var reg = /^([0-9]|[0-1][1-2])$/g;
     console.log(str.match(reg));
+    
+    // replace里边填parseInt
+    var str = '1 2 4 3 4 0';
+    var reg = /\d/g;
+    console.log(str.match(reg));
+    str.replace(reg,function(a,b,c){
+      // 这个函数传递3个参数：模式的匹配项、模式匹配项在字符串中的位置和原始字符串
+      console.log(`当前匹配项a:${a},索引值b:${b},原始字符串c:${c}`);
+    })
+    console.log(str.replace(reg,parseInt))
   </script>
   
 </body>

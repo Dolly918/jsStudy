@@ -55,6 +55,17 @@
       width: 50%;
       background: #0ff;
     }
+    .for-height{
+      height: 550px;
+      border: 1px solid;
+    }
+    .top{
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid tomato;
+      background: #fff;
+    }
   </style>
 </head>
 
@@ -127,6 +138,9 @@
     <li class="listItem">工作时的你</li>
     <li class="listItem">2019许个愿</li>
   </ul>
+  <div class="for-height">撑开高度用的</div>
+  <div class="for-height">撑开高度用的</div>
+  <div class="top" id="goTop">返回顶部</div>
   <script>
     contentEdit.onkeyup = function (e) {
       console.log(e)
@@ -295,7 +309,16 @@
     for (const key in a) {
       console.log(typeof key)
     }
-    console.log(a)
+    console.log(a);
+    // 返回顶部
+    $('#goTop').click( function(event) {
+        $('html, body').animate({scrollTop:0}, 300);
+          return false;
+    });
+  </script>
+  <script src="../gjfUtils/vconsole.min.js"></script>
+  <script>
+    let vConsole = new VConsole();
   </script>
 </body>
 
