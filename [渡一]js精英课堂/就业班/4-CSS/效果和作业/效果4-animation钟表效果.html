@@ -29,7 +29,7 @@
       height: 148px;
      
       margin: 241px auto;
-      transform: rotate(0deg);
+      transform: rotate(25deg);
       transform-origin: 16px 16px;
       background: url(./../img/hour.png) no-repeat;
       background-size: 100% 100%;
@@ -42,14 +42,16 @@
       margin: 241px auto;
       background: url(./../img/minute.png) no-repeat;
       background-size: 100% 100%;
-      animation: minute 1s steps(1,end) 59s forwards;
+      /* animation: minute 1s steps(1,end) 59s forwards; */
+      animation: minute 3600s steps(60,end) forwards;
     }
     @keyframes minute{
       0%{
         transform: rotate(90deg);
       }
       100%{
-        transform: rotate(96deg);
+        /* transform: rotate(96deg); */
+        transform: rotate(450deg);
       }
     }
     .second{
