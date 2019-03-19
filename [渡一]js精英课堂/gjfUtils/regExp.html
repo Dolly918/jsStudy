@@ -463,12 +463,16 @@
       console.log(result, str.charAt(index))
     }
     var str = '1000000000000';
+    var str1 = '1000000000000';
     var reg = /(?=(\B)(\d{3})+$)/g;
-    console.log(str.match(reg))
+    var reg1 = /(?=(\B)(\d{3})+$)/g;
+    console.log(str1.match(reg1),'====222=====')
+    console.log(str.match(reg),'=========')
     console.log(str.replace(reg, ','))
     var result = '';
-
+    
     console.log(result)
+    
 
     function testReg(reg, str) {
       return reg.test(str);
@@ -1064,7 +1068,19 @@
       // 这个函数传递3个参数：模式的匹配项、模式匹配项在字符串中的位置和原始字符串
       console.log(`当前匹配项a:${a},索引值b:${b},原始字符串c:${c}`);
     })
-    console.log(str.replace(reg,parseInt))
+    console.log(str.replace(reg,parseInt));
+    
+    // 匹配空,然后替换空
+    var str = '2341423';
+    var reg = /(?=(\B)(\d{3})+$)/g;///(?=(\B)(\d{3})+$)/g;
+    var reg = /()/g;//匹配空
+    var reg = /(?=(\d{3})+$)/g;//匹配，后边有3数字的空
+    
+    console.log(str.replace(reg,'a'));
+    var str = '122341423';
+    var reg = /(?=(\B)(\d{3})+$)/g;//匹配，后边有3数字的空,三个数字前边为非单词边界
+    console.log(str.match(reg));
+    console.log(str.replace(reg,','));
   </script>
   
 </body>
