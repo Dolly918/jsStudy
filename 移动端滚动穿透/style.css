@@ -2,7 +2,7 @@
  * @Author: @Guojufeng 
  * @Date: 2019-03-15 09:22:19 
  * @Last Modified by: @Guojufeng
- * @Last Modified time: 2019-03-20 20:17:58
+ * @Last Modified time: 2019-03-20 23:57:47
  */
 * {
   margin: 0;
@@ -10,7 +10,9 @@
   box-sizing: border-box;
 }
 
-body {}
+body {
+ 
+}
 
 button {
   padding: .2rem 0;
@@ -81,7 +83,8 @@ h1 {
   margin-bottom: .54rem;
   padding: 0 .4rem;
 }
-.layer-list{
+
+.layer-list {
   padding: .4rem;
   list-style: none;
 }
