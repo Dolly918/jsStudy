@@ -105,8 +105,6 @@
           sTop = layerBox.scrollTop,//当前滚动的距离
           sH = layerBox.scrollHeight,//可滚动区域的高度
           lyBoxH = layerBox.clientHeight;//可视区域的高度
-        // console.log(sTop, sH, lyBoxH);
-        // console.log('hah', NewTargetY, NewTargetY - targetY);
         if (sTop <= 0 && NewTargetY - targetY > 0 && '鼠标方向向下-到顶') {
           // console.log('条件1成立：下拉页面到顶');
           e.preventDefault();

@@ -67,12 +67,14 @@
   </div>
   <script>
     btn.onclick = function () {
+      // 弹层出现
       layer.style.display = 'block';
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';//果然是因为加了fixed，就会自动回滚到顶部
     }
     var closeBtn = document.getElementById('close');
     closeBtn.onclick = function () {
+      // 弹层关闭
       layer.style.display = 'none';
       document.body.style.overflow = 'auto';
       document.body.style.position = 'static';

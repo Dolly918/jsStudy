@@ -37,7 +37,7 @@
 <body>
   <div class="box">
     <h1>当给了body：position-fixed话，body会切换到最顶部，如果用户已经下滑过页面，那么此时页面的位置会丢失</h1>
-    <h1>滚动条的位置同样会丢失。所以如果需要保持滚动条的位置，可以用 js 保存滚动条位置、关闭的时候还原滚动位置。</h1>
+    <h1>滚动条的位置同样会丢失。所以如果需要保持滚动条的位置，可以用gu js 保存滚动条位置、关闭的时候还原滚动位置。</h1>
     <div class="layer" id="layer">
       <div class="layer-box" id="layerBox">
         <div class="close" id="close">X</div>
@@ -103,12 +103,11 @@
         }
       }
     };
-
+    /* 动态获取当前页面的滚动位置 */
     var scrollT = null;
     var LastScrollT = 0;
     window.onscroll = function (e) {
       scrollT = getScrollOffset().y;//滚动条距离
-      // console.log(scrollT,clientH,scrollT-clientH);
     }
 
     btn.onclick = function () {

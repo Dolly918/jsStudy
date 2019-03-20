@@ -99,9 +99,11 @@
     </div>
   </div>
   <script>
+    /* 交互代码 */
     btn.onclick = function () {
       layer.style.display = 'block';
-      //为了我的css能统一使用，这里偷个懒，加个行间样式，把之前做demo用的overflow滚动给禁掉，然后改了点别的样式
+      //为了我的css能统一使用，这里偷个懒，加个行间样式，
+      // 把之前做demo用的overflow滚动给禁掉，然后改了点别的样式
       layerBox.style.overflow = 'hidden'; 
       layerBox.style.paddingTop = 0; 
       layerList.style.paddingTop = 0; 
@@ -122,7 +124,8 @@
       transH = 0,
       lastY = 0;
     layerBox.addEventListener('touchstart', function (e) {
-      //这里简单的把整个layerBox的默认事件给禁止了，所以close的click事件就不起作用了。可以把结构再改改把close挪出来。或者js把close绕开：
+      //这里简单的把整个layerBox的默认事件给禁止了，所以close的click事件就不起作用了。
+      // 可以把结构再改改把close挪出来。或者js把close绕开：
       if(e.target != closeBtn){
         e.preventDefault();
       }
